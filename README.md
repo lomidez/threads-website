@@ -3,7 +3,7 @@ cpsc5510Fall2024Project
 
 Students: 
 
-* Yushaiyin Abudukeyoumu
+* Isaac Yushaiyin
 * Jacobie Fullerton
 * Jooa Lee
 * Lisa Lomidze
