@@ -9,7 +9,7 @@ using ContosoCrafts.WebSite.Services;
 namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary> 
-    /// Lisa Lomidze, Isaac Yushaiyin, Jacobie Fullerton, Jooa Lee
+    /// Lisa Lomidze, Isaac Yushaiyin, Jooa Lee, Jacobie Fullerton
     /// </summary> 
     public class IndexModel : PageModel
     {
