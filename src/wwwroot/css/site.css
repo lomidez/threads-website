@@ -143,3 +143,12 @@ ul {
     background: -moz-linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
     background: linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
 }
+
+.img-fluid {
+    max-width: 500px;
+    height: auto;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 2%;
+    border-color: #D0F520
+}
