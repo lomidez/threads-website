@@ -6,11 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Components\product-details.razor" />
+    <Content Remove="Components\ProductDetails.razor" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Components\product-details.razor" />
+    <None Include="Components\ProductDetails.razor" />
   </ItemGroup>
   
   <ItemGroup>

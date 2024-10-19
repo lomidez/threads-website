@@ -12,12 +12,11 @@
             <div class="card-body">
                 <h5 class="card-title">@product.Title</h5>
             </div>
-            <div class="card-footer">
+            <div class="card-footer">s
                 <small class="text-muted">
-                    <button @onclick="(e => SelectProduct(product.Id))"
-                        data-toggle="modal" data-target="#productModal" class="btn btn-primary">
-                        More Info
-                    </button>
+                    <a href="ProductDetails/@product.Id" class="btn btn-primary">
+                        s
+                    </a>
                 </small>
             </div>
         </div>
