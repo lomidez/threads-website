@@ -1,0 +1,19 @@
+@page "/ProductDetails/{id}"
+@model ContosoCrafts.WebSite.Pages.ProductDetailsModel
+
+@if (Model.SelectedProduct != null)
+{
+    <div class="card">
+        <div class="card-img" style="background-image: url('@Model.SelectedProduct.Image');"></div>
+        <div class="card-body">
+            <h2>@Model.SelectedProduct.Title</h2>
+            <p>@Model.SelectedProduct.Description</p>
+        </div>
+        <div class="card-footer">
+            <p>Rating: @if (Model.SelectedProduct.Ratings != null) {
+                    @String.Format("{0:N1}", Model.SelectedProduct.Ratings.Average())
+                }
+            </p>
+        </div>
+    </div>
+}
