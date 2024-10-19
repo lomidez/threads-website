@@ -53,4 +53,4 @@ jobs:
           app-name: '5110Threads'
           slot-name: 'Production'
           package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C2A246EB9A6D495EBD8EDE0CFAD8DAEB }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_825F9E522C5341B8A3DDE6E64DB258FF }}
