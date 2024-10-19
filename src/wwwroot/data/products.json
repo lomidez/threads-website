@@ -1,7 +1,4 @@
 [
-
-  //Fashion items we used
-  //Bags
   {
     "Id": "burgundy-bag",
     "Maker": null,
@@ -55,12 +52,12 @@
     "CommentList": []
   },
   {
-    "Id": "vesatile-tote",
+    "Id": "versatile-tote",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag5.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/bags/bag5.png",
     "Title": "Versatile Black Travel Tote",
-    "Description": "This versatile black tote bag, crafted from durable nylon, is built for both function and style. Perfect for everyday use or travel, it offers a sleek design with a spacious interior for all your essentials",
+    "Description": "This versatile black tote bag, crafted from durable nylon, is built for both function and style. Perfect for everyday use or travel, it offers a sleek design with a spacious interior for all your essentials.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
@@ -68,14 +65,12 @@
     "CommentList": []
   },
   {
-
-    //Jackets
     "Id": "leather-jacket",
     "Maker": null,
-    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket1.png ",
+    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket1.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/jackets/jacket1.png",
     "Title": "Bold Black Leather Jacket with Neon Stitching",
-    "Description": "A striking black leather jacket featuring bold neon green stitching for a contemporary, eye-catching look. This unique piece adds flair to any outfit, combining modern design with classic leather material",
+    "Description": "A striking black leather jacket featuring bold neon green stitching for a contemporary, eye-catching look. This unique piece adds flair to any outfit, combining modern design with classic leather material.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
@@ -111,7 +106,7 @@
   {
     "Id": "cozy-jacket",
     "Maker": null,
-    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket4.png ",
+    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket4.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/jackets/jacket4.png",
     "Title": "Cozy Checkered Flannel Hooded Jacket",
     "Description": "A cozy checkered flannel jacket with a hood, offering warmth and comfort for colder days. Its casual design is perfect for laid-back outings, combining a relaxed fit with classic flannel style.",
@@ -153,7 +148,7 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket7.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/jackets/jacket7.png",
     "Title": "Cozy Brown Leather Jacket with Faux Fur Lining",
-    "Description": "A cozy brown leather jacket featuring soft faux fur lining, perfect for winter wear. Its luxurious texture and warm design provide both style and comfort during the colder month",
+    "Description": "A cozy brown leather jacket featuring soft faux fur lining, perfect for winter wear. Its luxurious texture and warm design provide both style and comfort during the colder months.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
@@ -174,8 +169,6 @@
     "CommentList": []
   },
   {
-
-    //Pants
     "Id": "navy-pants",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/pants1.png",
@@ -241,14 +234,12 @@
     "CommentList": []
   },
   {
-
-    //T-shirts
     "Id": "brown-shirt",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt1.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/t_shirts/shirt1.png",
     "Title": "Brown Graphic Letter Streetwear T-Shirt",
-    "Description": "A relaxed fit brown t-shirt featuring a bold graphic letter on the front. Ideal for casual streetwear, this comfortable tee pairs perfectly with jeans or shorts for an easy, laid-back look",
+    "Description": "A relaxed fit brown t-shirt featuring a bold graphic letter on the front. Ideal for casual streetwear, this comfortable tee pairs perfectly with jeans or shorts for an easy, laid-back look.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
@@ -287,7 +278,7 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt4.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/t_shirts/shirt4.png",
     "Title": "Black Cropped Minimalist T-Shirt",
-    "Description": "A sleek black cropped t-shirt with an embossed logo. Its minimalist design offers a clean, modern aesthetic, perfect for pairing with high-waisted pants or skirts for a chic look",
+    "Description": "A sleek black cropped t-shirt with an embossed logo. Its minimalist design offers a clean, modern aesthetic, perfect for pairing with high-waisted pants or skirts for a chic look.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
@@ -313,11 +304,11 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt6.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/t_shirts/shirt6.png",
     "Title": "Cream Oversized T-Shirt with Heart and Cat Graphic",
-    "Description": "This cream oversized t-shirt features a large red heart and a minimalist cat graphic, adding a playful and artistic element to casual outfits. It’s perfect for a relaxed and creative look",
+    "Description": "This cream oversized t-shirt features a large red heart and a minimalist cat graphic, adding a playful and artistic element to casual outfits. It’s perfect for a relaxed and creative look.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList":
+    "CommentList": []
   }
 ]
