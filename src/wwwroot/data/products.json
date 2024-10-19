@@ -1,4 +1,7 @@
 [
+
+  //Fashion items 
+  //Bags
   {
     "Id": "burgundy-bag",
     "Maker": null,
@@ -65,6 +68,8 @@
     "CommentList": []
   },
   {
+
+    //Jackets
     "Id": "leather-jacket",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket1.png ",
@@ -169,6 +174,8 @@
     "CommentList": []
   },
   {
+
+    //Pants
     "Id": "navy-pants",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/pants1.png",
@@ -234,6 +241,8 @@
     "CommentList": []
   },
   {
+
+    //T-shirts
     "Id": "brown-shirt",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt1.png",
@@ -309,6 +318,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList":
   }
 ]
