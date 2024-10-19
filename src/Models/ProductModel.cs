@@ -20,7 +20,8 @@ namespace ContosoCrafts.WebSite.Models
 
         public string Description { get; set; }
 
-        public int[] Ratings { get; set; }
+        // Delete Ranking Functionality
+        //public int[] Ratings { get; set; }
 
         public ProductTypeEnum ProductType { get; set; } = ProductTypeEnum.Undefined;
 

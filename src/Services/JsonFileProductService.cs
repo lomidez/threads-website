@@ -44,51 +44,53 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="productId"></param>
         /// <param name="rating"></param>
-        public bool AddRating(string productId, int rating)
-        {
-            // If the ProductID is invalid, return
-            if (string.IsNullOrEmpty(productId))
-            {
-                return false;
-            }
+        /// Delete ranking functionality
+        //public bool AddRating(string productId, int rating)
+        //{
+        //    // If the ProductID is invalid, return
+        //    if (string.IsNullOrEmpty(productId))
+        //    {
+        //        return false;
+        //    }
 
-            var products = GetAllData();
+        //    var products = GetAllData();
 
-            // Look up the product, if it does not exist, return
-            var data = products.FirstOrDefault(x => x.Id.Equals(productId));
-            if (data == null)
-            {
-                return false;
-            }
+        //    // Look up the product, if it does not exist, return
+        //    var data = products.FirstOrDefault(x => x.Id.Equals(productId));
+        //    if (data == null)
+        //    {
+        //        return false;
+        //    }
 
-            // Check Rating for boundaries, do not allow ratings below 0
-            if (rating < 0)
-            {
-                return false;
-            }
+        //    // Check Rating for boundaries, do not allow ratings below 0
+        //    if (rating < 0)
+        //    {
+        //        return false;
+        //    }
 
-            // Check Rating for boundaries, do not allow ratings above 5
-            if (rating > 5)
-            {
-                return false;
-            }
+        //    // Check Rating for boundaries, do not allow ratings above 5
+        //    if (rating > 5)
+        //    {
+        //        return false;
+        //    }
 
-            // Check to see if the rating exist, if there are none, then create the array
-            if(data.Ratings == null)
-            {
-                data.Ratings = new int[] { };
-            }
+        //    // Delete ranking functionality
+        //    // Check to see if the rating exist, if there are none, then create the array
+        //    if(data.Ratings == null)
+        //    {
+        //        data.Ratings = new int[] { };
+        //    }
 
-            // Add the Rating to the Array
-            var ratings = data.Ratings.ToList();
-            ratings.Add(rating);
-            data.Ratings = ratings.ToArray();
+        //    // Add the Rating to the Array
+        //    var ratings = data.Ratings.ToList();
+        //    ratings.Add(rating);
+        //    data.Ratings = ratings.ToArray();
 
-            // Save the data back to the data store
-            SaveData(products);
+        //    // Save the data back to the data store
+        //    SaveData(products);
 
-            return true;
-        }
+        //    return true;
+        //}
 
         /// <summary>
         /// Find the data record

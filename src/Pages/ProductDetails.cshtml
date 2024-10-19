@@ -9,11 +9,11 @@
             <h2>@Model.SelectedProduct.Title</h2>
             <p>@Model.SelectedProduct.Description</p>
         </div>
-        <div class="card-footer">
+@*        <div class="card-footer">
             <p>Rating: @if (Model.SelectedProduct.Ratings != null) {
                     @String.Format("{0:N1}", Model.SelectedProduct.Ratings.Average())
                 }
             </p>
-        </div>
+        </div>*@
     </div>
 }
