@@ -4,5 +4,6 @@
     {
         public int TagID { get; set; } // unique ID for each tag
         public string TagName { get; set; } // Name of the tag (e.g., "shoes", " t-shirt" , "jacket")
+        public string TagCategory { get; set; } //Category: Type, size, Color, Material, Style etc.
     }
 }
