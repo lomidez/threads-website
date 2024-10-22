@@ -11,6 +11,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "bag"
   },
   {
     "Id": "woven-tote",
@@ -23,7 +24,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "bag"
   },
   {
     "Id": "white-bag",
@@ -37,6 +39,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category":  "bag"
   },
   {
     "Id": "urban-bag",
@@ -50,6 +53,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "bag"
   },
   {
     "Id": "versatile-tote",
@@ -63,6 +67,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "bag"
   },
   {
     "Id": "leather-jacket",
@@ -76,6 +81,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "bag"
   },
   {
     "Id": "vintage-leather",
@@ -89,6 +95,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "jacket"
   },
   {
     "Id": "suede-jacket",
@@ -102,6 +109,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "jacket"
   },
   {
     "Id": "cozy-jacket",
@@ -115,6 +123,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "jacket"
   },
   {
     "Id": "olive-jacket",
@@ -128,6 +137,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category": "jacket"
   },
   {
     "Id": "black-min-jacket",
@@ -141,6 +151,7 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+    "Category":  "jacket"
   },
   {
     "Id": "fur-jacket",
@@ -153,7 +164,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "jacket"
   },
   {
     "Id": "bomber-jacket",
@@ -166,7 +178,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "jacket"
   },
   {
     "Id": "navy-pants",
@@ -179,7 +192,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "trousers"
   },
   {
     "Id": "classic-pants",
@@ -192,7 +206,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "trousers"
   },
   {
     "Id": "cotton-pants",
@@ -205,7 +220,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "trousers"
   },
   {
     "Id": "grey-pants",
@@ -218,7 +234,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "trousers"
   },
   {
     "Id": "clay-pants",
@@ -231,7 +248,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "trousers"
   },
   {
     "Id": "brown-shirt",
@@ -244,7 +262,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   },
   {
     "Id": "pixel-shirt",
@@ -257,7 +276,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   },
   {
     "Id": "vintage-shirt",
@@ -270,7 +290,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   },
   {
     "Id": "min-shirt",
@@ -283,7 +304,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   },
   {
     "Id": "baby-milo",
@@ -296,7 +318,8 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   },
   {
     "Id": "cream-shirt",
@@ -309,6 +332,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
+    "CommentList": [],
+    "Category": "t-shirt"
   }
 ]
