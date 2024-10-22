@@ -1,22 +1,18 @@
-﻿//using System;
+﻿using ContosoCrafts.WebSite.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.Json;
 
-//public class TagService
-//{
-	// db context
-	// private readonly string_jsonFilePath =
-	// private readonly YourDbContext _context;	
-	
-
-    // if project uses as the data source instead of SQl 
-    // json
-    // ["TagId": 1, "TagName": "bag", "TagCategory": "Type"]
-
-	//public Dictionary<String, List<TagModel>> GetTagsByCategory()
-	//{
-		// read and parse json file 
-		// get gas 
-
-		// group the tags by category
-		//return grouped tags;
-	//}
-//}
+namespace ContosoCrafts.WebSite.Services
+{
+    public class TagService
+    {
+        public List<TagService> LoadTagsFromJson(string filePath)
+        {
+            string jsonData = File.ReadAllText(filePath);
+            List<TagModel> tags = JsonSerializer.Deserialize<List<TagModel>>(jsonData);
+            return tags;
+        }
+    }
+}
