@@ -128,16 +128,16 @@ ul {
 }
 /*Backgrounds*/
 .bg-navbar {
-    background: -webkit-linear-gradient(110deg, #5B5B5B 60%, #D0F520 60%);
-    background: -o-linear-gradient(110deg, #5B5B5B 60%, #D0F520 60%);
-    background: -moz-linear-gradient(110deg, #5B5B5B 60%, #D0F520 60%);
-    background: linear-gradient(110deg, #5B5B5B 60%, #D0F520 60%);
+    background: -webkit-linear-gradient(110deg, #5B5B5B 10%, #D0F520 50%, #5B5B5B 90%);
+    background: -o-linear-gradient(110deg, #5B5B5B 10%, #D0F520 50%, #5B5B5B 90%);
+    background: -moz-linear-gradient(110deg, #5B5B5B 10%, #D0F520 50%, #5B5B5B 90%);
+    background: linear-gradient(110deg, #5B5B5B 10%, #D0F520 50%, #5B5B5B 90%);
 }
 .bg-footer {
-    background: -webkit-linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
-    background: -o-linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
-    background: -moz-linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
-    background: linear-gradient(110deg, #D0F520 60%, #5B5B5B 60%);
+    background: -webkit-linear-gradient(110deg, #D0F520 10%, #5B5B5B 50%, #D0F520 90%);
+    background: -o-linear-gradient(110deg, #D0F520 10%, #5B5B5B 50%, #D0F520 90%);
+    background: -moz-linear-gradient(110deg, #D0F520 10%, #5B5B5B 50%, #D0F520 90%);
+    background: linear-gradient(110deg, #D0F520 10%, #5B5B5B 50%, #D0F520 90%);
 }
 
 .img-fluid {
