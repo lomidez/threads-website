@@ -10,7 +10,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "bag"
   },
   {
@@ -24,7 +23,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "bag"
   },
   {
@@ -38,7 +36,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category":  "bag"
   },
   {
@@ -52,7 +49,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "bag"
   },
   {
@@ -66,7 +62,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "bag"
   },
   {
@@ -80,7 +75,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "bag"
   },
   {
@@ -94,7 +88,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "jacket"
   },
   {
@@ -108,7 +101,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "jacket"
   },
   {
@@ -122,7 +114,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "jacket"
   },
   {
@@ -136,7 +127,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category": "jacket"
   },
   {
@@ -150,7 +140,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": []
     "Category":  "jacket"
   },
   {
@@ -164,7 +153,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "jacket"
   },
   {
@@ -178,7 +166,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "jacket"
   },
   {
@@ -192,7 +179,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "trousers"
   },
   {
@@ -206,7 +192,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "trousers"
   },
   {
@@ -220,7 +205,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "trousers"
   },
   {
@@ -234,7 +218,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "trousers"
   },
   {
@@ -248,7 +231,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "trousers"
   },
   {
@@ -262,7 +244,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   },
   {
@@ -276,7 +257,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   },
   {
@@ -290,7 +270,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   },
   {
@@ -304,7 +283,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   },
   {
@@ -318,7 +296,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   },
   {
@@ -332,7 +309,6 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "CommentList": [],
     "Category": "t-shirt"
   }
 ]
