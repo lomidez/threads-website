@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using System;
 
 namespace ContosoCrafts.WebSite.Pages
 {
@@ -14,7 +15,9 @@ namespace ContosoCrafts.WebSite.Pages
     /// </remarks>
     public class IndexModel : PageModel
     {
-        // Logger instance for the IndexModel class
+        /// <summary>
+        /// Logger instance used to log information and errors for the IndexModel class.
+        /// </summary>
         private readonly ILogger<IndexModel> _logger;
 
         /// <summary>
@@ -26,8 +29,8 @@ namespace ContosoCrafts.WebSite.Pages
             ILogger<IndexModel> logger,
             JsonFileProductService productService)
         {
-            _logger = logger;
-            ProductService = productService;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            ProductService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
         /// <summary>
@@ -42,6 +45,7 @@ namespace ContosoCrafts.WebSite.Pages
 
         /// <summary>
         /// Handles the GET request for the index page and fetches all product data.
+        /// Sets the Products property with the retrieved product data from the service.
         /// </summary>
         public void OnGet()
         {
