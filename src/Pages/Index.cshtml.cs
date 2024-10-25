@@ -51,6 +51,7 @@ namespace ContosoCrafts.WebSite.Pages
         {
             // Fetch all data and assign it to the Products property
             Products = ProductService.GetAllData();
+
         }
     }
 }
