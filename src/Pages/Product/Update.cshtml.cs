@@ -15,11 +15,29 @@ namespace ContosoCrafts.WebSite.Pages
             _productService = productService;
         }
 
+        [BindProperty]
         public ProductModel SelectedProduct { get; set; }
 
         public void OnGet(string id)
         {
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
+        }
+
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            var updatedProduct = _productService.UpdateData(SelectedProduct);
+            
+            if(updatedProduct == null)
+            {
+                return NotFound();
+            }
+
+            return RedirectToPage("./Index");
         }
     }
 }

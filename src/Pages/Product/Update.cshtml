@@ -1,13 +1,59 @@
 @page "/Update/{id}"
-@model ContosoCrafts.WebSite.Pages.ReadModel
+@model ContosoCrafts.WebSite.Pages.UpdateModel
 
 @if (Model.SelectedProduct != null)
 {
     <div class="card">
         <div class="card-body", style="text-align: center">
-            <h2>@Model.SelectedProduct.Title</h2>
-            <p>@Model.SelectedProduct.Description</p>
-            <p>@Model.SelectedProduct.Tags</p>        
+            <h2>Update Product</h2>
+            <form method="post">
+                <input type="hidden" asp-for="SelectedProduct.Id" />
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Title">Title</label>
+                    <input asp-for="SelectedProduct.Title" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Title" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Description">Description</label>
+                    <input asp-for="SelectedProduct.Description" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Description" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Tags">Tags</label>
+                    <input asp-for="SelectedProduct.Tags" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Tags" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.ProductType">ProductType</label>
+                    <input asp-for="SelectedProduct.ProductType" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.ProductType" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Maker">Maker</label>
+                    <input asp-for="SelectedProduct.Maker" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Maker" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Price">Price</label>
+                    <input asp-for="SelectedProduct.Price" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Price" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="SelectedProduct.Quantity">Quantity</label>
+                    <input asp-for="SelectedProduct.Quantity" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Quantity" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-page="./Index" class="btn-btn-secondary">Cancel</a>
+            </form>
         </div>
     </div>
 }
