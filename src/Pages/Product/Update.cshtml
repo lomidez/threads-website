@@ -1,0 +1,13 @@
+@page "/Update/{id}"
+@model ContosoCrafts.WebSite.Pages.ReadModel
+
+@if (Model.SelectedProduct != null)
+{
+    <div class="card">
+        <div class="card-body", style="text-align: center">
+            <h2>@Model.SelectedProduct.Title</h2>
+            <p>@Model.SelectedProduct.Description</p>
+            <p>@Model.SelectedProduct.Tags</p>        
+        </div>
+    </div>
+}
