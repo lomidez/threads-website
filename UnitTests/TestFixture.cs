@@ -1,5 +1,4 @@
 using System.IO;
-
 using NUnit.Framework;
 
 namespace UnitTests
@@ -16,43 +15,36 @@ namespace UnitTests
         [OneTimeSetUp]
         public void RunBeforeAnyTests()
         {
-            // Run this code once when the test harness starts up.
-
-            // This will copy over the latest version of the database files
-
-            // C:\repos\5110\ClassBaseline\UnitTests\bin\Debug\net5.0\wwwroot\data
-            // C:\repos\5110\ClassBaseline\src\wwwroot\data
-            // C:\repos\5110\ClassBaseline\src\bin\Debug\net5.0\wwwroot\data
-
-
-
-            var DataWebPath = "../../../../src/bin/Debug/net6.0/wwwroot/data";
+            // Define paths
+            var DataWebPath = "../../../../src/bin/Debug/net7.0/wwwroot/data"; // Adjusted path for net7.0
             var DataUTDirectory = "wwwroot";
-            var DataUTPath = DataUTDirectory + "/data";
+            var DataUTPath = Path.Combine(DataUTDirectory, "data");
 
-            // Delete the Detination folder
+            // Ensure the destination directory is fresh
             if (Directory.Exists(DataUTDirectory))
             {
                 Directory.Delete(DataUTDirectory, true);
             }
-            
-            // Make the directory
+
+            // Create necessary directories
             Directory.CreateDirectory(DataUTPath);
 
-            // Copy over all data files
+            // Copy all files from DataWebPath to DataUTPath
             var filePaths = Directory.GetFiles(DataWebPath);
-            foreach (var filename in filePaths)
+            foreach (var filePath in filePaths)
             {
-                string OriginalFilePathName = filename.ToString();
-                var newFilePathName = OriginalFilePathName.Replace(DataWebPath, DataUTPath);
+                var fileName = Path.GetFileName(filePath); // Get just the file name
+                var destFilePath = Path.Combine(DataUTPath, fileName); // Combine with destination path
 
-                File.Copy(OriginalFilePathName, newFilePathName);
+                // Copy the file
+                File.Copy(filePath, destFilePath, overwrite: true);
             }
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
+            // Optional: Clean up or log after tests complete
         }
     }
 }
