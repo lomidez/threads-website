@@ -23,7 +23,7 @@ namespace ContosoCrafts.WebSite.Services
             get { return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json"); }
         }
 
-        public IEnumerable<ProductModel> GetAllData()
+        public virtual IEnumerable<ProductModel> GetAllData()
         {
             using(var jsonFileReader = File.OpenText(JsonFileName))
             {
@@ -98,7 +98,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Save to the data store
         /// </summary>
         /// <param name="data"></param>
-        public ProductModel UpdateData(ProductModel data)
+        public virtual ProductModel UpdateData(ProductModel data)
         {
             var products = GetAllData();
             var productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
@@ -171,7 +171,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Remove the item from the system
         /// </summary>
         /// <returns></returns>
-        public ProductModel DeleteData(string id)
+        public virtual ProductModel DeleteData(string id)
         {
             // Get the current set, and append the new record to it
             var dataSet = GetAllData();
