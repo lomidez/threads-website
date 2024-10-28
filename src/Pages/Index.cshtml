@@ -5,6 +5,10 @@
     ViewData["Title"] = "Home page";
 }
 <h1> Welcome to Threads !!</h1>
+@if (!string.IsNullOrEmpty(Model.Tag))
+{
+    <h3>Searching for: @Model.Tag</h3>
+}
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Tag = Model.Tag }))
 
 <script src="_framework/blazor.server.js"></script>

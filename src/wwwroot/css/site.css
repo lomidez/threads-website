@@ -115,6 +115,10 @@ p {
 h1 {
     font-family: 'Nunito', sans-serif;
 }
+h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.5rem;
+}
 ul {
     font-family: 'Nunito', sans-serif;
 }
