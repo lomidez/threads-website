@@ -116,12 +116,19 @@ namespace ContosoCrafts.WebSite.Services
             productData.Quantity = data.Quantity;
             productData.Price = data.Price;
 
+            // Update the new fields for Size, Color, Material, and Style
+            productData.Size = data.Size;
+            productData.Color = data.Color;
+            productData.Material = data.Material;
+            productData.Style = data.Style;
+
             productData.CommentList = data.CommentList;
 
             SaveData(products);
 
             return productData;
         }
+
 
         /// <summary>
         /// Save All products data to storage

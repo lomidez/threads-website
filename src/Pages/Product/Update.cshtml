@@ -4,10 +4,12 @@
 @if (Model.SelectedProduct != null)
 {
     <div class="card">
-        <div class="card-body", style="text-align: center">
+        <div class="card-body" style="text-align: center">
             <h2>Update Product</h2>
             <form method="post">
                 <input type="hidden" asp-for="SelectedProduct.Id" />
+                <input type="hidden" asp-for="SelectedProduct.Image" />
+                <input type="hidden" asp-for="SelectedProduct.Url" />
 
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Title">Title</label>
@@ -22,37 +24,35 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="SelectedProduct.Tags">Tags</label>
-                    <input asp-for="SelectedProduct.Tags" class="form-control" />
-                    <span asp-validation-for="SelectedProduct.Tags" class="text-danger"></span>
+                    <label asp-for="SelectedProduct.Category">Category</label>
+                    <input asp-for="SelectedProduct.Category" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Category" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="SelectedProduct.ProductType">ProductType</label>
-                    <input asp-for="SelectedProduct.ProductType" class="form-control" />
-                    <span asp-validation-for="SelectedProduct.ProductType" class="text-danger"></span>
+                    <label asp-for="SelectedProduct.Size">Size</label>
+                    <input asp-for="SelectedProduct.Size" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Size" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="SelectedProduct.Maker">Maker</label>
-                    <input asp-for="SelectedProduct.Maker" class="form-control" />
-                    <span asp-validation-for="SelectedProduct.Maker" class="text-danger"></span>
+                    <label asp-for="SelectedProduct.Color">Color</label>
+                    <input asp-for="SelectedProduct.Color" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Color" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="SelectedProduct.Price">Price</label>
-                    <input asp-for="SelectedProduct.Price" class="form-control" />
-                    <span asp-validation-for="SelectedProduct.Price" class="text-danger"></span>
+                    <label for="Material">Material (comma-separated)</label>
+                    <input id="Material" name="Material" class="form-control" value="@string.Join(", ", Model.SelectedProduct.Material)" />
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="SelectedProduct.Quantity">Quantity</label>
-                    <input asp-for="SelectedProduct.Quantity" class="form-control" />
-                    <span asp-validation-for="SelectedProduct.Quantity" class="text-danger"></span>
+                    <label for="Style">Style (comma-separated)</label>
+                    <input id="Style" name="Style" class="form-control" value="@string.Join(", ", Model.SelectedProduct.Style)" />
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a asp-page="./Index" class="btn-btn-secondary">Cancel</a>
+                <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
     </div>
