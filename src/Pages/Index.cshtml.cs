@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using System;
+using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages
 {
@@ -44,14 +45,37 @@ namespace ContosoCrafts.WebSite.Pages
         public IEnumerable<ProductModel> Products { get; private set; }
 
         /// <summary>
-        /// Handles the GET request for the index page and fetches all product data.
-        /// Sets the Products property with the retrieved product data from the service.
+        /// Gets the tag used to filter products on the index page.
         /// </summary>
-        public void OnGet()
-        {
-            // Fetch all data and assign it to the Products property
-            Products = ProductService.GetAllData();
+        public string Tag { get; private set; }
 
+        /// <summary>
+        /// Handles the GET request for the index page and fetches all product data.
+        /// If a tag is provided, it filters the products by the tag.
+        /// </summary>
+        /// <param name="tag">The tag to filter the products by (optional).</param>
+        public void OnGet(string tag)
+        {
+            // Set the Tag property from the query parameter
+            Tag = tag;
+
+            // Fetch all data from the service
+            var allProducts = ProductService.GetAllData();
+
+            // Initialize Products to show all products by default
+            Products = allProducts;
+
+            // Filter products if a tag is provided
+            if (!string.IsNullOrEmpty(Tag))
+            {
+                Products = allProducts.Where(p =>
+                    p.Category.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
+                    p.Size.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
+                    p.Color.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
+                    p.Material.Any(m => m.Equals(Tag, StringComparison.OrdinalIgnoreCase)) ||
+                    p.Style.Any(s => s.Equals(Tag, StringComparison.OrdinalIgnoreCase))
+                );
+            }
         }
     }
 }

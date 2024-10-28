@@ -4,17 +4,29 @@
 @if (Model.SelectedProduct != null)
 {
     <div class="card">
-        <div class="card-img" style="background-image: url('@Model.SelectedProduct.Image');"></div>
-        <div class="card-body", style="text-align: center">
+        <div class="card-body" , style="text-align: center">
             <h2 style="color:#5b5b5b"> @Model.SelectedProduct.Title</h2>
             <p>@Model.SelectedProduct.Description</p>
             <img src="@Model.SelectedProduct.Image" class="img-fluid">
-        </div>
-@*        <div class="card-footer">
-            <p>Rating: @if (Model.SelectedProduct.Ratings != null) {
-                    @String.Format("{0:N1}", Model.SelectedProduct.Ratings.Average())
+
+            <p>Category: <a href="/?tag=@Model.SelectedProduct.Category">#@Model.SelectedProduct.Category</a></p>
+            <p>Size: <a href="/?tag=@Model.SelectedProduct.Size">#@Model.SelectedProduct.Size</a></p>
+            <p>Color: <a href="/?tag=@Model.SelectedProduct.Color">#@Model.SelectedProduct.Color</a></p>
+            <p>
+                Material:
+                @foreach (var material in Model.SelectedProduct.Material)
+                {
+                    <a href="/?tag=@material">#@material</a>
                 }
             </p>
-        </div>*@
+            <p>
+                Style:
+                @foreach (var style in Model.SelectedProduct.Style)
+                {
+                    <a href="/?tag=@style">#@style</a>
+                }
+            </p>
+
+        </div>
     </div>
 }

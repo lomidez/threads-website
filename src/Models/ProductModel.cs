@@ -36,6 +36,13 @@ namespace ContosoCrafts.WebSite.Models
         // Store the tags associated with this product (fixed the typo)
         public List<TagModel> Tags { get; set; } = new List<TagModel>();
 
+        // Store all tags for Category, Size, Color, Material, and Style
+        public string Category { get; set; }
+        public string Size { get; set; }
+        public string Color { get; set; }
+        public List<string> Material { get; set; } = new List<string>();
+        public List<string> Style { get; set; } = new List<string>();
+
         // ToString method to serialize the ProductModel (only one instance now)
         public override string ToString() => JsonSerializer.Serialize<ProductModel>(this);
     }
