@@ -3,12 +3,21 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
+<h3>product list</h3>
+<!-- Filter Section-->
+<div>
+    <input type="text" @bind="Tag" placeholder="Filter by keyword" />
+    <button @onclick="ApplyFilter">Filter</button>
+</div>
+
 @code {
     // Parameter for the selected tag
     [Parameter] public string Tag { get; set; }
+     
 
     // List of filtered products
-    private IEnumerable<ProductModel> FilteredProducts;
+     private IEnumerable<ProductModel> FilteredProducts;
+
 
     protected override void OnInitialized()
     {
