@@ -4,14 +4,45 @@
 @if (Model.SelectedProduct != null)
 {
     <div class="card">
-        <div class="card-body", style="text-align: center">
+        <div class="card-body" style="text-align: center">
             <h2>@Model.SelectedProduct.Title</h2>
             <p>@Model.SelectedProduct.Description</p>
-            <p>@Model.SelectedProduct.Tags</p>        
-            <p>@Model.SelectedProduct.ProductType</p>
-            <p>@Model.SelectedProduct.Maker</p>
-            <p>@Model.SelectedProduct.Price</p>
-            <p>@Model.SelectedProduct.Quantity</p>
+            <p>Category: @Model.SelectedProduct.Category</p>
+            <p>Size: @Model.SelectedProduct.Size</p>
+            <p>Color: @Model.SelectedProduct.Color</p>
+            <p>
+                Material:
+                @{
+                    var materialList = Model.SelectedProduct.Material;
+                    for (var i = 0; i < materialList.Count; i++)
+                    {
+                        @materialList[i]
+                        if (i < materialList.Count - 1)
+                        {
+                            <text>, </text>
+                        }
+                    }
+                }
+            </p>
+            <p>
+                Style:
+                @{
+                    var styleList = Model.SelectedProduct.Style;
+                    for (var i = 0; i < styleList.Count; i++)
+                    {
+                        @styleList[i]
+                        if (i < styleList.Count - 1)
+                        {
+                            <text>, </text>
+                        }
+                    }
+                }
+            </p>
         </div>
     </div>
 }
+else
+{
+    <p>Product not found.</p>
+}
+
