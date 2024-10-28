@@ -10,7 +10,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "bag"
+    "Category": "bag",
+    "Size": "medium",
+    "Color": "burgundy",
+    "Material": [ "leather" ],
+    "Style": [ "casual", "chic", "trendy" ]
   },
   {
     "Id": "woven-tote",
@@ -23,7 +27,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "bag"
+    "Category": "bag",
+    "Size": "large",
+    "Color": "brown",
+    "Material": [ "leather", "straw" ],
+    "Style": [ "casual", "summer" ]
   },
   {
     "Id": "white-bag",
@@ -36,7 +44,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category":  "bag"
+    "Category": "bag",
+    "Size": "large",
+    "Color": "white",
+    "Material": [ "nylon" ],
+    "Style": [ "sporty", "minimaslist" ]
   },
   {
     "Id": "urban-bag",
@@ -49,7 +61,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "bag"
+    "Category": "bag",
+    "Size": "large",
+    "Color": "black",
+    "Material": [ "padded", "nylon" ],
+    "Style": [ "casual", "modern" ]
   },
   {
     "Id": "versatile-tote",
@@ -62,7 +78,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "bag"
+    "Category": "bag",
+    "Size": "large",
+    "Color": "black",
+    "Material": [ "nylon" ],
+    "Style": [ "functional", "travel" ]
   },
   {
     "Id": "leather-jacket",
@@ -75,7 +95,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "bag"
+    "Category": "jacket",
+    "Size": "large",
+    "Color": "black",
+    "Material": [ "leather" ],
+    "Style": [ "modern", "bold" ]
   },
   {
     "Id": "vintage-leather",
@@ -88,7 +112,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "large",
+    "Color": "brown",
+    "Material": [ "leather" ],
+    "Style": [ "vintage", "rugged" ]
   },
   {
     "Id": "suede-jacket",
@@ -101,7 +129,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "medium",
+    "Color": "brown",
+    "Material": [ "suede" ],
+    "Style": [ "casual", "fall" ]
   },
   {
     "Id": "cozy-jacket",
@@ -114,7 +146,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "medium",
+    "Color": "black",
+    "Material": [ "flannel" ],
+    "Style": [ "casual", "cozy" ]
   },
   {
     "Id": "olive-jacket",
@@ -127,7 +163,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "large",
+    "Color": "green",
+    "Material": [ "leather" ],
+    "Style": [ "casual", "oversized" ]
   },
   {
     "Id": "black-min-jacket",
@@ -140,7 +180,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category":  "jacket"
+    "Category": "jacket",
+    "Size": "medium",
+    "Color": "black",
+    "Material": [ "leather" ],
+    "Style": [ "modern", "minimalist" ]
   },
   {
     "Id": "fur-jacket",
@@ -153,7 +197,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "large",
+    "Color": "brown",
+    "Material": [ "leather", "fur" ],
+    "Style": [ "winter", "cozy" ]
   },
   {
     "Id": "bomber-jacket",
@@ -166,7 +214,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "jacket"
+    "Category": "jacket",
+    "Size": "large",
+    "Color": "brown",
+    "Material": [ "leather" ],
+    "Style": [ "classic", "casual" ]
   },
   {
     "Id": "navy-pants",
@@ -179,7 +231,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "trousers"
+    "Category": "trousers",
+    "Size": "medium",
+    "Color": "blue",
+    "Material": [ "cotton" ],
+    "Style": [ "casual", "relaxed" ]
   },
   {
     "Id": "classic-pants",
@@ -192,7 +248,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "trousers"
+    "Category": "trousers",
+    "Size": "medium",
+    "Color": "brown",
+    "Material": [ "wool" ],
+    "Style": [ "formal", "business-casual" ]
   },
   {
     "Id": "cotton-pants",
@@ -205,7 +265,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "trousers"
+    "Category": "trousers",
+    "Size": "medium",
+    "Color": "beige",
+    "Material": [ "cotton" ],
+    "Style": [ "casual", "minimalist" ]
   },
   {
     "Id": "grey-pants",
@@ -218,7 +282,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "trousers"
+    "Category": "trousers",
+    "Size": "medium",
+    "Color": "grey",
+    "Material": [ "wool" ],
+    "Style": [ "professional", "business-casual" ]
   },
   {
     "Id": "clay-pants",
@@ -231,7 +299,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "trousers"
+    "Category": "trousers",
+    "Size": "medium",
+    "Color": "brown",
+    "Material": [ "cotton" ],
+    "Style": [ "modern", "chic" ]
   },
   {
     "Id": "brown-shirt",
@@ -244,7 +316,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "large",
+    "Color": "brown",
+    "Material": [ "cotton" ],
+    "Style": [ "casual", "streetwear" ]
   },
   {
     "Id": "pixel-shirt",
@@ -257,7 +333,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "large",
+    "Color": "black",
+    "Material": [ "cotton" ],
+    "Style": [ "edgy", "urban" ]
   },
   {
     "Id": "vintage-shirt",
@@ -270,7 +350,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "medium",
+    "Color": "white",
+    "Material": [ "cotton" ],
+    "Style": [ "vintage", "collegiate" ]
   },
   {
     "Id": "min-shirt",
@@ -283,7 +367,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "small",
+    "Color": "black",
+    "Material": [ "knit" ],
+    "Style": [ "minimalist", "sleek" ]
   },
   {
     "Id": "baby-milo",
@@ -296,7 +384,11 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "small",
+    "Color": "white",
+    "Material": ["cotton"],
+    "Style": [ "casual", "playful" ]
   },
   {
     "Id": "cream-shirt",
@@ -309,6 +401,10 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
-    "Category": "t-shirt"
+    "Category": "t-shirt",
+    "Size": "medium",
+    "Color": "white",
+    "Material": [ "cotton" ],
+    "Style": [ "casual", "chic" ]
   }
 ]
