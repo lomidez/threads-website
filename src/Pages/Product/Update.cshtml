@@ -24,6 +24,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label asp-for="SelectedProduct.Image">Image Link</label>
+                    <input asp-for="SelectedProduct.Image" class="form-control" />
+                    <span asp-validation-for="SelectedProduct.Image" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
                     <label asp-for="SelectedProduct.Category">Category</label>
                     <input asp-for="SelectedProduct.Category" class="form-control" />
                     <span asp-validation-for="SelectedProduct.Category" class="text-danger"></span>
