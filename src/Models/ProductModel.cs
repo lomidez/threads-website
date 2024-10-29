@@ -2,6 +2,8 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
+using ContosoCrafts.WebSite.Models;
+
 
 namespace ContosoCrafts.WebSite.Models
 {
