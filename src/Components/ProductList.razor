@@ -3,9 +3,9 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-<h3>product list</h3>
+<h3>Products</h3>
 <!-- Filter Section-->
-<div>
+<div style="padding:inherit">
     <input type="text" @bind="Tag" placeholder="Filter by keyword" />
     <button @onclick="OnInitialized">Filter</button>
 </div>
