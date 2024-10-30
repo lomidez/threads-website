@@ -19,6 +19,7 @@ using NUnit.Framework;
 using ContosoCrafts.WebSite.Pages.Product;
 using ContosoCrafts.WebSite.Services;
 using System.IO;
+using ContosoCrafts.WebSite.Models;
 
 namespace UnitTests.Pages.Product.Index
 {
@@ -76,15 +77,27 @@ namespace UnitTests.Pages.Product.Index
         [Test]
         public void OnGet_Valid_Should_Return_Products()
         {
-            // Arrange
+            // Arrange - Set up 25 products in the mock data source
+            var mockProducts = Enumerable.Range(1, 25).Select(i => new ProductModel
+            {
+                Id = $"product_{i}",
+                Title = $"Product {i}",
+                Ratings = new int[] { 4, 5 }
+            }).ToList();
+
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            var productService = new JsonFileProductService(mockEnvironment.Object, mockProducts);
+
+            pageModel = new IndexModel(productService);
 
             // Act
             pageModel.OnGet();
 
             // Assert
             Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
-            Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(24));
+            Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(25));
         }
+
         #endregion OnGet
     }
 }
