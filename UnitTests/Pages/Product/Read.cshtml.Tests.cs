@@ -61,7 +61,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_NoProductsAvailable_Should_Return_Null()
+        public void OnGet_No_Products_Available_Should_Return_Null()
         {
             // Arrange: Set up the GetAllData method to return an empty list
             mockProductService.Setup(service => service.GetAllData()).Returns(new List<ProductModel>());
