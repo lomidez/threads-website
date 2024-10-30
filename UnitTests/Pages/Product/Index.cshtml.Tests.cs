@@ -75,7 +75,7 @@ namespace UnitTests.Pages.Product.Index
 
         #region OnGet
         [Test]
-        public void OnGet_Valid_Should_Return_Products()
+        public void OnGet_Valid_ProductList_Should_Return_ProductCount_Of_25()
         {
             // Arrange - Set up 25 products in the mock data source
             var mockProducts = Enumerable.Range(1, 25).Select(i => new ProductModel
