@@ -16,6 +16,7 @@ using NUnit.Framework;
 
 using ContosoCrafts.WebSite.Pages.Product;
 using ContosoCrafts.WebSite.Services;
+using System.IO;
 
 namespace UnitTests.Pages.Product.Index
 {
@@ -37,13 +38,9 @@ namespace UnitTests.Pages.Product.Index
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext()
-            {
-                //RequestServices = serviceProviderMock.Object,
-            };
+            httpContextDefault = new DefaultHttpContext();
 
             modelState = new ModelStateDictionary();
-
             actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
 
             modelMetadataProvider = new EmptyModelMetadataProvider();
@@ -57,18 +54,19 @@ namespace UnitTests.Pages.Product.Index
 
             var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
             mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns("../../../../src/bin/Debug/net6.0/wwwroot");
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns("./data/");
+
+            // Update WebRootPath to a path that GitHub users will have when cloning the repository
+            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
+            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns(Directory.GetCurrentDirectory());
 
             var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
             JsonFileProductService productService;
 
             productService = new JsonFileProductService(mockWebHostEnvironment.Object);
 
-            pageModel = new IndexModel(productService)
-            {
-            };
+            pageModel = new IndexModel(productService);
         }
+
 
         #endregion TestSetup
 
@@ -83,7 +81,7 @@ namespace UnitTests.Pages.Product.Index
 
             // Assert
             Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
-            Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(15));
+            Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(24));
         }
         #endregion OnGet
     }
