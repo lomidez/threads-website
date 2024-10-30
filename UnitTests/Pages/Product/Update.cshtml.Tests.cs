@@ -27,7 +27,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_Valid_ProductId_Should_Return_Product()
+        public void OnGet_Valid_Product_Id_Should_Return_Product()
         {
             // Arrange
             var productList = new List<ProductModel>
@@ -45,7 +45,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_InValid_ProductId_Should_Return_Null()
+        public void OnGet_InValid_Product_Id_Should_Return_Null()
         {
             // Arrange
             var productList = new List<ProductModel>
@@ -63,6 +63,7 @@ namespace UnitTests.Pages
 
         [Test]
         public void OnPost_Valid_Product_Should_Update_And_Redirect_To_Index()
+
         {
             // Arrange
             var product = new ProductModel { Id = "1", Title = "Updated Product" };
@@ -78,7 +79,8 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnPost_InValid_ModelState_Should_Return_Page()
+        public void OnPost_InValid_Model_State_Should_Return_Page()
+
         {
             // Arrange
             updatePage.ModelState.AddModelError("Title", "Title is required");
@@ -91,7 +93,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnPost_InValid_NonExistent_Product_Should_Return_NotFound()
+        public void OnPost_InValid_Non_Existent_Product_Should_Return_NotFound()
         {
             // Arrange
             var product = new ProductModel { Id = "nonexistent", Title = "Nonexistent Product" };
