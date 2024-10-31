@@ -124,17 +124,8 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        public ProductModel CreateData()
+        public ProductModel CreateData(ProductModel data)
         {
-            var data = new ProductModel()
-            {
-                Id = System.Guid.NewGuid().ToString(),
-                Title = "Enter Title",
-                Description = "Enter Description",
-                Url = "Enter URL",
-                Image = "",
-            };
-
             var dataSet = GetAllData().Append(data);
 
             SaveData(dataSet);
