@@ -1,4 +1,4 @@
-@page "/Delete"  // Adjusted to accept the product ID as a route parameter
+@page "/Delete"
 @model ContosoCrafts.WebSite.Pages.DeleteModel
 
 <div class="card">
@@ -22,9 +22,9 @@
             </div>
 
             <form method="post">
-                <input type="hidden" asp-for="SelectedProduct.Id" />  // Hidden field to hold product ID
-                <button type="submit" class="btn btn-danger">Delete</button>  // Button to confirm deletion
-                <a asp-page="./Index" class="btn btn-secondary">Cancel</a>  // Button to go back
+                <input type="hidden" asp-for="SelectedProduct.Id" />
+                <button type="submit" class="btn btn-danger">Delete</button> 
+                <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
             </form>
         }
         else
