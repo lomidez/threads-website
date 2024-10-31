@@ -7,34 +7,17 @@ using System.Linq;
 
 namespace ContosoCrafts.WebSite.Pages
 {
-    public class UpdateModel : PageModel
+    public class CreateModel : PageModel
     {
         private readonly JsonFileProductService _productService;
 
-        public UpdateModel(JsonFileProductService productService)
+        public CreateModel(JsonFileProductService productService)
         {
             _productService = productService;
         }
 
         [BindProperty]
-        public ProductModel SelectedProduct { get; set; }
-
-        [BindProperty]
-        public string Material { get; set; }
-
-        [BindProperty]
-        public string Style { get; set; }
-
-        public void OnGet(string id)
-        {
-            SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
-
-            if (SelectedProduct != null)
-            {
-                Material = string.Join(", ", SelectedProduct.Material ?? new List<string>());
-                Style = string.Join(", ", SelectedProduct.Style ?? new List<string>());
-            }
-        }
+        public ProductModel NewProduct { get; set; } = new ProductModel();
 
         public IActionResult OnPost()
         {
@@ -43,15 +26,15 @@ namespace ContosoCrafts.WebSite.Pages
                 return Page();
             }
 
-            SelectedProduct.Material = Material?.Split(',').Select(m => m.Trim()).ToList() ?? new List<string>();
-            SelectedProduct.Style = Style?.Split(',').Select(s => s.Trim()).ToList() ?? new List<string>();
+            var products = _productService.GetAllData();
 
-            var updatedProduct = _productService.UpdateData(SelectedProduct);
-            
-            if(updatedProduct == null)
+            if (products.Any(p => p.Id == NewProduct.Id))
             {
-                return NotFound();
+                ModelState.AddModelError("NewProduct.Id", "This ID already exists. Please select a new ID.");
+                return Page();
             }
+
+            _productService.CreateData(NewProduct);
 
             return RedirectToPage("./Index");
         }
