@@ -1,0 +1,60 @@
+@page "/Create"
+@model ContosoCrafts.WebSite.Pages.CreateModel
+
+<div class="card">
+    <div class="card-body" style="text-align: center">
+        <h2>Create Product</h2>
+        <form method="post">
+            <!-- No hidden fields needed for new product -->
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Id">Id</label>
+                <input asp-for="NewProduct.Id" class="form-control" />
+                <span asp-validation-for="NewProduct.Id" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Description">Description</label>
+                <input asp-for="NewProduct.Description" class="form-control" />
+                <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Image">Image Link</label>
+                <input asp-for="NewProduct.Image" class="form-control" />
+                <span asp-validation-for="NewProduct.Image" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Category">Category</label>
+                <input asp-for="NewProduct.Category" class="form-control" />
+                <span asp-validation-for="NewProduct.Category" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Size">Size</label>
+                <input asp-for="NewProduct.Size" class="form-control" />
+                <span asp-validation-for="NewProduct.Size" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="NewProduct.Color">Color</label>
+                <input asp-for="NewProduct.Color" class="form-control" />
+                <span asp-validation-for="NewProduct.Color" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Material">Material (comma-separated)</label>
+                <input id="Material" name="Material" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label for="Style">Style (comma-separated)</label>
+                <input id="Style" name="Style" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
