@@ -44,6 +44,9 @@ namespace ContosoCrafts.WebSite.Pages
                     ModelState.AddModelError(string.Empty, "An error occurred while saving the product. Please try again.");
                     return Page();
                 }
+
+                // Set TempData notification for successful creation
+                TempData["Notification"] = "Product successfully created.";
                 return RedirectToPage("./Index");
             }
 
