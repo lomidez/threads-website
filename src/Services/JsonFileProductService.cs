@@ -8,43 +8,25 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
-    /// <summary>
-    /// Service class for handling CRUD operations and ratings for products
-    /// stored in a JSON file.
-    /// </summary>
     public class JsonFileProductService
     {
-        // Field for holding mock data during tests
-        private List<ProductModel> _testProducts; 
+        private List<ProductModel> _testProducts; // Field for holding mock data during tests
 
-        /// <summary>
-        /// Initializes a new instance of the JsonFileProductService class without mock data.
-        /// </summary>
-        /// <param name="webHostEnvironment">Provides information about the web hosting environment.</param>
+        // Constructor for regular use (without mock data)
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the JsonFileProductService class with mock data for testing.
-        /// </summary>
-        /// <param name="webHostEnvironment">Provides information about the web hosting environment.</param>
-        /// <param name="testProducts">List of test products for mock data during testing.</param>
+        // Optional constructor for injecting mock data for testing
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment, List<ProductModel> testProducts)
         {
             WebHostEnvironment = webHostEnvironment;
             _testProducts = testProducts; // Assign test data
         }
 
-        /// <summary>
-        /// Provides access to the web hosting environment.
-        /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
-        /// <summary>
-        /// Gets the file path of the products JSON file.
-        /// </summary>
         private string JsonFileName
         {
             get
@@ -54,10 +36,6 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        /// <summary>
-        /// Retrieves all product data from the JSON file or returns mock data if provided.
-        /// </summary>
-        /// <returns>Collection of ProductModel representing all products.</returns>
         public virtual IEnumerable<ProductModel> GetAllData()
         {
             // Return mock data if provided for testing
@@ -74,12 +52,6 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        /// <summary>
-        /// Adds a rating to the specified product.
-        /// </summary>
-        /// <param name="productId">The ID of the product to add a rating to.</param>
-        /// <param name="rating">The rating value, expected between 0 and 5.</param>
-        /// <returns>True if the rating was added successfully, otherwise false.</returns>
         public bool AddRating(string productId, int rating)
         {
             if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
@@ -108,11 +80,6 @@ namespace ContosoCrafts.WebSite.Services
             return true;
         }
 
-        /// <summary>
-        /// Updates an existing product with the provided data.
-        /// </summary>
-        /// <param name="data">ProductModel with updated data.</param>
-        /// <returns>The updated ProductModel if successful, otherwise null.</returns>
         public virtual ProductModel UpdateData(ProductModel data)
         {
             var products = GetAllData().ToList();
@@ -141,10 +108,8 @@ namespace ContosoCrafts.WebSite.Services
             return productData;
         }
 
-        /// <summary>
-        /// Saves the provided collection of products to the JSON file.
-        /// </summary>
-        /// <param name="products">Collection of ProductModel to be saved.</param>
+
+        // Update SaveData to public to allow testing modifications
         public void SaveData(IEnumerable<ProductModel> products)
         {
             using (var outputStream = File.Create(JsonFileName))
@@ -160,25 +125,23 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        /// <summary>
-        /// Creates a new product entry.
-        /// </summary>
-        /// <param name="data">ProductModel with new product data.</param>
-        /// <returns>The created ProductModel.</returns>
-        public ProductModel CreateData(ProductModel data)
+        public virtual bool CreateData(ProductModel data)
         {
-            var dataSet = GetAllData().Append(data);
-
-            SaveData(dataSet);
-
-            return data;
+            try
+            {
+                var dataSet = GetAllData().Append(data);
+                SaveData(dataSet);
+                return true; // Return true if the operation succeeds
+            }
+            catch
+            {
+                // Log the error if necessary
+                return false; // Return false if an error occurs during saving
+            }
         }
 
-        /// <summary>
-        /// Deletes a product by its ID.
-        /// </summary>
-        /// <param name="id">The ID of the product to delete.</param>
-        /// <returns>The deleted ProductModel if successful, otherwise null.</returns>
+
+
         public virtual ProductModel DeleteData(string id)
         {
             var productList = _testProducts ?? GetAllData().ToList(); // Use _testProducts if in test mode
@@ -194,5 +157,11 @@ namespace ContosoCrafts.WebSite.Services
 
             return null;
         }
+
+
+
+
+
+
     }
 }
