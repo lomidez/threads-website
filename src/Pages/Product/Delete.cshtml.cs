@@ -38,13 +38,25 @@ namespace ContosoCrafts.WebSite.Pages
 
         public IActionResult OnPost()
         {
+            // Ensure SelectedProduct is not null
+            if (SelectedProduct == null)
+            {
+                return NotFound();
+            }
+
             // Fetch the selected product using its ID
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == SelectedProduct.Id);
+
+            // Check if the selected product was found
+            if (SelectedProduct == null)
+            {
+                return NotFound(); // Return NotFound if the product does not exist
+            }
 
             // Attempt to delete the product
             var deletedProduct = _productService.DeleteData(SelectedProduct.Id); // Call to the delete method in your service
 
-            // Check if the deletedProduct is null, indicating the product was not found
+            // Check if the deletion was successful
             if (deletedProduct == null) // If deletion failed (product not found)
             {
                 return NotFound(); // Return NotFound if product does not exist
@@ -52,6 +64,8 @@ namespace ContosoCrafts.WebSite.Pages
 
             return RedirectToPage("./Index"); // Redirect to the index page after deletion
         }
+
+
 
     }
 }
