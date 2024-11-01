@@ -1,28 +1,5 @@
 [
   {
-    "Id": "burgundy-bag",
-    "Maker": null,
-    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag1.png",
-    "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/bags/bag1.png",
-    "Title": "Burgundy Leather Chic Handbag",
-    "Description": "A sleek, structured burgundy leather handbag with a stylish round handle design. This elegant accessory is perfect for adding a chic touch to both casual and formal outfits, offering sophistication and functionality.",
-    "Ratings": null,
-    "ProductType": 0,
-    "Quantity": 100,
-    "Price": 800,
-    "Category": "bag",
-    "Size": "medium",
-    "Color": "burgundy",
-    "Material": [ "leather" ],
-    "Style": [ "casual", "chic", "trendy" ],
-    "Weight": 600,
-    "Dimentions": {
-      "Length": 25,
-      "Width": 10,
-      "Height": 20
-    }
-  },
-  {
     "Id": "woven-tote",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag2.png",
@@ -33,11 +10,19 @@
     "ProductType": 0,
     "Quantity": 50,
     "Price": 70,
+    "CommentList": [],
+    "Tags": [],
     "Category": "bag",
     "Size": "large",
     "Color": "brown",
-    "Material": [ "leather", "straw" ],
-    "Style": [ "casual", "summer" ],
+    "Material": [
+      "leather",
+      "straw"
+    ],
+    "Style": [
+      "casual",
+      "summer"
+    ],
     "Weight": 500,
     "Dimentions": {
       "Length": 35,
@@ -56,11 +41,18 @@
     "ProductType": 0,
     "Quantity": 80,
     "Price": 90,
+    "CommentList": [],
+    "Tags": [],
     "Category": "bag",
     "Size": "large",
     "Color": "white",
-    "Material": [ "nylon" ],
-    "Style": [ "sporty", "minimalist" ],
+    "Material": [
+      "nylon"
+    ],
+    "Style": [
+      "sporty",
+      "minimalist"
+    ],
     "Weight": 700,
     "Dimentions": {
       "Length": 40,
@@ -74,16 +66,24 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag4.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/bags/bag4.png",
     "Title": "Puffy Black Urban Backpack",
-    "Description": "A puffy, padded black backpack designed with comfort and modern style in mind. This versatile bag is perfect for daily use, whether you're navigating the city streets or heading out for casual weekend plans.",
+    "Description": "A puffy, padded black backpack designed with comfort and modern style in mind. This versatile bag is perfect for daily use, whether you\u0027re navigating the city streets or heading out for casual weekend plans.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 60,
     "Price": 85,
+    "CommentList": [],
+    "Tags": [],
     "Category": "bag",
     "Size": "large",
     "Color": "black",
-    "Material": [ "padded", "nylon" ],
-    "Style": [ "casual", "modern" ],
+    "Material": [
+      "padded",
+      "nylon"
+    ],
+    "Style": [
+      "casual",
+      "modern"
+    ],
     "Weight": 750,
     "Dimentions": {
       "Length": 40,
@@ -102,11 +102,18 @@
     "ProductType": 0,
     "Quantity": 300,
     "Price": 75,
+    "CommentList": [],
+    "Tags": [],
     "Category": "bag",
     "Size": "large",
     "Color": "black",
-    "Material": [ "nylon" ],
-    "Style": [ "functional", "travel" ],
+    "Material": [
+      "nylon"
+    ],
+    "Style": [
+      "functional",
+      "travel"
+    ],
     "Weight": 600,
     "Dimentions": {
       "Length": 40,
@@ -125,11 +132,18 @@
     "ProductType": 0,
     "Quantity": 120,
     "Price": 150,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "large",
     "Color": "black",
-    "Material": [ "leather" ],
-    "Style": [ "modern", "bold" ],
+    "Material": [
+      "leather"
+    ],
+    "Style": [
+      "modern",
+      "bold"
+    ],
     "Weight": 900,
     "Dimentions": {
       "Length": 75,
@@ -143,16 +157,23 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket2.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/jackets/jacket2.png",
     "Title": "Vintage-Inspired Distressed Leather Jacket",
-    "Description": "This distressed brown leather jacket has a timeless, rugged appeal, offering a vintage-inspired look that’s perfect for casual and outdoor wear. The worn-in style brings character and edge to your wardrobe.",
+    "Description": "This distressed brown leather jacket has a timeless, rugged appeal, offering a vintage-inspired look that\u2019s perfect for casual and outdoor wear. The worn-in style brings character and edge to your wardrobe.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 90,
     "Price": 130,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "large",
     "Color": "brown",
-    "Material": [ "leather" ],
-    "Style": [ "vintage", "rugged" ],
+    "Material": [
+      "leather"
+    ],
+    "Style": [
+      "vintage",
+      "rugged"
+    ],
     "Weight": 850,
     "Dimentions": {
       "Length": 75,
@@ -171,11 +192,18 @@
     "ProductType": 0,
     "Quantity": 100,
     "Price": 95,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "medium",
     "Color": "brown",
-    "Material": [ "suede" ],
-    "Style": [ "casual", "fall" ],
+    "Material": [
+      "suede"
+    ],
+    "Style": [
+      "casual",
+      "fall"
+    ],
     "Weight": 700,
     "Dimentions": {
       "Length": 70,
@@ -194,11 +222,18 @@
     "ProductType": 0,
     "Quantity": 150,
     "Price": 85,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "medium",
     "Color": "black",
-    "Material": [ "flannel" ],
-    "Style": [ "casual", "cozy" ],
+    "Material": [
+      "flannel"
+    ],
+    "Style": [
+      "casual",
+      "cozy"
+    ],
     "Weight": 700,
     "Dimentions": {
       "Length": 70,
@@ -217,11 +252,18 @@
     "ProductType": 0,
     "Quantity": 100,
     "Price": 120,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "large",
     "Color": "green",
-    "Material": [ "leather" ],
-    "Style": [ "casual", "oversized" ],
+    "Material": [
+      "leather"
+    ],
+    "Style": [
+      "casual",
+      "oversized"
+    ],
     "Weight": 950,
     "Dimentions": {
       "Length": 75,
@@ -240,11 +282,18 @@
     "ProductType": 0,
     "Quantity": 130,
     "Price": 100,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "medium",
     "Color": "black",
-    "Material": [ "leather" ],
-    "Style": [ "modern", "minimalist" ],
+    "Material": [
+      "leather"
+    ],
+    "Style": [
+      "modern",
+      "minimalist"
+    ],
     "Weight": 800,
     "Dimentions": {
       "Length": 70,
@@ -263,11 +312,19 @@
     "ProductType": 0,
     "Quantity": 90,
     "Price": 140,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "large",
     "Color": "brown",
-    "Material": [ "leather", "fur" ],
-    "Style": [ "winter", "cozy" ],
+    "Material": [
+      "leather",
+      "fur"
+    ],
+    "Style": [
+      "winter",
+      "cozy"
+    ],
     "Weight": 1000,
     "Dimentions": {
       "Length": 75,
@@ -281,16 +338,23 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/jacket8.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/jackets/jacket8.png",
     "Title": "Classic Brown Leather Bomber Jacket",
-    "Description": "A classic brown leather bomber jacket that brings timeless appeal to casual outfits. With its durable leather material and traditional design, it’s a must-have for those seeking a versatile outerwear piece.",
+    "Description": "A classic brown leather bomber jacket that brings timeless appeal to casual outfits. With its durable leather material and traditional design, it\u2019s a must-have for those seeking a versatile outerwear piece.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 120,
     "Price": 150,
+    "CommentList": [],
+    "Tags": [],
     "Category": "jacket",
     "Size": "large",
     "Color": "brown",
-    "Material": [ "leather" ],
-    "Style": [ "classic", "casual" ],
+    "Material": [
+      "leather"
+    ],
+    "Style": [
+      "classic",
+      "casual"
+    ],
     "Weight": 800,
     "Dimentions": {
       "Length": 70,
@@ -309,15 +373,23 @@
     "ProductType": 0,
     "Quantity": 200,
     "Price": 60,
+    "CommentList": [],
+    "Tags": [],
     "Category": "trousers",
     "Size": "medium",
     "Color": "blue",
-    "Material": [ "cotton" ],
-    "Style": [ "casual", "relaxed" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "casual",
+      "relaxed"
+    ],
     "Weight": 400,
     "Dimentions": {
-      "Waist": 80,
-      "Length": 105
+      "Length": 105,
+      "Width": 0,
+      "Height": 0
     }
   },
   {
@@ -331,15 +403,23 @@
     "ProductType": 0,
     "Quantity": 180,
     "Price": 85,
+    "CommentList": [],
+    "Tags": [],
     "Category": "trousers",
     "Size": "medium",
     "Color": "brown",
-    "Material": [ "wool" ],
-    "Style": [ "formal", "business-casual" ],
+    "Material": [
+      "wool"
+    ],
+    "Style": [
+      "formal",
+      "business-casual"
+    ],
     "Weight": 450,
     "Dimentions": {
-      "Waist": 80,
-      "Length": 105
+      "Length": 105,
+      "Width": 0,
+      "Height": 0
     }
   },
   {
@@ -348,20 +428,28 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/pants3.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/pants/pants3.png",
     "Title": "Beige Wide-Leg Cotton Pants",
-    "Description": "These beige wide-leg cotton pants offer a neutral tone and soft, breathable fabric for a minimalist, comfortable style. Perfect for pairing with any top, they’re ideal for creating laid-back yet stylish outfits.",
+    "Description": "These beige wide-leg cotton pants offer a neutral tone and soft, breathable fabric for a minimalist, comfortable style. Perfect for pairing with any top, they\u2019re ideal for creating laid-back yet stylish outfits.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 220,
     "Price": 50,
+    "CommentList": [],
+    "Tags": [],
     "Category": "trousers",
     "Size": "medium",
     "Color": "beige",
-    "Material": [ "cotton" ],
-    "Style": [ "casual", "minimalist" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "casual",
+      "minimalist"
+    ],
     "Weight": 400,
     "Dimentions": {
-      "Waist": 80,
-      "Length": 105
+      "Length": 105,
+      "Width": 0,
+      "Height": 0
     }
   },
   {
@@ -375,15 +463,23 @@
     "ProductType": 0,
     "Quantity": 150,
     "Price": 70,
+    "CommentList": [],
+    "Tags": [],
     "Category": "trousers",
     "Size": "medium",
     "Color": "grey",
-    "Material": [ "wool" ],
-    "Style": [ "professional", "business-casual" ],
+    "Material": [
+      "wool"
+    ],
+    "Style": [
+      "professional",
+      "business-casual"
+    ],
     "Weight": 300,
     "Dimentions": {
-      "Waist": 80,
-      "Length": 100
+      "Length": 100,
+      "Width": 0,
+      "Height": 0
     }
   },
   {
@@ -397,15 +493,23 @@
     "ProductType": 0,
     "Quantity": 200,
     "Price": 60,
+    "CommentList": [],
+    "Tags": [],
     "Category": "trousers",
     "Size": "medium",
     "Color": "brown",
-    "Material": [ "cotton" ],
-    "Style": [ "modern", "chic" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "modern",
+      "chic"
+    ],
     "Weight": 300,
     "Dimentions": {
-      "Waist": 80,
-      "Length": 100
+      "Length": 100,
+      "Width": 0,
+      "Height": 0
     }
   },
   {
@@ -419,16 +523,23 @@
     "ProductType": 0,
     "Quantity": 250,
     "Price": 30,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "large",
     "Color": "brown",
-    "Material": [ "cotton" ],
-    "Style": [ "casual", "streetwear" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "casual",
+      "streetwear"
+    ],
     "Weight": 150,
     "Dimentions": {
       "Length": 70,
       "Width": 50,
-      "Thickness": 1
+      "Height": 0
     }
   },
   {
@@ -442,16 +553,23 @@
     "ProductType": 0,
     "Quantity": 200,
     "Price": 40,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "large",
     "Color": "black",
-    "Material": [ "cotton" ],
-    "Style": [ "edgy", "urban" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "edgy",
+      "urban"
+    ],
     "Weight": 150,
     "Dimentions": {
       "Length": 70,
       "Width": 50,
-      "Thickness": 1
+      "Height": 0
     }
   },
   {
@@ -465,16 +583,23 @@
     "ProductType": 0,
     "Quantity": 250,
     "Price": 35,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "medium",
     "Color": "white",
-    "Material": [ "cotton" ],
-    "Style": [ "vintage", "collegiate" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "vintage",
+      "collegiate"
+    ],
     "Weight": 150,
     "Dimentions": {
       "Length": 70,
       "Width": 50,
-      "Thickness": 1
+      "Height": 0
     }
   },
   {
@@ -488,16 +613,23 @@
     "ProductType": 0,
     "Quantity": 150,
     "Price": 75,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "small",
     "Color": "black",
-    "Material": [ "knit" ],
-    "Style": [ "minimalist", "sleek" ],
+    "Material": [
+      "knit"
+    ],
+    "Style": [
+      "minimalist",
+      "sleek"
+    ],
     "Weight": 120,
     "Dimentions": {
       "Length": 35,
       "Width": 25,
-      "Thickness": 1
+      "Height": 0
     }
   },
   {
@@ -505,22 +637,29 @@
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt5.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/t_shirts/shirt5.png",
-    "Title": "White 'Baby Milo' Playful Graphic T-Shirt",
-    "Description": "A cute white t-shirt featuring the playful 'Baby Milo' graphic design. Its fun and casual style makes it perfect for adding a whimsical touch to any laid-back outfit.",
+    "Title": "White \u0027Baby Milo\u0027 Playful Graphic T-Shirt",
+    "Description": "A cute white t-shirt featuring the playful \u0027Baby Milo\u0027 graphic design. Its fun and casual style makes it perfect for adding a whimsical touch to any laid-back outfit.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 100,
     "Price": 225,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "small",
     "Color": "white",
-    "Material": [ "cotton" ],
-    "Style": [ "casual", "playful" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "casual",
+      "playful"
+    ],
     "Weight": 150,
     "Dimentions": {
       "Length": 35,
       "Width": 25,
-      "Thickness": 1
+      "Height": 0
     }
   },
   {
@@ -529,23 +668,28 @@
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/shirt6.png",
     "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/t_shirts/shirt6.png",
     "Title": "Cream Oversized T-Shirt with Heart and Cat Graphic",
-    "Description": "This cream oversized t-shirt features a large red heart and a minimalist cat graphic, adding a playful and artistic element to casual outfits. It’s perfect for a relaxed and creative look.",
+    "Description": "This cream oversized t-shirt features a large red heart and a minimalist cat graphic, adding a playful and artistic element to casual outfits. It\u2019s perfect for a relaxed and creative look.",
     "Ratings": null,
     "ProductType": 0,
     "Quantity": 2000,
     "Price": 55,
+    "CommentList": [],
+    "Tags": [],
     "Category": "t-shirt",
     "Size": "medium",
     "Color": "white",
-    "Material": [ "cotton" ],
-    "Style": [ "casual", "chic" ],
+    "Material": [
+      "cotton"
+    ],
+    "Style": [
+      "casual",
+      "chic"
+    ],
     "Weight": 150,
-    "Dimensions": {
-      "Length": 70,
-      "Width": 50,
-      "Thickness": 2
+    "Dimentions": {
+      "Length": 0,
+      "Width": 0,
+      "Height": 0
     }
   }
 ]
-
-
