@@ -118,4 +118,3 @@ namespace UnitTests.Pages.Product.AddRating
         }
     }
 }
-
