@@ -4,6 +4,13 @@
     ViewData["Title"] = "Index page";
 }
 <h1> Welcome to Threads !!</h1>
+<!-- Notification Message Display -->
+@if (TempData["Notification"] != null)
+{
+    <script>
+        alert('@TempData["Notification"]'); // Show pop-up with the notification message
+    </script>
+}
 <!-- Button to navigate to Create Product page -->
 <div style="margin-bottom: 20px;">
     <a href="/Create" class="btn btn-primary">Create New Product</a>
