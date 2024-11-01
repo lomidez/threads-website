@@ -69,7 +69,7 @@ namespace ContosoCrafts.WebSite.Models
 
         public string Url { get; set; }
 
-        [StringLength(maximumLength: 33, MinimumLength = 1, ErrorMessage = "The Title should have a length of more than {2} and less than {1}")]
+        [StringLength(maximumLength: 64, MinimumLength = 1, ErrorMessage = "The Title should have a length of more than {2} and less than {1}")]
         public string Title { get; set; }
 
         public string Description { get; set; }
