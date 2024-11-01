@@ -1,110 +1,129 @@
-﻿using NUnit.Framework;
-using Moq;
-using System.Collections.Generic;
-using ContosoCrafts.WebSite.Models;
+﻿using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Pages;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using Moq;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace UnitTests.Pages
+namespace UnitTests.Pages.Products
 {
-    [TestFixture]
     public class DeleteTests
     {
-        private Mock<JsonFileProductService> mockProductService;
-        private DeleteModel DeletePage;
+        #region TestSetup
+
+        private DeleteModel pageModel;
+        private JsonFileProductService productService;  // Direct instance of the service
+        private List<ProductModel> mockProducts;
 
         [SetUp]
-        public void SetUp()
+        public void TestInitialize()
         {
-            // Mocking the ProductService to avoid dependency on external data
-            mockProductService = new Mock<JsonFileProductService>(MockBehavior.Strict, new Mock<IWebHostEnvironment>().Object);
-
-            // Initialize DeleteModel with the mocked JsonFileProductService
-            DeletePage = new DeleteModel(mockProductService.Object);
-        }
-
-        [Test]
-        public void OnGet_Valid_Product_Id_Should_Return_Product()
-        {
-            // Arrange
-            var productList = new List<ProductModel>
+            // Initialize mock products
+            mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "1", Title = "Product1" }
+                new ProductModel { Id = "test-id", Title = "To Be Deleted" },
+                new ProductModel { Id = "another-id", Title = "Another Product" }
             };
-            mockProductService.Setup(service => service.GetAllData()).Returns(productList);
+
+            // Use helper method to create environment
+            var mockEnvironment = CreateMockEnvironment();
+
+            // Initialize the service with mock data
+            productService = new JsonFileProductService(mockEnvironment, mockProducts);
+            pageModel = new DeleteModel(productService);
+        }
+
+        // Helper to create mock environment for cleaner setup
+        private IWebHostEnvironment CreateMockEnvironment()
+        {
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            mockEnvironment.Setup(m => m.WebRootPath).Returns("");
+            return mockEnvironment.Object;
+        }
+
+        #endregion TestSetup
+
+        #region OnGet
+
+        [Test]
+        public void OnGet_Valid_Id_Should_Load_Product()
+        {
+            // Arrange
+            var productId = "test-id";
 
             // Act
-            DeletePage.OnGet("1");
+            pageModel.OnGet(productId);
 
             // Assert
-            Assert.That(DeletePage.SelectedProduct, Is.Not.Null);
-            Assert.That(DeletePage.SelectedProduct.Title, Is.EqualTo("Product1"));
+            Assert.That(pageModel.SelectedProduct, Is.Not.Null);
+            Assert.That(pageModel.SelectedProduct.Id, Is.EqualTo(productId));
         }
 
         [Test]
-        public void OnGet_InValid_Product_Id_Should_Return_Null()
+        public void OnGet_InValid_Id_Should_Not_Load_Product()
         {
             // Arrange
-            var productList = new List<ProductModel>
-            {
-                new ProductModel { Id = "1", Title = "Product1" }
-            };
-            mockProductService.Setup(service => service.GetAllData()).Returns(productList);
+            var invalidId = "non-existent-id";
 
             // Act
-            DeletePage.OnGet("invalid");
+            pageModel.OnGet(invalidId);
 
             // Assert
-            Assert.That(DeletePage.SelectedProduct, Is.Null);
+            Assert.That(pageModel.SelectedProduct, Is.Null);
+        }
+
+        #endregion OnGet
+
+        #region OnPost
+
+        [Test]
+        public void OnPost_Valid_Id_Should_Delete_Product_And_Redirect()
+        {
+            // Arrange
+            pageModel.SelectedProduct = new ProductModel { Id = "test-id" }; // Ensure the correct ID
+
+            // Act
+            var result = pageModel.OnPost(); // Call OnPost to delete the product
+
+            // Assert
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>()); // Check if redirected to Index
+            Assert.That(((RedirectToPageResult)result).PageName, Is.EqualTo("./Index")); // Ensure redirection
+
+            // Ensure that the product is no longer in the data
+            Assert.That(productService.GetAllData().Any(x => x.Id == "test-id"), Is.False,
+                        $"Product 'test-id' was not deleted."); // Confirm deletion
         }
 
         [Test]
-        public void OnPost_Valid_Product_Should_Delete_And_Redirect_To_Index()
+        public void OnPost_InValid_Id_Should_Return_NotFound()
         {
             // Arrange
-            var product = new ProductModel { Id = "1", Title = "Product to Delete" };
-            DeletePage.SelectedProduct = product;
-            // mockProductService.Setup(service => service.DeleteData(product.Id)).Returns(true);
+            pageModel.SelectedProduct = new ProductModel { Id = "non-existent-id" };
 
             // Act
-            var result = DeletePage.OnPost() as RedirectToPageResult;
+            var result = pageModel.OnPost();
 
             // Assert
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.PageName, Is.EqualTo("./Index"));
+            Assert.That(result, Is.TypeOf<NotFoundResult>());
         }
 
         [Test]
-        public void OnPost_InValid_Model_State_Should_Return_Page()
+        public void OnPost_InValid_NullSelectedProduct_Should_Return_NotFound()
         {
             // Arrange
-            DeletePage.ModelState.AddModelError("Title", "Title is required");
+            pageModel.SelectedProduct = null; // Simulate an uninitialized SelectedProduct
 
             // Act
-            var result = DeletePage.OnPost();
+            var result = pageModel.OnPost();
 
             // Assert
-            Assert.That(result, Is.TypeOf<PageResult>());
+            Assert.That(result, Is.TypeOf<NotFoundResult>(), "OnPost should return NotFound if SelectedProduct is null.");
         }
 
-        [Test]
-        public void OnPost_InValid_Non_Existent_Product_Should_Return_NotFound()
-        {
-            // Arrange
-            var product = new ProductModel { Id = "nonexistent", Title = "Nonexistent Product" };
-            DeletePage.SelectedProduct = product;
-            mockProductService.Setup(service => service.DeleteData(product.Id)).Returns((ProductModel)null); // Return null to simulate non-existent product
-
-            // Act
-            var result = DeletePage.OnPost() as NotFoundResult;
-
-            // Assert
-            Assert.That(result, Is.Not.Null);
-        }
-
-
+        #endregion OnPost
     }
 }
+
