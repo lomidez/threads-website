@@ -61,52 +61,22 @@ namespace UnitTests.Pages.Product.AddRating
         }
 
         [Test]
-        public void AddRating_InValid_NonExistent_ProductId_Should_Return_False()
+        public void AddRating_InValid_Non_Existent_ProductId_Should_Return_False()
         {
             var result = productService.AddRating("NonExistentProductId", 3);
             Assert.That(result, Is.EqualTo(false));
         }
 
         [Test]
-        public void AddRating_Valid_Product_Rating_5_Should_Return_True()
+        public void AddRating_Valid_Product_With_Rating_Should_Return_True()
         {
-            // Arrange - Create a product with an existing Ratings array and one with null Ratings
-            var productWithExistingRatings = new ProductModel
-            {
-                Id = "existing_ratings",
-                Title = "Product with Existing Ratings",
-                Ratings = new int[] { 3, 4 }
-            };
+            var result = productService.AddRating("product1", 5);
+            var updatedProduct = productService.GetAllData().First(x => x.Id == "product1");
 
-            var productWithNullRatings = new ProductModel
-            {
-                Id = "null_ratings",
-                Title = "Product with Null Ratings",
-                Ratings = null
-            };
-
-            // Mock data source with these products
-            var mockProducts = new List<ProductModel> { productWithExistingRatings, productWithNullRatings };
-            var mockEnvironment = new Mock<IWebHostEnvironment>();
-            productService = new JsonFileProductService(mockEnvironment.Object, mockProducts);
-
-            // Act and Assert for product with existing ratings
-            var resultWithExistingRatings = productService.AddRating("existing_ratings", 5);
-            var updatedProductWithRatings = productService.GetAllData().First(x => x.Id == "existing_ratings");
-
-            Assert.That(resultWithExistingRatings, Is.EqualTo(true));
-            Assert.That(updatedProductWithRatings.Ratings.Length, Is.EqualTo(3));  // Original 2 + 1
-            Assert.That(updatedProductWithRatings.Ratings.Last(), Is.EqualTo(5));
-
-            // Act and Assert for product with null ratings
-            var resultWithNullRatings = productService.AddRating("null_ratings", 5);
-            var updatedProductWithNullRatings = productService.GetAllData().First(x => x.Id == "null_ratings");
-
-            Assert.That(resultWithNullRatings, Is.EqualTo(true));
-            Assert.That(updatedProductWithNullRatings.Ratings.Length, Is.EqualTo(1));  // Should initialize and add
-            Assert.That(updatedProductWithNullRatings.Ratings[0], Is.EqualTo(5));
+            Assert.That(result, Is.EqualTo(true));
+            Assert.That(updatedProduct.Ratings.Length, Is.EqualTo(3));  // Original 2 + 1
+            Assert.That(updatedProduct.Ratings.Last(), Is.EqualTo(5));
         }
-
 
         [Test]
         public void AddRating_When_Ratings_Null_Should_Create_New_Array_And_Return_True()
@@ -123,14 +93,11 @@ namespace UnitTests.Pages.Product.AddRating
         [Test]
         public void UpdateData_Valid_Should_Update_And_Return_Product()
         {
-            // Arrange
             var data = productService.GetAllData().First();
             data.Title = "Updated Title";
 
-            // Act
             var result = productService.UpdateData(data);
 
-            // Assert
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Title, Is.EqualTo("Updated Title"));
         }
@@ -138,23 +105,17 @@ namespace UnitTests.Pages.Product.AddRating
         [Test]
         public void DeleteData_Valid_ProductId_Should_Remove_And_Return_Product()
         {
-            // Arrange - Add a temporary product to delete
             var newProduct = new ProductModel { Id = "delete_product", Title = "To Be Deleted" };
             mockProducts.Add(newProduct);
 
-            // Reinitialize the product service with the updated mock data
             productService = new JsonFileProductService(new Mock<IWebHostEnvironment>().Object, mockProducts);
 
-            // Act
             var result = productService.DeleteData("delete_product");
 
-            // Assert that the deleted product is returned and no longer present in the service data
             Assert.That(result, Is.Not.Null);
             Assert.That(result.Id, Is.EqualTo("delete_product"));
-            Assert.That(productService.GetAllData().Any(x => x.Id == "delete_product"), Is.True);
+            Assert.That(productService.GetAllData().Any(x => x.Id == "delete_product"), Is.False);
         }
-
     }
 }
-
 
