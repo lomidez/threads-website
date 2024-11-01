@@ -56,16 +56,18 @@ namespace ContosoCrafts.WebSite.Pages
             // Attempt to delete the product
             var deletedProduct = _productService.DeleteData(SelectedProduct.Id); // Call to the delete method in your service
 
-            // Check if the deletion was successful
+            // Set TempData message based on deletion result
+            if (deletedProduct != null)
+            {
+                TempData["Notification"] = "Product successfully deleted.";
+            }          
             if (deletedProduct == null) // If deletion failed (product not found)
             {
+                TempData["Notification"] = "Error: Failed to delete product.";
                 return NotFound(); // Return NotFound if product does not exist
             }
 
             return RedirectToPage("./Index"); // Redirect to the index page after deletion
         }
-
-
-
     }
 }
