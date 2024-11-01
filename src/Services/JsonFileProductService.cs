@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -135,14 +136,24 @@ namespace ContosoCrafts.WebSite.Services
 
         public virtual ProductModel DeleteData(string id)
         {
-            var dataSet = GetAllData().Where(m => m.Id != id);
-            var data = GetAllData().FirstOrDefault(m => m.Id.Equals(id));
+            var productList = _testProducts ?? GetAllData().ToList(); // Use _testProducts if in test mode
 
-            SaveData(dataSet);
+            var productToDelete = productList.FirstOrDefault(m => m.Id == id);
 
-            return data;
+            if (productToDelete != null)
+            {
+                productList.Remove(productToDelete);
+                SaveData(productList);
+                return productToDelete;
+            }
+
+            return null;
         }
+
+
+
+
+
+
     }
 }
-
-
