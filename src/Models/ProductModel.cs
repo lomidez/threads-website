@@ -87,6 +87,9 @@ namespace ContosoCrafts.WebSite.Models
         // Array of ratings, aligns with JSON data format (nullable int array if data may be missing)
         public int[] Ratings { get; set; } = new int[] { };
 
+        // Number of Likes for the product
+        public int Likes { get; set; } = 0;
+
         // Enum to specify the type of product, defaults to Undefined if not specified
         public ProductTypeEnum ProductType { get; set; } = ProductTypeEnum.Undefined;
 
