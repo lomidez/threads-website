@@ -140,6 +140,32 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        // Method to increment likes
+        public bool AddLike(string productId)
+        {
+            var products = GetAllData().ToList();
+            var product = products.FirstOrDefault(p => p.Id == productId);
+
+            if (product == null) return false;
+
+            product.Likes++;
+            SaveData(products);
+            return true;
+        }
+
+        // Method to reset likes
+        public bool ResetLikes(string productId)
+        {
+            var products = GetAllData().ToList();
+            var product = products.FirstOrDefault(p => p.Id == productId);
+
+            if (product == null) return false;
+
+            product.Likes = 0;
+            SaveData(products);
+            return true;
+        }
+
 
 
         public virtual ProductModel DeleteData(string id)
