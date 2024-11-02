@@ -14,10 +14,8 @@
     // Parameter for the selected tag
     [Parameter] public string Tag { get; set; }
 
-
     // List of filtered products
     private IEnumerable<ProductModel> FilteredProducts;
-
 
     protected override void OnInitialized()
     {
@@ -48,6 +46,13 @@
         selectedProductId = productId;
         selectedProduct = ProductService.GetAllData().First(x => x.Id == productId);
     }
+
+    Dictionary<string, HashSet<string>> DataPermutations;
+   
+    void GetAllDataPermutations()
+    {
+        DataPermutations = ProductService.GetAllDataPermutations();
+    }
 }
 
 @if (!FilteredProducts.Any()) {
@@ -55,7 +60,6 @@
         <p>No products found for the given criteria. Try a new criteria!</p>
     </div>
 }
-
 
 <div class="card-columns">
     @foreach (var product in FilteredProducts)
