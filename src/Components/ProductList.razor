@@ -21,7 +21,7 @@
                         <h4>@item.Key</h4>
                         @foreach (var value in item.Value)
                         {
-                            <div class="category-value">@value</div>
+                            <div class="category-value" @onclick="() => FilterByValue(value)">@value</div>
                         }
                     </div>
                 }
@@ -155,6 +155,12 @@
         {
             FilteredProducts = FilteredProducts.OrderByDescending(p => p.Likes);
         }
+    }
+
+    private void FilterByValue(string value)
+    {
+        Tag = value;
+        ApplyFilters();
     }
 
     // Method to find the product with the most likes
