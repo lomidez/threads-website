@@ -1,4 +1,4 @@
-@using ContosoCrafts.WebSite.Models
+﻿@using ContosoCrafts.WebSite.Models
 @using ContosoCrafts.WebSite.Services
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
@@ -81,6 +81,9 @@
                     <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title </h5>
                 </div>
             </a>
+            <button @onclick="() => AddLike(product.Id)" class="like-button">
+                ❤️ @product.Likes
+            </button>
         </div>
     }
 </div>
