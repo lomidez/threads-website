@@ -29,7 +29,7 @@
             <form method="post" asp-page="./ProductDetails">
                     <input type="hidden" name="id" value="@Model.SelectedProduct.Id" />
                 <button type="submit" asp-page-handler="AddLike" class="like-button">
-                    ❤️ @Model.SelectedProduct.Likes
+                    ❤️ <span class="like-count">@Model.SelectedProduct.Likes</span>
                 </button>
             </form>
 

@@ -82,7 +82,7 @@
                 </div>
             </a>
             <button @onclick="() => AddLike(product.Id)" class="like-button">
-                ❤️ @product.Likes
+                ❤️ <span class="like-count">@product.Likes</span>
             </button>
         </div>
     }
