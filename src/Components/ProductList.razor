@@ -3,9 +3,9 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
-<div class="page-container">
+<div class="products-page">
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="products-sidebar">
         <div class="sidebar-header">
             <h3>Filters</h3>
         </div>
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="products-main">
         <!-- Trending Now Section -->
         @if (TrendingProduct != null)
         {
