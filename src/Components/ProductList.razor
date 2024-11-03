@@ -31,6 +31,10 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <button @onclick="SortProductsByLikes" style="background-color: @(IsSortedByLikes ? "green" : "grey"); color: white;">
+            Sort by Number of Likes
+        </button>
+
         @if (!FilteredProducts.Any())
         {
             <div class="text-center p-4">
@@ -92,11 +96,19 @@
     // List of filtered products
     private IEnumerable<ProductModel> FilteredProducts;
 
+    // State to track sorting by likes
+    private bool IsSortedByLikes { get; set; } = false;
+
     protected override void OnInitialized()
+    {
+        ApplyFilters();
+    }
+
+    // Method to apply filters and sorting
+    private void ApplyFilters()
     {
         // Get all products from the service
         var allProducts = ProductService.GetAllData();
-
         DataPermutations = ProductService.GetAllDataPermutations();
 
         // Initialize FilteredProducts to show all products by default
@@ -113,13 +125,26 @@
                 p.Style.Any(s => s.Equals(Tag, StringComparison.OrdinalIgnoreCase))
             );
         }
+
+        // Apply sorting by likes if enabled
+        if (IsSortedByLikes)
+        {
+            FilteredProducts = FilteredProducts.OrderByDescending(p => p.Likes);
+        }
+    }
+
+    // Method to toggle sorting by number of likes
+    private void SortProductsByLikes()
+    {
+        IsSortedByLikes = !IsSortedByLikes;
+        ApplyFilters();
     }
 
     // Method to handle like clicks
     private void AddLike(string productId)
     {
         ProductService.AddLike(productId);
-        OnInitialized();
+        ApplyFilters();
     }
 
     ProductModel selectedProduct;
