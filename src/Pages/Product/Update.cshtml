@@ -55,6 +55,9 @@
                     <label for="Style">Style (comma-separated)</label>
                     <input id="Style" name="Style" class="form-control" value="@string.Join(", ", Model.SelectedProduct.Style)" />
                 </div>
+                <button type="submit" asp-page-handler="ResetLikes" class="btn btn-warning">
+                    Reset Likes
+                </button>
 
                 <button type="submit" class="btn btn-primary">Update</button>
                 <a asp-page="./Index" class="btn btn-secondary">Cancel</a>

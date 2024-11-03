@@ -55,5 +55,12 @@ namespace ContosoCrafts.WebSite.Pages
 
             return RedirectToPage("./Index");
         }
+
+        // Method to reset likes
+        public IActionResult OnPostResetLikes(string id)
+        {
+            _productService.ResetLikes(id);
+            return RedirectToPage("/Product/Update", new { id = id });
+        }
     }
 }
