@@ -3,17 +3,85 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
+<div class="page-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h3>Filters</h3>
+        </div>
+        <div class="sidebar-content">
+            <div class="filter-input">
+                <input type="text" @bind="Tag" placeholder="Filter by keyword" />
+                <button @onclick="OnInitialized">Filter</button>
+            </div>
+            <div class="categories-list">
+                @foreach (var item in DataPermutations)
+                {
+                    <div class="category-item">
+                        <h4>@item.Key</h4>
+                        @foreach (var value in item.Value)
+                        {
+                            <div class="category-value">@value</div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 
-<h3>Products</h3>
-<!-- Filter Section-->
-<div style="padding:inherit">
-    <input type="text" @bind="Tag" placeholder="Filter by keyword" />
-    <button @onclick="OnInitialized">Filter</button>
-    @foreach (var item in DataPermutations)
-    {
-        <h1>@item.Key</h1>
-    }
+    <!-- Main Content -->
+    <div class="main-content">
+        @if (!FilteredProducts.Any())
+        {
+            <div class="text-center p-4">
+                <p>No products found for the given criteria. Try a new criteria!</p>
+            </div>
+        }
+
+        <div class="card-columns">
+            @foreach (var product in FilteredProducts)
+            {
+                <div class="card">
+                    <a href="ProductDetails/@product.Id" class="text-decoration-none">
+                        <div class="card-img" style="background-image: url('@product.Image');">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title</h5>
+                        </div>
+                    </a>
+                    <button @onclick="() => AddLike(product.Id)" class="like-button">
+                        ❤️ <span class="like-count">@product.Likes</span>
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
 </div>
+
+@if (selectedProduct != null)
+{
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productTitle">@selectedProduct.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('@selectedProduct.Image');">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@selectedProduct.Description</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 @code {
     // Parameter for the selected tag
@@ -62,55 +130,6 @@
         selectedProductId = productId;
         selectedProduct = ProductService.GetAllData().First(x => x.Id == productId);
     }
-}
-
-@if (!FilteredProducts.Any()) {
-    <div class="text-center" p-4>
-        <p>No products found for the given criteria. Try a new criteria!</p>
-    </div>
-}
-
-<div class="card-columns">
-    @foreach (var product in FilteredProducts)
-    {
-        <div class="card">
-            <a href="ProductDetails/@product.Id" class="text-decoration-none">
-                <div class="card-img" style="background-image: url('@product.Image');">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title </h5>
-                </div>
-            </a>
-            <button @onclick="() => AddLike(product.Id)" class="like-button">
-                ❤️ <span class="like-count">@product.Likes</span>
-            </button>
-        </div>
-    }
-</div>
-
-@if (selectedProduct != null)
-{
-    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="productTitle">@selectedProduct.Title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card">
-                        <div class="card-img" style="background-image: url('@selectedProduct.Image');">
-                        </div>
-                        <div class="card-body">
-                            <p class="card-text">@selectedProduct.Description</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
