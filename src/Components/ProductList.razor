@@ -31,9 +31,28 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Trending Now Section -->
+        @if (TrendingProduct != null)
+        {
+            <div class="trending-now">
+                <h3>Trending Now</h3>
+                <div class="card trending-card">
+                    <a href="ProductDetails/@TrendingProduct.Id" class="text-decoration-none">
+                        <img src="@TrendingProduct.Image" alt="@TrendingProduct.Title" class="img-fluid" style="max-width: 200px; max-height: 300px; display: block; margin: 0 auto;" />
+                        <div class="card-body">
+                            <h5 class="card-title text-center" style="color: #5B5B5B">@TrendingProduct.Title</h5>
+                            <p>@TrendingProduct.Description</p>
+                            <p class="text-center">❤️ @TrendingProduct.Likes Likes</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
         <button @onclick="SortProductsByLikes" style="background-color: @(IsSortedByLikes ? "green" : "grey"); color: white;">
             Sort by Number of Likes
         </button>
+
 
         @if (!FilteredProducts.Any())
         {
@@ -99,9 +118,14 @@
     // State to track sorting by likes
     private bool IsSortedByLikes { get; set; } = false;
 
+    // Product with the most likes
+    private ProductModel TrendingProduct { get; set; }
+
+
     protected override void OnInitialized()
     {
         ApplyFilters();
+        SetTrendingProduct();
     }
 
     // Method to apply filters and sorting
@@ -133,6 +157,12 @@
         }
     }
 
+    // Method to find the product with the most likes
+    private void SetTrendingProduct()
+    {
+        TrendingProduct = ProductService.GetAllData().OrderByDescending(p => p.Likes).FirstOrDefault();
+    }
+
     // Method to toggle sorting by number of likes
     private void SortProductsByLikes()
     {
@@ -145,6 +175,7 @@
     {
         ProductService.AddLike(productId);
         ApplyFilters();
+        SetTrendingProduct();
     }
 
     ProductModel selectedProduct;
