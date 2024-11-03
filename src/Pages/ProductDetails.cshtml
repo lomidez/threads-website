@@ -1,5 +1,5 @@
-@page "/ProductDetails/{id}"
-@model ContosoCrafts.WebSite.Pages.ReadModel
+﻿@page "/ProductDetails/{id}"
+@model ContosoCrafts.WebSite.Pages.ProductDetailsModel
 
 @if (Model.SelectedProduct != null)
 {
@@ -26,6 +26,12 @@
                     <a href="/?tag=@style">#@style</a>
                 }
             </p>
+            <form method="post" asp-page="./ProductDetails">
+                    <input type="hidden" name="id" value="@Model.SelectedProduct.Id" />
+                <button type="submit" asp-page-handler="AddLike" class="like-button">
+                    ❤️ @Model.SelectedProduct.Likes
+                </button>
+            </form>
 
         </div>
     </div>

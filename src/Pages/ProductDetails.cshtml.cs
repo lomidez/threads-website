@@ -21,5 +21,12 @@ namespace ContosoCrafts.WebSite.Pages
         {
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
         }
+
+        // Method to handle like submissions
+        public IActionResult OnPostAddLike(string id)
+        {
+            _productService.AddLike(id);
+            return RedirectToPage("/ProductDetails", new { id = id });
+        }
     }
 }
