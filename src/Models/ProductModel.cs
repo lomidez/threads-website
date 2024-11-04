@@ -67,6 +67,7 @@ namespace ContosoCrafts.WebSite.Models
         // Unique identifier for each product
         public string Id { get; set; }
 
+
         // Manufacturer of the product
         public string Maker { get; set; }
 
@@ -105,6 +106,8 @@ namespace ContosoCrafts.WebSite.Models
 
         // Category of the product, e.g., electronics, clothing
         public string Category { get; set; }
+
+
 
         // Size attribute to specify product size
         public string Size { get; set; }
