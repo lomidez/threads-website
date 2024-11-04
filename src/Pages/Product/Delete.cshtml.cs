@@ -35,39 +35,33 @@ namespace ContosoCrafts.WebSite.Pages
                 Style = string.Join(", ", SelectedProduct.Style ?? new List<string>());
             }
         }
-
         public IActionResult OnPost()
         {
-            // Ensure SelectedProduct is not null
-            if (SelectedProduct == null)
+            if (SelectedProduct == null || string.IsNullOrWhiteSpace(SelectedProduct.Id))
             {
+                TempData["Notification"] = "Error: Failed to delete product.";
                 return NotFound();
             }
 
-            // Fetch the selected product using its ID
-            SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == SelectedProduct.Id);
-
-            // Check if the selected product was found
-            if (SelectedProduct == null)
-            {
-                return NotFound(); // Return NotFound if the product does not exist
-            }
-
-            // Attempt to delete the product
-            var deletedProduct = _productService.DeleteData(SelectedProduct.Id); // Call to the delete method in your service
-
-            // Set TempData message based on deletion result
-            if (deletedProduct != null)
-            {
-                TempData["Notification"] = "Product successfully deleted.";
-            }          
-            if (deletedProduct == null) // If deletion failed (product not found)
+            // Attempt to delete the product directly using the ID from SelectedProduct
+            var deletedProduct = _productService.DeleteData(SelectedProduct.Id);
+            if (deletedProduct == null)
             {
                 TempData["Notification"] = "Error: Failed to delete product.";
-                return NotFound(); // Return NotFound if product does not exist
+                return NotFound();
             }
 
-            return RedirectToPage("./Index"); // Redirect to the index page after deletion
+            TempData["Notification"] = "Product successfully deleted.";
+            return RedirectToPage("./Index");
         }
+
+
+
+
+
+
+
+
+
     }
 }
