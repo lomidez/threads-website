@@ -109,21 +109,25 @@ namespace ContosoCrafts.WebSite.Services
         }
 
 
-        // Update SaveData to public to allow testing modifications
         public void SaveData(IEnumerable<ProductModel> products)
         {
-            using (var outputStream = File.Create(JsonFileName))
+            try
             {
-                JsonSerializer.Serialize<IEnumerable<ProductModel>>(
-                    new Utf8JsonWriter(outputStream, new JsonWriterOptions
-                    {
-                        SkipValidation = true,
-                        Indented = true
-                    }),
-                    products
-                );
+                using (var outputStream = File.Create(JsonFileName))
+                {
+                    JsonSerializer.Serialize(
+                        new Utf8JsonWriter(outputStream, new JsonWriterOptions { SkipValidation = true, Indented = true }),
+                        products);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Consider logging the error or handling it appropriately
+                Console.WriteLine($"Error saving data: {ex.Message}");
             }
         }
+
+
 
         public virtual bool CreateData(ProductModel data)
         {
