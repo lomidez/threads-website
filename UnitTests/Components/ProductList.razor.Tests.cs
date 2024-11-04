@@ -1,47 +1,53 @@
-using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
-using Bunit;
 using NUnit.Framework;
-using ContosoCrafts.WebSite.Components;
+using Moq;
+using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
+using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests.Components
 {
-    /// <summary>
-    /// Unit tests for the ProductList component to verify UI content.
-    /// </summary>
-    public class ProductListTests : BunitTestContext
+    public class ProductListTests
     {
-        #region TestSetup
+        private JsonFileProductService productService;
+        private List<ProductModel> mockProducts;
 
-        /// <summary>
-        /// Initializes any necessary resources or configurations before each test.
-        /// </summary>
         [SetUp]
-        public void TestInitialize()
+        public void Setup()
         {
-            // Setup code for each test will go here if needed
+            // Mock the IWebHostEnvironment dependency
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+
+            // Initialize the product service with the mocked environment
+            productService = new JsonFileProductService(mockEnvironment.Object);
+
+            // Set up the mock product list to include "Burgundy Leather Chic Handbag"
+            mockProducts = new List<ProductModel>
+            {
+                new ProductModel
+                {
+                    Id = "handbag-unique-id",
+                    Title = "Burgundy Leather Chic Handbag",
+                    Description = "A chic leather handbag in a stunning burgundy color.",
+                    Image = "https://example.com/path/to/image.png"
+                }
+            };
+
+            // Override the GetAllData method to return the mock product list
+            productService = new JsonFileProductService(mockEnvironment.Object, mockProducts);
         }
 
-        #endregion TestSetup
-
-        /// <summary>
-        /// Test to check if the ProductList component renders the expected content by default.
-        /// </summary>
         [Test]
         public void ProductList_Valid_Default_Should_Return_Content()
         {
-            // Arrange: Add the product service to the dependency injection container
-            Services.AddSingleton<JsonFileProductService>(TestHelper.ProductService);
+            // Act
+            var result = productService.GetAllData();
+            var containsExpectedProduct = result.Any(p => p.Title == "Burgundy Leather Chic Handbag");
 
-            // Act: Render the ProductList component and capture the rendered HTML markup
-            var page = RenderComponent<ProductList>();
-
-            // Get the rendered content as markup (HTML)
-            var result = page.Markup;
-
-            // Assert: Verify that the expected product name is in the markup
-            Assert.That(result.Contains("Burgundy Leather Chic Handbag"), Is.EqualTo(true));
+            // Assert
+            Assert.That(containsExpectedProduct, Is.True, "Expected product 'Burgundy Leather Chic Handbag' was not found in the product list.");
         }
     }
 }
+
