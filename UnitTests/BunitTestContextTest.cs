@@ -8,7 +8,7 @@ namespace UnitTests
     public class BunitTestContextTests : BunitTestContext
     {
         [Test]
-        public void TestContext_ShouldInitialize_AndDisposeCorrectly()
+        public void TestContext_Valid_Should_Initialize_And_Dispose_Correctly()
         {
             // Arrange
             var dummyComponent = TestContext.RenderComponent<DummyComponent>();
