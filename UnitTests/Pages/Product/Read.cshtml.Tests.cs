@@ -81,7 +81,7 @@ namespace UnitTests.Pages
         /// Test to check that when there are no products available, the selected product is null.
         /// </summary>
         [Test]
-        public void OnGet_No_Products_Available_Should_Return_Null()
+        public void OnGet_Valid_No_Products_Available_Should_Return_Null()
         {
             // Arrange: Set up the mock service to return an empty list, simulating no products
             mockProductService.Setup(service => service.GetAllData()).Returns(new List<ProductModel>());
