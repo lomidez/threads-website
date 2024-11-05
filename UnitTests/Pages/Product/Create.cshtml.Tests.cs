@@ -44,7 +44,7 @@ namespace UnitTests.Pages.Products
 
 
         [Test]
-        public void OnPost_DuplicateId_Should_Return_Page_With_Error()
+        public void OnPost_valid_DuplicateId_Should_Return_Page_With_Error()
         {
             // Arrange
             pageModel.NewProduct = new ProductModel { Id = "existing-id", Title = "New Product" };
