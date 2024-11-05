@@ -36,7 +36,7 @@ namespace UnitTests.Pages
         /// Tests that a valid product ID retrieves the corresponding product.
         /// </summary>
         [Test]
-        public void OnGet_Valid_Product_Id_Should_Return_Product()
+        public void OnGet_Valid_ProductId_Should_Return_Product()
         {
             // Arrange: Mocking product list containing a specific product ID
             var productList = new List<ProductModel>
@@ -57,7 +57,7 @@ namespace UnitTests.Pages
         /// Tests that an invalid product ID returns null as the selected product.
         /// </summary>
         [Test]
-        public void OnGet_InValid_Product_Id_Should_Return_Null()
+        public void OnGet_InValid_Non_Existent_ProductId_Should_Return_Null()
         {
             // Arrange: Mocking product list with a specific valid product ID
             var productList = new List<ProductModel>
@@ -96,7 +96,7 @@ namespace UnitTests.Pages
         /// Tests that submitting an invalid model state returns the current page for correction.
         /// </summary>
         [Test]
-        public void OnPost_InValid_Model_State_Should_Return_Page()
+        public void OnPost_InValid_ModelState_Should_Return_Page()
         {
             // Arrange: Adding a model error to simulate an invalid state
             updatePage.ModelState.AddModelError("Title", "Title is required");
@@ -112,7 +112,7 @@ namespace UnitTests.Pages
         /// Tests that a non-existent product ID returns a NotFound result.
         /// </summary>
         [Test]
-        public void OnPost_InValid_Non_Existent_Product_Should_Return_NotFound()
+        public void OnPost_InValid_Non_Existent_ProductId_Should_Return_NotFound()
         {
             // Arrange: Setting up a non-existent product to simulate a failed update
             var product = new ProductModel { Id = "nonexistent", Title = "Nonexistent Product" };
