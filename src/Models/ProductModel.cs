@@ -47,13 +47,8 @@ namespace ContosoCrafts.WebSite.Models
         // List of user comments on the product
         public List<CommentModel> CommentList { get; set; } = new List<CommentModel>();
 
-        // List of tags associated with the product, such as attributes like size or color
-        public List<TagModel> Tags { get; set; } = new List<TagModel>();
-
         // Category of the product, e.g., electronics, clothing
         public string Category { get; set; }
-
-
 
         // Size attribute to specify product size
         public string Size { get; set; }
