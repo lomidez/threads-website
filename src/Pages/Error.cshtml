@@ -1,26 +1,57 @@
 ﻿@page
 @model ErrorModel
+<!-- 
+    This allows the Razor view to access the properties and methods of the 'ErrorModel' class.
+-->
 @{
     ViewData["Title"] = "Error";
 }
+<!--
+    The ViewData dictionary is used to store data that will be available in the view. 
+    Here, it sets the title of the page to "Error", which will be used by the layout file (if it exists) or displayed in the title tag of the page.
+-->
 
 <h1 class="text-danger">Error.</h1>
+<!--
+    This is the main heading for the error page. It uses the 'text-danger' Bootstrap class to display the text in a red color.
+-->
+
 <h2 class="text-danger">An error occurred while processing your request.</h2>
+<!--
+    This is a secondary heading that provides a general message indicating that an error occurred. 
+    It also uses the 'text-danger' class to make the message red.
+-->
 
 @if (Model.ShowRequestId)
 {
     <p>
         <strong>Request ID:</strong> <code>@Model.RequestId</code>
     </p>
+    <!-- 
+        If 'ShowRequestId' is true in the model, it displays the Request ID of the error.
+        The 'RequestId' helps to track the error in log files or debugging.
+    -->
 }
 
 <h3>Development Mode</h3>
+<!-- 
+    A third-level heading indicating the section about "Development Mode". This is meant to provide guidance on enabling development features for debugging.
+-->
+
 <p>
     Swapping to the <strong>Development</strong> environment displays detailed information about the error that occurred.
 </p>
+<!--
+    This paragraph explains that enabling the "Development" environment shows detailed error information.
+-->
+
 <p>
     <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
     It can result in displaying sensitive information from exceptions to end users.
     For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
     and restarting the app.
 </p>
+<!-- 
+    This paragraph provides important advice: the "Development" environment should not be used in production because it exposes sensitive error details to the user. 
+    For local debugging, it suggests enabling "Development" by setting the 'ASPNETCORE_ENVIRONMENT' variable.
+-->
