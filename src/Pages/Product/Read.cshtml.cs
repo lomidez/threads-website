@@ -1,4 +1,4 @@
-using ContosoCrafts.WebSite.Models; 
+using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,34 +7,36 @@ using System.Linq;
 namespace ContosoCrafts.WebSite.Pages
 {
     /// <summary>
-    ///  Represents the model for the product, inheriting from PageMode
-    ///  This model handles the Read page's data and operations
+    /// Represents the model for the Read page, inheriting from PageModel.
+    /// This class handles the retrieval and display of a selected product's details.
     /// </summary>
     public class ReadModel : PageModel
     {
-        // Initializes a variable of the product service
+        // The service used for accessing product data from the JSON file
         private readonly JsonFileProductService _productService;
 
         /// <summary>
-        /// Initializes a new instsance of ReadModel class
+        /// Initializes a new instance of the ReadModel class with the specified product service.
         /// </summary>
-        /// <param name="productService">The service used to retrieve product data in JSON format</param>
+        /// <param name="productService">The service used to retrieve product data in JSON format.</param>
         public ReadModel(JsonFileProductService productService)
         {
             _productService = productService;
         }
 
         /// <summary>
-        /// Gets or setes the currently selected product to be displayed on the page
+        /// Gets or sets the currently selected product to be displayed on the page.
         /// </summary>
         public ProductModel SelectedProduct { get; set; }
 
         /// <summary>
-        /// Handles HTTP GET requests to display product informatiion
+        /// Handles HTTP GET requests to display information about a specific product.
+        /// Retrieves the product based on the provided ID parameter.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The ID of the product to retrieve.</param>
         public void OnGet(string id)
         {
+            // Retrieve the product with the matching ID from the product data
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
         }
     }
