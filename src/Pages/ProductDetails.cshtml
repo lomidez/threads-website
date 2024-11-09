@@ -1,17 +1,32 @@
 ﻿@page "/ProductDetails/{id}"
 @model ContosoCrafts.WebSite.Pages.ProductDetailsModel
 
+<!-- Check if the SelectedProduct is not null before rendering the product details -->
 @if (Model.SelectedProduct != null)
 {
     <div class="card">
-        <div class="card-body" , style="text-align: center">
+        <!-- Card body with center alignment for content -->
+        <div class="card-body" style="text-align: center">
+
+            <!-- Product Title: Displayed as an H2 heading with a specific color -->
             <h2 style="color:#5b5b5b"> @Model.SelectedProduct.Title</h2>
+
+            <!-- Product Description: Display the description text of the product -->
             <p>@Model.SelectedProduct.Description</p>
+
+            <!-- Product Image: Display the product's image, using a responsive image class for fluid resizing -->
             <img src="@Model.SelectedProduct.Image" class="img-fluid">
 
+            <!-- Category: Displayed as a clickable link to filter by category -->
             <p>Category: <a href="/?tag=@Model.SelectedProduct.Category">#@Model.SelectedProduct.Category</a></p>
+
+            <!-- Size: Displayed as a clickable link to filter by size -->
             <p>Size: <a href="/?tag=@Model.SelectedProduct.Size">#@Model.SelectedProduct.Size</a></p>
+
+            <!-- Color: Displayed as a clickable link to filter by color -->
             <p>Color: <a href="/?tag=@Model.SelectedProduct.Color">#@Model.SelectedProduct.Color</a></p>
+
+            <!-- Material: Iterates through the product materials and displays them as clickable links for filtering -->
             <p>
                 Material:
                 @foreach (var material in Model.SelectedProduct.Material)
@@ -19,6 +34,8 @@
                     <a href="/?tag=@material">#@material</a>
                 }
             </p>
+
+            <!-- Style: Iterates through the product styles and displays them as clickable links for filtering -->
             <p>
                 Style:
                 @foreach (var style in Model.SelectedProduct.Style)
@@ -26,8 +43,12 @@
                     <a href="/?tag=@style">#@style</a>
                 }
             </p>
+
+            <!-- Like Button: Form to post the "like" action for the product, passing the product ID and showing the current like count -->
             <form method="post" asp-page="./ProductDetails">
-                    <input type="hidden" name="id" value="@Model.SelectedProduct.Id" />
+                <input type="hidden" name="id" value="@Model.SelectedProduct.Id" />
+
+                <!-- Submit button to trigger the AddLike handler with the current like count -->
                 <button type="submit" asp-page-handler="AddLike" class="like-button">
                     ❤️ <span class="like-count">@Model.SelectedProduct.Likes</span>
                 </button>
