@@ -29,7 +29,7 @@
       "Width": 15,
       "Height": 25
     },
-    "Likes": 0
+    "Likes": 18
   },
   {
     "Id": "white-bag",
@@ -60,7 +60,7 @@
       "Width": 15,
       "Height": 30
     },
-    "Likes": 0
+    "Likes": 9
   },
   {
     "Id": "urban-bag",
@@ -92,7 +92,7 @@
       "Width": 20,
       "Height": 30
     },
-    "Likes": 0
+    "Likes": 24
   },
   {
     "Id": "versatile-tote",
@@ -123,7 +123,7 @@
       "Width": 30,
       "Height": 15
     },
-    "Likes": 0
+    "Likes": 3
   },
   {
     "Id": "leather-jacket",
@@ -154,7 +154,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 0
+    "Likes": 7
   },
   {
     "Id": "vintage-leather",
@@ -185,7 +185,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 0
+    "Likes": 17
   },
   {
     "Id": "suede-jacket",
@@ -216,7 +216,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 0
+    "Likes": 4
   },
   {
     "Id": "cozy-jacket",
@@ -247,7 +247,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 0
+    "Likes": 28
   },
   {
     "Id": "olive-jacket",
@@ -278,7 +278,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 0
+    "Likes": 7
   },
   {
     "Id": "black-min-jacket",
@@ -309,7 +309,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 0
+    "Likes": 15
   },
   {
     "Id": "fur-jacket",
@@ -341,7 +341,7 @@
       "Width": 55,
       "Height": 7
     },
-    "Likes": 0
+    "Likes": 24
   },
   {
     "Id": "bomber-jacket",
@@ -372,7 +372,7 @@
       "Width": 55,
       "Height": 5
     },
-    "Likes": 0
+    "Likes": 29
   },
   {
     "Id": "navy-pants",
@@ -403,7 +403,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 2
   },
   {
     "Id": "classic-pants",
@@ -434,7 +434,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 17
   },
   {
     "Id": "cotton-pants",
@@ -465,7 +465,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 17
   },
   {
     "Id": "grey-pants",
@@ -496,7 +496,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 2
   },
   {
     "Id": "clay-pants",
@@ -527,7 +527,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 21
   },
   {
     "Id": "brown-shirt",
@@ -558,7 +558,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 11
   },
   {
     "Id": "pixel-shirt",
@@ -589,7 +589,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 12
   },
   {
     "Id": "vintage-shirt",
@@ -620,7 +620,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 24
   },
   {
     "Id": "min-shirt",
@@ -651,7 +651,7 @@
       "Width": 25,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 31
   },
   {
     "Id": "baby-milo",
@@ -682,7 +682,7 @@
       "Width": 25,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 46
   },
   {
     "Id": "cream-shirt",
@@ -713,6 +713,6 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 0
+    "Likes": 2
   }
 ]
