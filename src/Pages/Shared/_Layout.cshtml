@@ -1,30 +1,51 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Meta tag specifying the character encoding for the page -->
     <meta charset="utf-8" />
+
+    <!-- Meta tag for viewport settings to ensure responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Title of the page, dynamically set based on the ViewData["Title"] -->
     <title>@ViewData["Title"] - Threads </title>
+
+    <!-- Link to Bootstrap CSS for styling the page with pre-defined classes -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+
+    <!-- Custom site CSS for additional styling -->
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <!-- External Google Fonts used for styling text on the page -->
     <link href="https://fonts.googleapis.com/css?family=Yellowtail&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Header section containing the navigation bar -->
     <header>
+        <!-- Navbar using Bootstrap classes, providing the layout and styling for navigation -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
             <div class="container">
+                <!-- Brand logo for the navigation bar, linking back to the homepage -->
                 <a class="navbar-brand" asp-area="" asp-page="/Index">
-                <img src="https://i.imgur.com/Ay7OxEH.png" alt="logo image" style="width:90px; height:auto;" />
+                    <!-- Logo image with alt text, styled with width set to 90px -->
+                    <img src="https://i.imgur.com/Ay7OxEH.png" alt="logo image" style="width:90px; height:auto;" />
                 </a>
+
+                <!-- Navbar toggle button for smaller screens, to collapse and expand the navigation menu -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Collapsible navbar content -->
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        <!-- Privacy page link in the navigation menu -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
+                        <!-- Products page link in the navigation menu -->
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="./Product/Index">Products</a>
                         </li>
@@ -33,22 +54,31 @@
             </div>
         </nav>
     </header>
+
+    <!-- Main content section of the page -->
     <div class="container">
         <main role="main" class="pb-3">
+            <!-- This will render the body of the page, where content is injected dynamically -->
             @RenderBody()
         </main>
     </div>
 
+    <!-- Footer section containing copyright information -->
     <footer class="border-top footer text-muted bg-footer">
         <div class="container">
+            <!-- Copyright notice with a link to the Privacy page -->
             &copy; 2024 - Threads - <a asp-area="" asp-page="/Privacy">Privacy</a>
         </div>
     </footer>
 
+    <!-- External JavaScript libraries for interactivity and responsive behavior -->
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+    <!-- Custom JavaScript file for the site -->
     <script src="~/js/site.js" asp-append-version="true"></script>
 
+    <!-- Section for additional scripts if required by specific pages -->
     @RenderSection("Scripts", required: false)
 </body>
 </html>
