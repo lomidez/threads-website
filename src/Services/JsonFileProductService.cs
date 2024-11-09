@@ -32,7 +32,7 @@ namespace ContosoCrafts.WebSite.Services
             get
             {
                 // Find the path relative to the project root for consistent access during tests
-                return Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data", "products.json");
+                return Path.Combine(WebHostEnvironment.WebRootPath, "data", "products.json");
             }
         }
 
@@ -116,18 +116,20 @@ namespace ContosoCrafts.WebSite.Services
                 using (var outputStream = File.Create(JsonFileName))
                 {
                     JsonSerializer.Serialize(
-                        new Utf8JsonWriter(outputStream, new JsonWriterOptions { SkipValidation = true, Indented = true }),
+                        new Utf8JsonWriter(
+                            outputStream, 
+                            new JsonWriterOptions { 
+                                SkipValidation = true, 
+                                Indented = true 
+                            }),
                         products);
                 }
             }
             catch (Exception ex)
             {
-                // Consider logging the error or handling it appropriately
                 Console.WriteLine($"Error saving data: {ex.Message}");
             }
         }
-
-
 
         public virtual bool CreateData(ProductModel data)
         {
