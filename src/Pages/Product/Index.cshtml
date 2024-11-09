@@ -1,25 +1,36 @@
 ﻿@page
 @model ContosoCrafts.WebSite.Pages.Product.IndexModel
+
 @{
+    // Sets the page title displayed in the browser tab
     ViewData["Title"] = "Index page";
 }
+
+<!-- Main heading for the Index page -->
 <h1> Welcome to Threads !!</h1>
+
 <!-- Notification Message Display -->
+<!-- Checks if there is a notification message stored in TempData -->
 @if (TempData["Notification"] != null)
 {
+    <!-- Displays an alert with the notification message -->
     <script>
         alert('@TempData["Notification"]');
     </script>
 }
-<!-- Button to navigate to Create Product page -->
+
+<!-- Button to navigate to the Create Product page -->
 <div style="margin-bottom: 20px;">
     <a href="/Create" class="btn btn-primary">Create New Product</a>
 </div>
 
+<!-- Main container for displaying the list of products -->
 <div class="container">
+    <!-- Table structure to display product information -->
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
+                <!-- Table headers for product title and actions -->
                 <th>Title</th>
                 <th>Action</th>
                 <th>Action</th>
@@ -27,13 +38,26 @@
             </tr>
         </thead>
         <tbody>
+            <!-- Iterates through each product in the model's Products list -->
             @foreach (var product in Model.Products)
             {
                 <tr>
+                    <!-- Displays the product title -->
                     <td>@product.Title</td>
-                    <td><a asp-page="Read" asp-route-id="@product.Id">Read</a></td>
-                    <td><a asp-page="Update" asp-route-id="@product.Id">Update</a></td>
-                    <td><a asp-page="Delete" asp-route-id="@product.Id">Delete</a></td>
+
+                    <!-- Action links for Read, Update, and Delete operations -->
+                    <td>
+                        <!-- Link to the Read page with the product ID passed as a route parameter -->
+                        <a asp-page="Read" asp-route-id="@product.Id">Read</a>
+                    </td>
+                    <td>
+                        <!-- Link to the Update page with the product ID passed as a route parameter -->
+                        <a asp-page="Update" asp-route-id="@product.Id">Update</a>
+                    </td>
+                    <td>
+                        <!-- Link to the Delete page with the product ID passed as a route parameter -->
+                        <a asp-page="Delete" asp-route-id="@product.Id">Delete</a>
+                    </td>
                 </tr>
             }
         </tbody>
