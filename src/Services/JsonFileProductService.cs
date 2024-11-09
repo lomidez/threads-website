@@ -8,25 +8,42 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace ContosoCrafts.WebSite.Services
 {
+    /// <summary>
+    /// Service class for managing product data using a JSON file.
+    /// </summary>
     public class JsonFileProductService
     {
-        private List<ProductModel> _testProducts; // Field for holding mock data during tests
+        // Holds mock product data for testing purposes
+        private List<ProductModel> _testProducts;
 
-        // Constructor for regular use (without mock data)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonFileProductService"/> class.
+        /// </summary>
+        /// <param name="webHostEnvironment">The web host environment for accessing the web root path.</param>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment)
         {
             WebHostEnvironment = webHostEnvironment;
         }
 
-        // Optional constructor for injecting mock data for testing
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsonFileProductService"/> class with mock data for testing.
+        /// </summary>
+        /// <param name="webHostEnvironment">The web host environment for accessing the web root path.</param>
+        /// <param name="testProducts">The mock product data for testing.</param>
         public JsonFileProductService(IWebHostEnvironment webHostEnvironment, List<ProductModel> testProducts)
         {
             WebHostEnvironment = webHostEnvironment;
             _testProducts = testProducts; // Assign test data
         }
 
+        /// <summary>
+        /// Gets the web host environment.
+        /// </summary>
         public IWebHostEnvironment WebHostEnvironment { get; }
 
+        /// <summary>
+        /// Gets the file name for the JSON file containing product data.
+        /// </summary>
         private string JsonFileName
         {
             get
@@ -36,6 +53,10 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        /// <summary>
+        /// Gets all product data. Returns mock data if available, otherwise reads from the JSON file.
+        /// </summary>
+        /// <returns>An enumerable collection of <see cref="ProductModel"/> objects.</returns>
         public virtual IEnumerable<ProductModel> GetAllData()
         {
             // Return mock data if provided for testing
@@ -52,6 +73,12 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        /// <summary>
+        /// Adds a rating to a product by its ID.
+        /// </summary>
+        /// <param name="productId">The product ID to which the rating is added.</param>
+        /// <param name="rating">The rating value (0-5).</param>
+        /// <returns>True if the rating was added successfully; otherwise, false.</returns>
         public bool AddRating(string productId, int rating)
         {
             if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
@@ -61,25 +88,32 @@ namespace ContosoCrafts.WebSite.Services
 
             var products = GetAllData().ToList();
             var data = products.FirstOrDefault(x => x.Id.Equals(productId));
+            
             if (data == null)
             {
                 return false;
             }
 
+            // Initialize ratings array if it's null
             if (data.Ratings == null)
             {
                 data.Ratings = new int[] { };
             }
 
-            var ratings = data.Ratings.ToList();
-            ratings.Add(rating);
-            data.Ratings = ratings.ToArray();
+            var ratings = data.Ratings.ToList(); // Convert existing ratings to a list
+            ratings.Add(rating); // Add the new rating
+            data.Ratings = ratings.ToArray(); // Assign the updated ratings array
 
             SaveData(products);
 
             return true;
         }
 
+        /// <summary>
+        /// Updates the data of an existing product.
+        /// </summary>
+        /// <param name="data">The updated product data.</param>
+        /// <returns>The updated <see cref="ProductModel"/> if the product exists; otherwise, null.</returns>
         public virtual ProductModel UpdateData(ProductModel data)
         {
             var products = GetAllData().ToList();
@@ -91,7 +125,7 @@ namespace ContosoCrafts.WebSite.Services
                 return null;
             }
 
-            // Update fields
+            // Update product fields with new data
             productData.Title = data.Title;
             productData.Description = data.Description?.Trim();
             productData.Url = data.Url;
@@ -108,7 +142,10 @@ namespace ContosoCrafts.WebSite.Services
             return productData;
         }
 
-
+        /// <summary>
+        /// Saves the provided list of products to the JSON file.
+        /// </summary>
+        /// <param name="products">The list of products to save.</param>
         public void SaveData(IEnumerable<ProductModel> products)
         {
             try
@@ -131,6 +168,11 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new product entry and saves it to the data store.
+        /// </summary>
+        /// <param name="data">The product data to create.</param>
+        /// <returns>True if the product was created successfully; otherwise, false.</returns>
         public virtual bool CreateData(ProductModel data)
         {
             try
@@ -146,7 +188,11 @@ namespace ContosoCrafts.WebSite.Services
             }
         }
 
-        // Method to increment likes
+        /// <summary>
+        /// Increments the like count for a specific product.
+        /// </summary>
+        /// <param name="productId">The product ID whose like count is to be incremented.</param>
+        /// <returns>True if the like count was incremented successfully; otherwise, false.</returns>
         public bool AddLike(string productId)
         {
             var products = GetAllData().ToList();
@@ -159,7 +205,11 @@ namespace ContosoCrafts.WebSite.Services
             return true;
         }
 
-        // Method to reset likes
+        /// <summary>
+        /// Resets the like count for a specific product to zero.
+        /// </summary>
+        /// <param name="productId">The product ID whose like count is to be reset.</param>
+        /// <returns> True if the like count was reset successfully ; otherwise False</returns>
         public bool ResetLikes(string productId)
         {
             var products = GetAllData().ToList();
@@ -172,8 +222,11 @@ namespace ContosoCrafts.WebSite.Services
             return true;
         }
 
-
-
+        /// <summary>
+        /// Deletes a product by its ID.
+        /// </summary>
+        /// <param name="id"> the product Id to delete </param>
+        /// <returns> The deleted <see cref="ProductModel"/> if the product was found and deleted; otherwise null </returns>
         public virtual ProductModel DeleteData(string id)
         {
             var productList = _testProducts ?? GetAllData().ToList(); // Use _testProducts if in test mode
