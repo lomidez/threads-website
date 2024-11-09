@@ -59,6 +59,12 @@
                 <input id="Style" name="Style" class="form-control" />
             </div>
 
+            <div class="form-group">
+                <label asp-for="NewProduct.Price">Price</label>
+                <input asp-for="NewProduct.Price" class="form-control" />
+                <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
+            </div>
+
             <button type="submit" class="btn btn-primary">Create</button>
             <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
         </form>
