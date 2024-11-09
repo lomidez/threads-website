@@ -11,8 +11,11 @@
         </div>
         <div class="sidebar-content">
             <div class="filter-input">
-                <input type="text" @bind="Tag" placeholder="Filter by keyword" />
-                <button @onclick="OnInitialized">Filter</button>
+                <input type="text" @bind="Tag" 
+                    @bind:event="oninput" 
+                    @onkeydown="@(e => { if (e.Key == "Enter") {ApplyFilters(); }})" 
+                    placeholder="Search (Powered By Buzzword)" />
+                <button @onclick="OnInitialized">Search</button>
             </div>
             <div class="categories-list">
                 @foreach (var item in DataPermutations)
@@ -128,6 +131,36 @@
         SetTrendingProduct();
     }
 
+    private bool IsFuzzyMatch(string source, string searchTerm)
+    {
+        if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(searchTerm))
+        {
+            return false;
+        }
+
+        // Convert all terms to ensure case insensitivity
+        source = source.ToLower();
+        searchTerm = searchTerm.ToLower();
+
+        // Return if the tag contains the search term
+        if (source.Contains(searchTerm))
+        {
+            return true;
+        }
+
+        // Return if the search term contains the tag
+        if (searchTerm.Contains(source))
+        {
+            return true;
+        }
+
+        // Split each of the search words by comma in the event user it trying to comma seperate
+        var searchWords = searchTerm.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
+        // Return if values that were seperated by a comma are contained
+        return searchWords.Any(word => source.Contains(word));
+    }
+
     // Method to apply filters and sorting
     private void ApplyFilters()
     {
@@ -141,12 +174,19 @@
         // Filter by tag if a tag is provided
         if (!string.IsNullOrEmpty(Tag))
         {
+            // Get all search terms
+            var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+            // Filter products to ones where we have a fuzzy match for all search terms
             FilteredProducts = allProducts.Where(p =>
-                p.Category.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
-                p.Size.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
-                p.Color.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
-                p.Material.Any(m => m.Equals(Tag, StringComparison.OrdinalIgnoreCase)) ||
-                p.Style.Any(s => s.Equals(Tag, StringComparison.OrdinalIgnoreCase))
+                searchTerms.All(term =>
+                    IsFuzzyMatch(p.Category, term) ||
+                    IsFuzzyMatch(p.Size, term) ||
+                    IsFuzzyMatch(p.Color, term) ||
+                    IsFuzzyMatch(p.Description ?? "", term) ||
+                    p.Material.Any(m => IsFuzzyMatch(m, term)) ||
+                    p.Style.Any(s => IsFuzzyMatch(s, term))
+                )
             );
         }
 
