@@ -1,71 +1,98 @@
 @page "/Create"
 @model ContosoCrafts.WebSite.Pages.CreateModel
 
+<!--
+    This Razor page allows the user to create a new product entry.
+    It provides a form for inputting product details such as Id, Title, Description, Image, Category, Size, Color, Material, Style, and Price.
+-->
+
 <div class="card">
     <div class="card-body" style="text-align: center">
         <h2>Create Product</h2>
+
+        <!-- Form submission using POST method to create a new product -->
         <form method="post">
             <!-- No hidden fields needed for new product -->
-
+            <!-- Input field for Product Id -->
             <div class="form-group">
                 <label asp-for="NewProduct.Id">Id</label>
                 <input asp-for="NewProduct.Id" class="form-control" />
+                <!-- Error message for invalid Id input -->
                 <span asp-validation-for="NewProduct.Id" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Title -->
             <div class="form-group">
                 <label asp-for="NewProduct.Title">Title</label>
                 <input asp-for="NewProduct.Title" class="form-control" />
+                <!-- Error message for invalid Title input -->
                 <span asp-validation-for="NewProduct.Title" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Description -->
             <div class="form-group">
                 <label asp-for="NewProduct.Description">Description</label>
                 <input asp-for="NewProduct.Description" class="form-control" />
+                <!-- Error message for invalid Description input -->
                 <span asp-validation-for="NewProduct.Description" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Image URL -->
             <div class="form-group">
                 <label asp-for="NewProduct.Image">Image Link</label>
                 <input asp-for="NewProduct.Image" class="form-control" />
+                <!-- Error message for invalid Image input -->
                 <span asp-validation-for="NewProduct.Image" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Category -->
             <div class="form-group">
                 <label asp-for="NewProduct.Category">Category</label>
                 <input asp-for="NewProduct.Category" class="form-control" />
+                <!-- Error message for invalid Category input -->
                 <span asp-validation-for="NewProduct.Category" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Size -->
             <div class="form-group">
                 <label asp-for="NewProduct.Size">Size</label>
                 <input asp-for="NewProduct.Size" class="form-control" />
+                <!-- Error message for invalid Size input -->
                 <span asp-validation-for="NewProduct.Size" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Color -->
             <div class="form-group">
                 <label asp-for="NewProduct.Color">Color</label>
                 <input asp-for="NewProduct.Color" class="form-control" />
+                <!-- Error message for invalid Color input -->
                 <span asp-validation-for="NewProduct.Color" class="text-danger"></span>
             </div>
 
+            <!-- Input field for Product Material (comma-separated values) -->
             <div class="form-group">
                 <label for="Material">Material (comma-separated)</label>
                 <input id="Material" name="Material" class="form-control" />
             </div>
 
+            <!-- Input field for Product Style (comma-separated values) -->
             <div class="form-group">
                 <label for="Style">Style (comma-separated)</label>
                 <input id="Style" name="Style" class="form-control" />
             </div>
 
+            <!-- Input field for Product Price -->
             <div class="form-group">
                 <label asp-for="NewProduct.Price">Price</label>
                 <input asp-for="NewProduct.Price" class="form-control" />
+                <!-- Error message for invalid Price input -->
                 <span asp-validation-for="NewProduct.Price" class="text-danger"></span>
             </div>
 
+            <!-- Submit button to create the product -->
             <button type="submit" class="btn btn-primary">Create</button>
+
+            <!-- Cancel button to return to the main product list -->
             <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
