@@ -1,13 +1,44 @@
 ﻿@page
+<!-- 
+    The page will be routed based on the URL pattern defined in the routing configuration.
+-->
+
 @using ContosoCrafts.WebSite.Components
+<!--
+    This is necessary for using the 'ProductList' component in the page.
+-->
+
 @model ContosoCrafts.WebSite.Pages.IndexModel
+<!--
+    This provides access to the properties and methods of the 'IndexModel' class in the Razor view.
+-->
+
 @{
     ViewData["Title"] = "Home page";
 }
+<!-- 
+    The ViewData dictionary is used to store data that will be available in the view.
+    Here, it sets the title of the page to "Home page". This will be used in the layout page to display the title or in the browser tab.
+-->
+
 @if (!string.IsNullOrEmpty(Model.Tag))
 {
     <h3>Searching for: @Model.Tag</h3>
 }
+<!-- 
+    This conditional statement checks if the 'Tag' property in the 'Model' is not null or empty.
+    If the 'Tag' is provided (e.g., through a query parameter), it displays a heading showing the tag being searched for.
+-->
+
 @(await Html.RenderComponentAsync<ProductList>(RenderMode.ServerPrerendered, new { Tag = Model.Tag }))
+<!--
+    This line renders a Blazor component asynchronously. It uses 'Html.RenderComponentAsync' to render the 'ProductList' component.
+    - 'RenderMode.ServerPrerendered' specifies that the component should be prerendered on the server (for SEO purposes and faster initial loading) but will use Blazor Server for interactivity once it is fully loaded.
+    - The 'new { Tag = Model.Tag }' passes the 'Tag' property from the model to the 'ProductList' component, allowing it to filter products by the specified tag.
+-->
 
 <script src="_framework/blazor.server.js"></script>
+<!-- 
+    This script includes the Blazor server-side JavaScript file necessary for enabling Blazor functionality in the page.
+    This file is responsible for handling interactions between the browser and the server when using Blazor components.
+-->
