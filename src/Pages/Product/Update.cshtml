@@ -1,73 +1,109 @@
 @page "/Update/{id}"
 @model ContosoCrafts.WebSite.Pages.UpdateModel
 
+<!-- Check if the selected product exists in the model -->
 @if (Model.SelectedProduct != null)
 {
+    <!-- Card to display the update form -->
     <div class="card">
         <div class="card-body" style="text-align: center">
+            <!-- Heading for the Update Product form -->
             <h2>Update Product</h2>
+
+            <!-- Begin the form for updating the product -->
             <form method="post">
+                <!-- Hidden field for storing the product ID (so it's included in the POST request) -->
                 <input type="hidden" asp-for="SelectedProduct.Id" />
+
+                <!-- Hidden field for storing the product URL -->
                 <input type="hidden" asp-for="SelectedProduct.Url" />
 
+                <!-- Form group for updating the Title -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Title">Title</label>
+                    <!-- Input field for product title, bound to the model -->
                     <input asp-for="SelectedProduct.Title" class="form-control" />
+                    <!-- Validation message for title -->
                     <span asp-validation-for="SelectedProduct.Title" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Description -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Description">Description</label>
+                    <!-- Input field for product description, bound to the model -->
                     <input asp-for="SelectedProduct.Description" class="form-control" />
+                    <!-- Validation message for description -->
                     <span asp-validation-for="SelectedProduct.Description" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Image Link -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Image">Image Link</label>
+                    <!-- Input field for product image URL, bound to the model -->
                     <input asp-for="SelectedProduct.Image" class="form-control" />
+                    <!-- Validation message for image link -->
                     <span asp-validation-for="SelectedProduct.Image" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Category -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Category">Category</label>
+                    <!-- Input field for product category, bound to the model -->
                     <input asp-for="SelectedProduct.Category" class="form-control" />
+                    <!-- Validation message for category -->
                     <span asp-validation-for="SelectedProduct.Category" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Size -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Size">Size</label>
+                    <!-- Input field for product size, bound to the model -->
                     <input asp-for="SelectedProduct.Size" class="form-control" />
+                    <!-- Validation message for size -->
                     <span asp-validation-for="SelectedProduct.Size" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Color -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Color">Color</label>
+                    <!-- Input field for product color, bound to the model -->
                     <input asp-for="SelectedProduct.Color" class="form-control" />
+                    <!-- Validation message for color -->
                     <span asp-validation-for="SelectedProduct.Color" class="text-danger"></span>
                 </div>
 
+                <!-- Form group for updating the Material (comma-separated) -->
                 <div class="form-group">
                     <label for="Material">Material (comma-separated)</label>
+                    <!-- Input field for material, which is a comma-separated list of materials -->
                     <input id="Material" name="Material" class="form-control" value="@string.Join(", ", Model.SelectedProduct.Material)" />
                 </div>
 
+                <!-- Form group for updating the Style (comma-separated) -->
                 <div class="form-group">
                     <label for="Style">Style (comma-separated)</label>
+                    <!-- Input field for style, which is a comma-separated list of styles -->
                     <input id="Style" name="Style" class="form-control" value="@string.Join(", ", Model.SelectedProduct.Style)" />
                 </div>
 
+                <!-- Form group for updating the Price -->
                 <div class="form-group">
                     <label asp-for="SelectedProduct.Price">Price</label>
+                    <!-- Input field for product price, bound to the model -->
                     <input asp-for="SelectedProduct.Price" class="form-control" />
+                    <!-- Validation message for price -->
                     <span asp-validation-for="SelectedProduct.Price" class="text-danger"></span>
                 </div>
 
-
+                <!-- Button to reset likes count -->
                 <button type="submit" asp-page-handler="ResetLikes" class="btn btn-warning">
                     Reset Likes
                 </button>
 
+                <!-- Button to submit the form and update the product -->
                 <button type="submit" class="btn btn-primary">Update</button>
+
+                <!-- Button to navigate back to the Index page (cancel the update) -->
                 <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
             </form>
         </div>
