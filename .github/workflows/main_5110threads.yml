@@ -1,0 +1,56 @@
+# GitHub Actions for deploying an ASP.Net Core app to Azure Web App - 5110Threads
+
+name: Build and deploy ASP.Net Core app to Azure Web App - 5110Threads
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '3.1'
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: Publish with dotnet
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: dotnet-app
+          path: ./publish # Ensure this matches the output directory of publish
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: dotnet-app
+          path: ./downloaded-artifact # This can be any directory where you want to save the artifact
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: '5110Threads'
+          slot-name: 'Production'
+          package: ./downloaded-artifact # Path where the downloaded artifact is stored
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_825F9E522C5341B8A3DDE6E64DB258FF }}
