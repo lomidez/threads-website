@@ -1,49 +1,75 @@
 @page "/Read/{id}"
 @model ContosoCrafts.WebSite.Pages.ReadModel
 
+<!-- Check if the selected product exists in the model -->
 @if (Model.SelectedProduct != null)
 {
+    <!-- Card to display product details -->
     <div class="card">
         <div class="card-body" style="text-align: center">
+
+            <!-- Display the title of the selected product -->
             <h2>@Model.SelectedProduct.Title</h2>
+
+            <!-- Display the description of the selected product -->
             <p>@Model.SelectedProduct.Description</p>
+
+            <!-- Display the product category -->
             <p>Category: @Model.SelectedProduct.Category</p>
+
+            <!-- Display the product size -->
             <p>Size: @Model.SelectedProduct.Size</p>
+
+            <!-- Display the product color -->
             <p>Color: @Model.SelectedProduct.Color</p>
+
+            <!-- Display the product materials -->
             <p>
                 Material:
                 @{
+                    // Get the list of materials associated with the product
                     var materialList = Model.SelectedProduct.Material;
+
+                    // Iterate over each material and display them, separating by commas
                     for (var i = 0; i < materialList.Count; i++)
                     {
                         @materialList[i]
                         if (i < materialList.Count - 1)
                         {
+                            <!-- Add a comma between materials if it's not the last item -->
                             <text>, </text>
                         }
                     }
                 }
             </p>
+
+            <!-- Display the product styles -->
             <p>
                 Style:
                 @{
+                    // Get the list of styles associated with the product
                     var styleList = Model.SelectedProduct.Style;
+
+                    // Iterate over each style and display them, separating by commas
                     for (var i = 0; i < styleList.Count; i++)
                     {
                         @styleList[i]
                         if (i < styleList.Count - 1)
                         {
+                            <!-- Add a comma between styles if it's not the last item -->
                             <text>, </text>
                         }
                     }
                 }
             </p>
+
+            <!-- Display the number of likes for the selected product -->
             <p>Number of likes: @Model.SelectedProduct.Likes</p>
         </div>
     </div>
 }
 else
 {
+    <!-- If the product is not found, display a message -->
     <p>Product not found.</p>
 }
-
