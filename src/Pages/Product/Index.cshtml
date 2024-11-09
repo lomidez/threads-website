@@ -6,8 +6,11 @@
     ViewData["Title"] = "Index page";
 }
 
-<!-- Main heading for the Index page -->
-<h1> Welcome to Threads !!</h1>
+<div style="display: flex; justify-content: space-between; align-items: center;">
+    <h1> Welcome to Threads !!</h1>
+    <a href="/Create" class="btn btn-primary">Create New Product</a>
+</div>
+
 
 <!-- Notification Message Display -->
 <!-- Checks if there is a notification message stored in TempData -->
@@ -18,11 +21,6 @@
         alert('@TempData["Notification"]');
     </script>
 }
-
-<!-- Button to navigate to the Create Product page -->
-<div style="margin-bottom: 20px;">
-    <a href="/Create" class="btn btn-primary">Create New Product</a>
-</div>
 
 <!-- Main container for displaying the list of products -->
 <div class="container">
