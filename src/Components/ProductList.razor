@@ -4,20 +4,22 @@
 @inject JsonFileProductService ProductService
 
 <div class="products-page">
-    <!-- Sidebar -->
+    <!-- Sidebar for filters -->
     <div class="products-sidebar">
         <div class="sidebar-header">
             <h3>Filters</h3>
         </div>
         <div class="sidebar-content">
             <div class="filter-input">
-                <input type="text" @bind="Tag" 
-                    @bind:event="oninput" 
-                    @onkeydown="@(e => { if (e.Key == "Enter") {ApplyFilters(); }})" 
-                    placeholder="Search (Powered By Buzzword)" />
+                <!-- Search input box with search button -->
+                <input type="text" @bind="Tag"
+                       @bind:event="oninput"
+                       @onkeydown="@(e => { if (e.Key == "Enter") {ApplyFilters(); }})"
+                       placeholder="Search (Powered By Buzzword)" />
                 <button @onclick="OnInitialized">Search</button>
             </div>
             <div class="categories-list">
+                <!-- Dynamically generated filter categories and values -->
                 @foreach (var item in DataPermutations)
                 {
                     <div class="category-item">
@@ -32,7 +34,7 @@
         </div>
     </div>
 
-    <!-- Main Content -->
+    <!-- Main content section -->
     <div class="products-main">
         <!-- Trending Now Section -->
         @if (TrendingProducts != null && TrendingProducts.Any())
@@ -58,11 +60,12 @@
             </div>
         }
 
+        <!-- Sort by Likes button -->
         <button @onclick="SortProductsByLikes" style="background-color: @(IsSortedByLikes ? "#D0F520" : "grey"); color: white;">
             Sort by Number of Likes
         </button>
 
-
+        <!-- No products message -->
         @if (!FilteredProducts.Any())
         {
             <div class="text-center p-4">
@@ -70,6 +73,7 @@
             </div>
         }
 
+        <!-- Display filtered products -->
         <div class="card-columns">
             @foreach (var product in FilteredProducts)
             {
@@ -81,6 +85,7 @@
                             <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title</h5>
                         </div>
                     </a>
+                    <!-- Like button for each product -->
                     <button @onclick="() => AddLike(product.Id)" class="like-button">
                         ❤️ <span class="like-count">@product.Likes</span>
                     </button>
@@ -90,6 +95,7 @@
     </div>
 </div>
 
+<!-- Modal for displaying selected product details -->
 @if (selectedProduct != null)
 {
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
@@ -116,27 +122,38 @@
 }
 
 @code {
-    // Parameter for the selected tag
+    /// <summary>
+    /// Parameter for the selected tag from the filter input.
+    /// </summary>
     [Parameter] public string Tag { get; set; }
 
+    // Stores permutations of product categories, sizes, and colors
     private Dictionary<string, HashSet<string>> DataPermutations { get; set; }
 
-    // List of filtered products
+    // List of products filtered based on search criteria
     private IEnumerable<ProductModel> FilteredProducts;
 
-    // State to track sorting by likes
+    // Boolean to track if products are sorted by likes
     private bool IsSortedByLikes { get; set; } = false;
 
-    // Products with the most likes
+    // List of top 5 products with the most likes
     private List<ProductModel> TrendingProducts { get; set; }
 
-
+    /// <summary>
+    /// Initializes component and sets up default data.
+    /// </summary>
     protected override void OnInitialized()
     {
         ApplyFilters();
         SetTrendingProduct();
     }
 
+    /// <summary>
+    /// Checks if a source string matches a search term (case-insensitive and partial matches allowed).
+    /// </summary>
+    /// <param name="source">The source string to search within.</param>
+    /// <param name="searchTerm">The term to search for.</param>
+    /// <returns>True if the search term is found; otherwise, false.</returns>
     private bool IsFuzzyMatch(string source, string searchTerm)
     {
         if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(searchTerm))
@@ -144,46 +161,38 @@
             return false;
         }
 
-        // Convert all terms to ensure case insensitivity
+        // Convert strings to lowercase for case-insensitive comparison
         source = source.ToLower();
         searchTerm = searchTerm.ToLower();
 
-        // Return if the tag contains the search term
-        if (source.Contains(searchTerm))
+        // Check if either string contains the other
+        if (source.Contains(searchTerm) || searchTerm.Contains(source))
         {
             return true;
         }
 
-        // Return if the search term contains the tag
-        if (searchTerm.Contains(source))
-        {
-            return true;
-        }
-
-        // Split each of the search words by comma in the event user it trying to comma seperate
+        // Split search term by commas and check each word for match
         var searchWords = searchTerm.Split(',', StringSplitOptions.RemoveEmptyEntries);
-
-        // Return if values that were seperated by a comma are contained
         return searchWords.Any(word => source.Contains(word));
     }
 
-    // Method to apply filters and sorting
+    /// <summary>
+    /// Filters products based on the current tag and applies sorting if enabled.
+    /// </summary>
     private void ApplyFilters()
     {
-        // Get all products from the service
+        // Load all products
         var allProducts = ProductService.GetAllData();
         DataPermutations = ProductService.GetAllDataPermutations();
 
-        // Initialize FilteredProducts to show all products by default
+        // Default to showing all products
         FilteredProducts = allProducts;
 
-        // Filter by tag if a tag is provided
+        // Filter products if a tag is provided
         if (!string.IsNullOrEmpty(Tag))
         {
-            // Get all search terms
             var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-            // Filter products to ones where we have a fuzzy match for all search terms
             FilteredProducts = allProducts.Where(p =>
                 searchTerms.All(term =>
                     IsFuzzyMatch(p.Category, term) ||
@@ -196,20 +205,26 @@
             );
         }
 
-        // Apply sorting by likes if enabled
+        // Sort products by likes if enabled
         if (IsSortedByLikes)
         {
             FilteredProducts = FilteredProducts.OrderByDescending(p => p.Likes);
         }
     }
 
+    /// <summary>
+    /// Filters products by a specific value.
+    /// </summary>
+    /// <param name="value">The filter value to apply.</param>
     private void FilterByValue(string value)
     {
         Tag = value;
         ApplyFilters();
     }
 
-    // Method to find top 5 products with the most number of likes
+    /// <summary>
+    /// Sets the top 5 trending products by the number of likes.
+    /// </summary>
     private void SetTrendingProduct()
     {
         TrendingProducts = ProductService.GetAllData()
@@ -218,14 +233,19 @@
             .ToList();
     }
 
-    // Method to toggle sorting by number of likes
+    /// <summary>
+    /// Toggles sorting products by number of likes.
+    /// </summary>
     private void SortProductsByLikes()
     {
         IsSortedByLikes = !IsSortedByLikes;
         ApplyFilters();
     }
 
-    // Method to handle like clicks
+    /// <summary>
+    /// Adds a like to a specific product.
+    /// </summary>
+    /// <param name="productId">The ID of the product to like.</param>
     private void AddLike(string productId)
     {
         ProductService.AddLike(productId);
@@ -233,9 +253,16 @@
         SetTrendingProduct();
     }
 
+    // The currently selected product
     ProductModel selectedProduct;
+
+    // ID of the selected product
     string selectedProductId;
 
+    /// <summary>
+    /// Selects a product by its ID and loads its details.
+    /// </summary>
+    /// <param name="productId">The ID of the product to select.</param>
     void SelectProduct(string productId)
     {
         selectedProductId = productId;
