@@ -2,6 +2,7 @@ using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -39,19 +40,8 @@ namespace ContosoCrafts.WebSite.Pages
         /// <returns>Redirects to the Index page if successful, or returns the current page if validation fails.</returns>
         public IActionResult OnPost()
         {
-            // Validate the Product ID format
-            if (!ValidateProductId(NewProduct.Id))
-            {
-                return Page(); // Return to the form if validation fails
-            }
-
-            // Check if the Product ID already exists
-            if (IsDuplicateProductId(NewProduct.Id))
-            {
-                // Add error message for duplicate ID
-                ModelState.AddModelError("NewProduct.Id", "This ID already exists. Please select a new ID.");
-                return Page();
-            }
+            // Auto-generate a unique ID for the new product
+            NewProduct.Id = GenerateUniqueId();
 
             // Proceed if ModelState is valid
             if (ModelState.IsValid)
@@ -72,6 +62,18 @@ namespace ContosoCrafts.WebSite.Pages
 
             return Page(); // Return the form if ModelState is invalid
         }
+
+        /// <summary>
+        /// Generates a unique ID for a new product.
+        /// </summary>
+        /// <returns>A string representing the unique product ID.</returns>
+        private string GenerateUniqueId()
+        {
+            // Generate a unique ID based on GUID
+            return Guid.NewGuid().ToString("N");
+        }
+
+
 
         /// <summary>
         /// Validates the format of the product ID.
