@@ -185,6 +185,12 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the product was created successfully; otherwise, false.</returns>
         public virtual bool CreateData(ProductModel data)
         {
+            // Ensure the product has a unique ID if not set
+            if (string.IsNullOrWhiteSpace(data.Id))
+            {
+                data.Id = Guid.NewGuid().ToString("N");
+            }
+
             try
             {
                 var dataSet = GetAllData().Append(data);
