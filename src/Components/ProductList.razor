@@ -35,19 +35,25 @@
     <!-- Main Content -->
     <div class="products-main">
         <!-- Trending Now Section -->
-        @if (TrendingProduct != null)
+        @if (TrendingProducts != null && TrendingProducts.Any())
         {
             <div class="trending-now">
                 <h3>Trending Now</h3>
-                <div class="card trending-card">
-                    <a href="ProductDetails/@TrendingProduct.Id" class="text-decoration-none">
-                        <img src="@TrendingProduct.Image" alt="@TrendingProduct.Title" class="img-fluid" style="max-width: 200px; max-height: 300px; display: block; margin: 0 auto;" />
-                        <div class="card-body">
-                            <h5 class="card-title text-center" style="color: #5B5B5B">@TrendingProduct.Title</h5>
-                            <p>@TrendingProduct.Description</p>
-                            <p class="text-center">❤️ @TrendingProduct.Likes Likes</p>
+                <div class="trending-row">
+                    @foreach (var product in TrendingProducts)
+                    {
+                        <div class="card trending-card">
+                            <a href="ProductDetails/@product.Id" class="text-decoration-none">
+                                <img src="@product.Image" alt="@product.Title" class="img-fluid trending-image" />
+                                <div class="card-body">
+                                    <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title</h5>
+                                </div>
+                            </a>
+                            <div class="card-footer">
+                                <p class="text-center">❤️ @product.Likes Likes</p>
+                            </div>
                         </div>
-                    </a>
+                    }
                 </div>
             </div>
         }
@@ -121,8 +127,8 @@
     // State to track sorting by likes
     private bool IsSortedByLikes { get; set; } = false;
 
-    // Product with the most likes
-    private ProductModel TrendingProduct { get; set; }
+    // Products with the most likes
+    private List<ProductModel> TrendingProducts { get; set; }
 
 
     protected override void OnInitialized()
@@ -203,10 +209,13 @@
         ApplyFilters();
     }
 
-    // Method to find the product with the most likes
+    // Method to find top 5 products with the most number of likes
     private void SetTrendingProduct()
     {
-        TrendingProduct = ProductService.GetAllData().OrderByDescending(p => p.Likes).FirstOrDefault();
+        TrendingProducts = ProductService.GetAllData()
+            .OrderByDescending(p => p.Likes)
+            .Take(5)
+            .ToList();
     }
 
     // Method to toggle sorting by number of likes
