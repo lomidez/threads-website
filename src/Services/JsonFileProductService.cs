@@ -81,14 +81,17 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the rating was added successfully; otherwise, false.</returns>
         public bool AddRating(string productId, int rating)
         {
+            // Validates the input parameters
             if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
             {
                 return false;
             }
 
+            // Loads all products
             var products = GetAllData().ToList();
+            // Finds product by ID
             var data = products.FirstOrDefault(x => x.Id.Equals(productId));
-            
+
             if (data == null)
             {
                 return false;
@@ -100,10 +103,14 @@ namespace ContosoCrafts.WebSite.Services
                 data.Ratings = new int[] { };
             }
 
-            var ratings = data.Ratings.ToList(); // Convert existing ratings to a list
-            ratings.Add(rating); // Add the new rating
-            data.Ratings = ratings.ToArray(); // Assign the updated ratings array
+            // Convert existing ratings to a list
+            var ratings = data.Ratings.ToList();
+            // Add the new rating
+            ratings.Add(rating);
+            // Assign the updated ratings array
+            data.Ratings = ratings.ToArray();
 
+            // Saves updated product list
             SaveData(products);
 
             return true;
@@ -116,7 +123,9 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>The updated <see cref="ProductModel"/> if the product exists; otherwise, null.</returns>
         public virtual ProductModel UpdateData(ProductModel data)
         {
+            // Loads all products
             var products = GetAllData().ToList();
+            // Finds product by ID
             var productData = products.FirstOrDefault(x => x.Id.Equals(data.Id));
 
             // Return null if the product doesn't exist
@@ -138,6 +147,7 @@ namespace ContosoCrafts.WebSite.Services
             productData.Style = data.Style;
             productData.CommentList = data.CommentList;
 
+            // Saves updated product list
             SaveData(products);
             return productData;
         }
@@ -195,12 +205,16 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the like count was incremented successfully; otherwise, false.</returns>
         public bool AddLike(string productId)
         {
+            // Loads all products
             var products = GetAllData().ToList();
+            // Finds product by ID
             var product = products.FirstOrDefault(p => p.Id == productId);
 
             if (product == null) return false;
 
+            // Increments likes count
             product.Likes++;
+            // Saves updated product list
             SaveData(products);
             return true;
         }
@@ -212,12 +226,16 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns> True if the like count was reset successfully ; otherwise False</returns>
         public bool ResetLikes(string productId)
         {
+            // Loads all products
             var products = GetAllData().ToList();
+            // Finds product by ID
             var product = products.FirstOrDefault(p => p.Id == productId);
 
             if (product == null) return false;
 
+            // Resets likes count
             product.Likes = 0;
+            // Saves updated product list
             SaveData(products);
             return true;
         }
@@ -229,10 +247,12 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns> The deleted <see cref="ProductModel"/> if the product was found and deleted; otherwise null </returns>
         public virtual ProductModel DeleteData(string id)
         {
-            var productList = _testProducts ?? GetAllData().ToList(); // Use _testProducts if in test mode
-
+            // Use _testProducts if in test mode
+            var productList = _testProducts ?? GetAllData().ToList();
+            // Finds product by ID
             var productToDelete = productList.FirstOrDefault(m => m.Id == id);
 
+            // Returns deleted product
             if (productToDelete != null)
             {
                 productList.Remove(productToDelete);
@@ -243,8 +263,13 @@ namespace ContosoCrafts.WebSite.Services
             return null;
         }
 
+        /// <summary>
+        /// Gets all distinct values for categories, sizes, and colors from the product data.
+        /// </summary>
+        /// <returns>A dictionary of distinct values grouped by property.</returns>
         public Dictionary<string, HashSet<string>> GetAllDataPermutations()
         {
+            // Loads all products
             var products = GetAllData();
 
             return new Dictionary<string, HashSet<string>>
