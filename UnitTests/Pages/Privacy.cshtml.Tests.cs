@@ -6,10 +6,17 @@ using Moq;
 
 using ContosoCrafts.WebSite.Pages;
 
+
 namespace UnitTests.Pages.Privacy
 {
+    /// <summary>
+    /// Unit test class for testing the PrivacyModel page functionality.
+    /// </summary>
     public class PrivacyTests
     {
+        /// <summary>
+        /// Initializes the test setup by creating mock services and setting up the PrivacyModel instance.
+        /// </summary>
         #region TestSetup
         public static PrivacyModel pageModel;
 
@@ -27,6 +34,10 @@ namespace UnitTests.Pages.Privacy
 
         #endregion TestSetup
 
+        /// <summary>
+        /// Test to verify that the OnGet method initializes the PrivacyModel correctly
+        /// and that the ModelState is valid after the method execution.
+        /// </summary>
         #region OnGet
         [Test]
         public void OnGet_Valid_Activity_Set_Should_Return_RequestId()
