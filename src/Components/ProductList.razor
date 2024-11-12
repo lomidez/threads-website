@@ -46,9 +46,9 @@
                     {
                         <div class="card trending-card">
                             <a href="ProductDetails/@product.Id" class="text-decoration-none">
-                                <img src="@product.Image" alt="@product.Title" class="img-fluid trending-image" />
+                                <img src="@product.Image" alt="@product.Title" class="favorites-img trending-image" />
                                 <div class="card-body">
-                                    <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title</h5>
+                                    <h5 class="card-title text-center">@product.Title</h5>
                                 </div>
                             </a>
                             <div class="card-footer">
@@ -61,7 +61,7 @@
         }
 
         <!-- Sort by Likes button -->
-        <button @onclick="SortProductsByLikes" style="background-color: @(IsSortedByLikes ? "#D0F520" : "grey"); color: white;">
+        <button @onclick="SortProductsByLikes" class="btn-primary">
             Sort by Number of Likes
         </button>
 
@@ -82,7 +82,7 @@
                         <div class="card-img" style="background-image: url('@product.Image');">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-center" style="color: #5B5B5B">@product.Title</h5>
+                            <h5 class="card-title text-center">@product.Title</h5>
                         </div>
                     </a>
                     <!-- Like button for each product -->
