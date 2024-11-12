@@ -219,8 +219,10 @@ for details on configuring this project to bundle and minify static web assets. 
 
 .card-columns .card-body {
     height: 100px;
+    color: #5B5B5B;
     font-family: 'Nunito', sans-serif;
     background: #fbfafd;
+    text-align: center;
 }
 
 .card-columns .card-img {
@@ -259,9 +261,13 @@ a {
 }
 
 .btn-primary {
-    color: #5B5B5B;
+    padding: 0.5rem;
     background-color: #D0F520;
-    border-color: #5B5B5B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
 }
 .btn-primary:hover {
     color: #5B5B5B;
@@ -355,4 +361,18 @@ ul {
     border-width: 3px;
     border-radius: 2%;
     border-color: #D0F520
+}
+
+.favorites-img {
+    max-width: 500px;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 2%;
+    border-color: #D0F520
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
