@@ -237,7 +237,10 @@ namespace ContosoCrafts.WebSite.Services
             // Finds product by ID
             var product = products.FirstOrDefault(p => p.Id == productId);
 
-            if (product == null) return false;
+            if (product == null)
+            {
+                throw new InvalidOperationException("Product not found");
+            }
 
             // Resets likes count
             product.Likes = 0;
