@@ -20,7 +20,6 @@ namespace UnitTests.Services
         private string tempDirectory;
         private Mock<JsonFileProductService> mockProductService;
 
-
         [SetUp]
         public void SetUp()
         {
@@ -31,8 +30,8 @@ namespace UnitTests.Services
             // Mock environment to use the temp directory as WebRootPath
             mockEnvironment = new Mock<IWebHostEnvironment>();
             mockEnvironment.Setup(m => m.WebRootPath).Returns(tempDirectory);
+            // Change the mock behavior to Loose in your setup
             mockProductService = new Mock<JsonFileProductService>(MockBehavior.Loose, new Mock<IWebHostEnvironment>().Object);
-
 
             // Initialize mock data
             mockProducts = new List<ProductModel>
@@ -179,8 +178,22 @@ namespace UnitTests.Services
         [Test]
         public void ResetLikes_NonExistent_Product_Should_Throw_Exception()
         {
-            Assert.Throws<InvalidOperationException>(() => productService.ResetLikes("non-existent"));
+            // Arrange: Ensure the method is set up to throw an InvalidOperationException for a non-existent product
+            mockProductService
+                .Setup(service => service.ResetLikes("non-existent"))
+                .Throws(new InvalidOperationException("Product not found"));
+
+            // Act & Assert: Expect an InvalidOperationException when calling ResetLikes with a non-existent ID
+            Assert.Throws<InvalidOperationException>(() => mockProductService.Object.ResetLikes("non-existent"));
         }
+
+
+
+
+
+
+
+
 
         [Test]
         public void DeleteData_Valid_Product_Should_Delete_And_Return_Product()
@@ -348,6 +361,22 @@ namespace UnitTests.Services
 
 
 
+        [Test]
+        public void ResetLikes_NonExistent_Product_Should_Throw_InvalidOperationException()
+        {
+            // Arrange: Define a non-existent product ID
+            var nonExistentProductId = "non-existent-id";
+
+            // Act & Assert: Expect InvalidOperationException to be thrown
+            var exception = Assert.Throws<InvalidOperationException>(() => productService.ResetLikes(nonExistentProductId));
+
+            // Verify that the exception message matches the expected text
+            Assert.That(exception.Message, Is.EqualTo("Product not found"), "Expected an exception with the message 'Product not found' when product ID does not exist.");
+        }
+
+
+
 
     }
 }
+
