@@ -18,6 +18,8 @@ namespace UnitTests.Services
         private Mock<IWebHostEnvironment> mockEnvironment;
         private List<ProductModel> mockProducts;
         private string tempDirectory;
+        private Mock<JsonFileProductService> mockProductService;
+
 
         [SetUp]
         public void SetUp()
