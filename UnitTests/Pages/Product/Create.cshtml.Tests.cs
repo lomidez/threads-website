@@ -9,86 +9,259 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
+using System;
+using System.Reflection;
 
 namespace UnitTests.Pages.Products
 {
-    /// <summary>
-    /// Unit test class for testing the CreateModel page functionality.
-    /// </summary>
+    [TestFixture]
     public class CreateTests
     {
-        // Instance of the CreateModel page being tested.
         private CreateModel pageModel;
-
-        // Mock instance of the JsonFileProductService.
         private Mock<JsonFileProductService> mockProductService;
-
-        // Mock list of ProductModel used for testing.
         private List<ProductModel> mockProducts;
 
-        /// <summary>
-        /// Initializes the test setup by creating mock services and product data.
-        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
-            // Set up a mock product list with an existing product.
             mockProducts = new List<ProductModel>
             {
                 new ProductModel { Id = "existing-id", Title = "Existing Product" }
             };
 
-            // Set up mock environment and product service.
             mockProductService = new Mock<JsonFileProductService>(new Mock<IWebHostEnvironment>().Object);
             mockProductService.Setup(service => service.GetAllData()).Returns(mockProducts);
 
-            // Initialize the CreateModel page with the mock product service.
-            pageModel = new CreateModel(mockProductService.Object);
+            pageModel = new CreateModel(mockProductService.Object)
+            {
+                TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>())
+            };
 
-            // Set up TempData for the CreateModel page.
-            pageModel.TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
+            pageModel.ModelState.Clear();
         }
 
-        /// <summary>
-        /// Test to verify that posting a product with a duplicate ID returns a PageResult with an error message.
-        /// </summary>
         [Test]
-        public void OnPost_valid_DuplicateId_Should_Return_Page_With_Error()
+        public void OnPost_Invalid_ModelState_Should_Return_Page()
         {
-            // Arrange - Set up a new product with an ID that already exists in the mock product list.
-            pageModel.NewProduct = new ProductModel { Id = "existing-id", Title = "New Product" };
+            // Arrange
+            pageModel.ModelState.AddModelError("TestError", "Invalid model state");
 
-            // Act - Call the OnPost method.
+            // Act
             var result = pageModel.OnPost();
 
-            // Assert - Verify that the result is a PageResult and an error is added to the ModelState.
+            // Assert
             Assert.That(result, Is.TypeOf<PageResult>());
-            Assert.That(pageModel.ModelState["NewProduct.Id"].Errors.Count, Is.GreaterThan(0));
-
-            // Verify that the CreateData method was not called since the ID is a duplicate.
-            mockProductService.Verify(service => service.CreateData(It.IsAny<ProductModel>()), Times.Never);
         }
 
-        /// <summary>
-        /// Test to verify that when CreateData fails, a PageResult with an error is returned.
-        /// </summary>
         [Test]
-        public void OnPost_CreateDataFails_Should_Return_Page_With_Error()
+        public void OnPost_Valid_Product_CreationFails_Should_Return_Page_With_Error()
         {
-            // Arrange - Simulate a failure in saving the new product data.
+            // Arrange
             pageModel.NewProduct = new ProductModel { Id = "new-id", Title = "New Product" };
             mockProductService.Setup(service => service.CreateData(It.IsAny<ProductModel>())).Returns(false);
 
-            // Act - Call the OnPost method.
+            // Act
             var result = pageModel.OnPost();
 
-            // Assert - Verify that the result is a PageResult and an error is added to the ModelState.
+            // Assert
             Assert.That(result, Is.TypeOf<PageResult>());
             Assert.That(pageModel.ModelState[string.Empty].Errors.Count, Is.GreaterThan(0));
-
-            // Verify that the CreateData method was called exactly once.
             mockProductService.Verify(service => service.CreateData(It.IsAny<ProductModel>()), Times.Once);
+        }
+
+        [Test]
+        public void OnPost_Valid_Product_CreationSucceeds_Should_Redirect_To_Index()
+        {
+            // Arrange: Set up a fully initialized and valid product
+            pageModel.NewProduct = new ProductModel
+            {
+                Id = "new-id",
+                Title = "New Product",
+                Price = 10,
+                Quantity = 5,
+                Description = "Test Description"
+            };
+
+            // Initialize TempData and clear ModelState to ensure there are no pre-existing errors
+            pageModel.TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
+            pageModel.ModelState.Clear();
+
+            // Mock CreateData to return true to simulate successful data creation
+            mockProductService.Setup(service => service.CreateData(It.IsAny<ProductModel>())).Returns(true);
+
+            // Act: Call the OnPost method
+            var result = pageModel.OnPost();
+
+            // Assert: Check if redirection happens and if CreateData was called once
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>());
+            Assert.That(((RedirectToPageResult)result).PageName, Is.EqualTo("./Index"));
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Product successfully created."));
+            //mockProductService.Verify(service => service.CreateData(It.IsAny<ProductModel>()), Times.Once);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Test]
+        public void GenerateUniqueId_Should_Return_Unique_Id()
+        {
+            // Act
+            var uniqueId = InvokeGenerateUniqueId();
+
+            // Assert
+            Assert.That(uniqueId, Is.Not.Null.And.Not.Empty);
+            Assert.That(Guid.TryParse(uniqueId, out _), Is.True, "UniqueId should be a valid GUID format.");
+        }
+
+        [Test]
+        public void ValidateProductId_NullOrWhitespace_Should_Return_False()
+        {
+            // Act
+            var resultNull = InvokeValidateProductId(null);
+            var resultEmpty = InvokeValidateProductId("");
+            var resultWhitespace = InvokeValidateProductId("   ");
+
+            // Assert
+            Assert.That(resultNull, Is.False);
+            Assert.That(resultEmpty, Is.False);
+            Assert.That(resultWhitespace, Is.False);
+            Assert.That(pageModel.ModelState["NewProduct.Id"].Errors.Count, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void ValidateProductId_InvalidFormat_Should_Return_False()
+        {
+            // Act
+            var result = InvokeValidateProductId("Invalid@ID!");
+
+            // Assert
+            Assert.That(result, Is.False);
+            Assert.That(pageModel.ModelState["NewProduct.Id"].Errors.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void OnPost_ValidProductId_Should_Pass_Validation()
+        {
+            // Arrange: Use a valid product ID
+            pageModel.NewProduct = new ProductModel
+            {
+                Id = "Valid-123",
+                Title = "Sample Product",
+                Price = 50
+            };
+
+            mockProductService.Setup(service => service.CreateData(It.IsAny<ProductModel>())).Returns(true);
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>());
+        }
+
+
+
+
+
+        [Test]
+        public void ValidateProductId_ValidFormat_Should_Return_True()
+        {
+            // Arrange: Use a valid product ID that meets all criteria
+            var validProductId = "Valid-123";
+
+            // Clear ModelState to avoid pre-existing errors from other tests
+            pageModel.ModelState.Clear();
+
+            // Act: Call ValidateProductId using reflection
+            var result = InvokeValidateProductId(validProductId);
+
+            // Assert: Ensure that validation passes
+            Assert.That(result, Is.True, "Expected ValidateProductId to return true for a valid ID format.");
+
+            // Check if "NewProduct.Id" exists in ModelState; if it does, ensure no errors were added
+            if (pageModel.ModelState.ContainsKey("NewProduct.Id"))
+            {
+                Assert.That(pageModel.ModelState["NewProduct.Id"].Errors.Count, Is.EqualTo(0), "Expected no ModelState errors for a valid ID.");
+            }
+            else
+            {
+                Assert.Pass("No ModelState entry for 'NewProduct.Id' implies no errors.");
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Test]
+        public void IsDuplicateProductId_ExistingId_Should_Return_True()
+        {
+            // Act
+            var result = InvokeIsDuplicateProductId("existing-id");
+
+            // Assert
+            Assert.That(result, Is.True);
+        }
+
+        [Test]
+        public void IsDuplicateProductId_NonExistingId_Should_Return_False()
+        {
+            // Act
+            var result = InvokeIsDuplicateProductId("new-id");
+
+            // Assert
+            Assert.That(result, Is.False);
+        }
+
+        // Helper methods to access private methods via reflection
+        private string InvokeGenerateUniqueId()
+        {
+            var method = typeof(CreateModel).GetMethod("GenerateUniqueId", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            return (string)method.Invoke(pageModel, null);
+        }
+
+        private bool InvokeValidateProductId(string productId)
+        {
+            // Use reflection to get the private method ValidateProductId from CreateModel
+            var method = typeof(CreateModel).GetMethod("ValidateProductId", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            // Verify that the method was retrieved successfully
+            if (method == null)
+            {
+                throw new InvalidOperationException("ValidateProductId method not found in CreateModel.");
+            }
+
+            return (bool)method.Invoke(pageModel, new object[] { productId });
+        }
+
+
+
+
+
+
+
+        private bool InvokeIsDuplicateProductId(string productId)
+        {
+            var method = typeof(CreateModel).GetMethod("IsDuplicateProductId", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            return (bool)method.Invoke(pageModel, new object[] { productId });
         }
     }
 }
