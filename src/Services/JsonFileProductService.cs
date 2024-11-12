@@ -79,7 +79,7 @@ namespace ContosoCrafts.WebSite.Services
         /// <param name="productId">The product ID to which the rating is added.</param>
         /// <param name="rating">The rating value (0-5).</param>
         /// <returns>True if the rating was added successfully; otherwise, false.</returns>
-        public bool AddRating(string productId, int rating)
+        public virtual bool AddRating(string productId, int rating)
         {
             // Validates the input parameters
             if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
@@ -156,7 +156,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Saves the provided list of products to the JSON file.
         /// </summary>
         /// <param name="products">The list of products to save.</param>
-        public void SaveData(IEnumerable<ProductModel> products)
+        public virtual void SaveData(IEnumerable<ProductModel> products)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="productId">The product ID whose like count is to be incremented.</param>
         /// <returns>True if the like count was incremented successfully; otherwise, false.</returns>
-        public bool AddLike(string productId)
+        public virtual bool AddLike(string productId)
         {
             // Loads all products
             var products = GetAllData().ToList();
@@ -230,7 +230,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="productId">The product ID whose like count is to be reset.</param>
         /// <returns> True if the like count was reset successfully ; otherwise False</returns>
-        public bool ResetLikes(string productId)
+        public virtual bool ResetLikes(string productId)
         {
             // Loads all products
             var products = GetAllData().ToList();
