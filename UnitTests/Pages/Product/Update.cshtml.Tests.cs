@@ -8,21 +8,31 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System;
-
 namespace UnitTests.Pages
 {
     [TestFixture]
     public class UpdateTests
     {
+        private Mock<IWebHostEnvironment> mockEnvironment;
         private Mock<JsonFileProductService> mockProductService;
         private UpdateModel updatePage;
-
         [SetUp]
         public void SetUp()
         {
-            mockProductService = new Mock<JsonFileProductService>(MockBehavior.Strict, new Mock<IWebHostEnvironment>().Object);
+            // Initialize mock environment
+            mockEnvironment = new Mock<IWebHostEnvironment>();
+            mockEnvironment.Setup(env => env.WebRootPath).Returns("C:/fake/path"); // Adjust as needed for the test
+            // Initialize mock product service with the mock environment
+            mockProductService = new Mock<JsonFileProductService>(MockBehavior.Strict, mockEnvironment.Object);
+            // Initialize the UpdateModel with the mock service
             updatePage = new UpdateModel(mockProductService.Object);
         }
+    
+
+
+
+
+
         [Test]
         public void OnPostResetLikes_ValidProductId_Should_Reset_Likes_And_Redirect()
         {
