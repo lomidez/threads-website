@@ -1,55 +1,59 @@
-using System.Linq;
-using Microsoft.Extensions.Logging;
-using Moq;
+using System.Collections.Generic;
 using NUnit.Framework;
-using ContosoCrafts.WebSite.Pages;
-using Microsoft.AspNetCore.Routing;
+using Moq;
+using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Services;
+using ContosoCrafts.WebSite.Pages.Product;
+using Microsoft.AspNetCore.Hosting;
 
-namespace UnitTests.Pages.Index
+namespace UnitTests.Pages.Product
 {
-    /// <summary>
-    /// Unit test class for testing the IndexModel page functionality.
-    /// </summary>
-    public class IndexTests
+    [TestFixture]
+    public class IndexModelTests
     {
-        #region TestSetup
+        private IndexModel indexModel;
+        private Mock<IWebHostEnvironment> mockWebHostEnvironment;
+        private Mock<JsonFileProductService> mockProductService;
+        private List<ProductModel> mockProducts;
 
-        // Instance of the IndexModel page being tested.
-        public static IndexModel pageModel;
-
-        /// <summary>
-        /// Initializes the test setup by creating mock services and setting up the IndexModel instance.
-        /// </summary>
         [SetUp]
-        public void TestInitialize()
+        public void Setup()
         {
-            // Create a mock logger for IndexModel using Moq's Mock.Of() for simplicity.
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
+            // Mock the IWebHostEnvironment dependency for JsonFileProductService
+            mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
+            mockWebHostEnvironment.Setup(env => env.WebRootPath).Returns("test_path");
 
-            // Initialize the IndexModel with the mocked logger and the test ProductService.
-            pageModel = new IndexModel(MockLoggerDirect, TestHelper.ProductService);
+            // Create a real instance of JsonFileProductService using the mocked environment
+            mockProductService = new Mock<JsonFileProductService>(mockWebHostEnvironment.Object);
+
+            // Prepare mock data for GetAllData
+            mockProducts = new List<ProductModel>
+            {
+                new ProductModel { Id = "1", Title = "Test Product 1" },
+                new ProductModel { Id = "2", Title = "Test Product 2" }
+            };
+
+            // Setup the GetAllData method to return mock products with strict mock behavior
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockProducts).Verifiable();
+
+            // Initialize the IndexModel with the mocked service
+            indexModel = new IndexModel(mockProductService.Object);
         }
 
-        #endregion TestSetup
-
-        #region OnGet
-
-        /// <summary>
-        /// Test to verify that the OnGet method returns a list of products when called with a valid state.
-        /// </summary>
         [Test]
-        public void OnGet_Valid_Should_Return_Products()
+        public void OnGet_Should_Set_Products_Property()
         {
-            // Arrange - No specific setup needed for this test.
+            // Act
+            indexModel.OnGet();
 
-            // Act - Call the OnGet method with a null search term to load all products.
-            pageModel.OnGet(null);
+            // Assign Products to a local variable to prevent multiple access calls
+            var products = indexModel.Products;
 
-            // Assert - Verify that the ModelState is valid and that the Products list is not empty.
-            Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
-            Assert.That(pageModel.Products.ToList().Any(), Is.EqualTo(true));
+            // Assert: Check that Products is set correctly
+            Assert.That(products, Is.EqualTo(mockProducts));
+
+            // Verify that GetAllData was called exactly once
+            mockProductService.Verify(service => service.GetAllData(), Times.Once);
         }
-
-        #endregion OnGet
     }
 }
