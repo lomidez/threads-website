@@ -325,6 +325,10 @@ p {
 h1 {
     font-family: 'Nunito', sans-serif;
 }
+h2 {
+    font-family: 'Nunito', sans-serif;
+    color: #5b5b5b;
+}
 h3 {
     font-family: 'Nunito', sans-serif;
     font-size: 1.5rem;
