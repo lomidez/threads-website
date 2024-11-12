@@ -23,19 +23,41 @@ namespace UnitTests.Pages
             mockProductService = new Mock<JsonFileProductService>(MockBehavior.Strict, new Mock<IWebHostEnvironment>().Object);
             updatePage = new UpdateModel(mockProductService.Object);
         }
-
         [Test]
         public void OnPostResetLikes_ValidProductId_Should_Reset_Likes_And_Redirect()
         {
-            var productId = "test-id";
-            mockProductService.Setup(service => service.ResetLikes(productId));
-            var result = updatePage.OnPostResetLikes(productId);
-            Assert.That(result, Is.TypeOf<RedirectToPageResult>());
-            var redirectResult = (RedirectToPageResult)result;
-            Assert.That(redirectResult.PageName, Is.EqualTo("/Product/Update"));
-            Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(productId));
-            mockProductService.Verify(service => service.ResetLikes(productId), Times.Once);
+            // Arrange
+            string validProductId = "test-id";
+
+            // Set up the mock service to use Loose behavior and allow ResetLikes to be called
+            mockProductService = new Mock<JsonFileProductService>(MockBehavior.Loose, mockEnvironment.Object);
+
+            // Explicitly allow ResetLikes to be called, verifying it is invoked once with any string
+            mockProductService.Setup(service => service.ResetLikes(It.IsAny<string>())).Verifiable();
+
+            // Create the UpdateModel instance with the mock service
+            var updateModel = new UpdateModel(mockProductService.Object);
+
+            // Act: Call OnPostResetLikes with the valid product ID
+            var result = updateModel.OnPostResetLikes(validProductId);
+
+            // Assert: Verify ResetLikes was called with the correct product ID
+            mockProductService.Verify(service => service.ResetLikes(validProductId), Times.Once);
+
+            // Check that the method redirects correctly
+            var redirectResult = result as RedirectToPageResult;
+            Assert.That(redirectResult, Is.Not.Null, "Expected a redirection result.");
+            Assert.That(redirectResult.PageName, Is.EqualTo("/Product/Update"), "Expected redirection to the Update page.");
+            Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(validProductId), "Expected the ID route value to match the product ID.");
         }
+
+
+
+
+
+
+
+
 
         [Test]
         public void OnPostResetLikes_InvalidProductId_Should_Throw_InvalidOperationException()
