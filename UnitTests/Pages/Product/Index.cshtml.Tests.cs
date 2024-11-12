@@ -1,103 +1,162 @@
-﻿
-//edited file for Index unit Test to have 100%
+﻿using System.Collections.Generic;
 using System.Linq;
-
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Routing;
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
-
 using Moq;
-
 using NUnit.Framework;
-
-using ContosoCrafts.WebSite.Pages.Product;
-using ContosoCrafts.WebSite.Services;
-using System.IO;
 using ContosoCrafts.WebSite.Models;
+using ContosoCrafts.WebSite.Pages;
+using ContosoCrafts.WebSite.Services;
+using System;
+using Microsoft.AspNetCore.Hosting;
 
-namespace UnitTests.Pages.Product.Index
+namespace UnitTests.Pages.Product
 {
     public class IndexTests
     {
-        #region TestSetup
-        public static IUrlHelperFactory urlHelperFactory;
-        public static DefaultHttpContext httpContextDefault;
-        public static IWebHostEnvironment webHostEnvironment;
-        public static ModelStateDictionary modelState;
-        public static ActionContext actionContext;
-        public static EmptyModelMetadataProvider modelMetadataProvider;
-        public static ViewDataDictionary viewData;
-        public static TempDataDictionary tempData;
-        public static PageContext pageContext;
-
-        public static IndexModel pageModel;
+        private IndexModel pageModel;
+        private Mock<JsonFileProductService> mockProductService;
+        private List<ProductModel> mockProducts;
 
         [SetUp]
         public void TestInitialize()
         {
-            httpContextDefault = new DefaultHttpContext();
-
-            modelState = new ModelStateDictionary();
-            actionContext = new ActionContext(httpContextDefault, httpContextDefault.GetRouteData(), new PageActionDescriptor(), modelState);
-
-            modelMetadataProvider = new EmptyModelMetadataProvider();
-            viewData = new ViewDataDictionary(modelMetadataProvider, modelState);
-            tempData = new TempDataDictionary(httpContextDefault, Mock.Of<ITempDataProvider>());
-
-            pageContext = new PageContext(actionContext)
+            // Initialize mock products
+            mockProducts = new List<ProductModel>
             {
-                ViewData = viewData,
+                new ProductModel { Id = "1", Title = "Product 1", Category = "Electronics", Size = "Large", Color = "Red", Material = new List<string> { "Metal" }, Style = new List<string> { "Modern" } },
+                new ProductModel { Id = "2", Title = "Product 2", Category = "Clothing", Size = "Medium", Color = "Blue", Material = new List<string> { "Cotton" }, Style = new List<string> { "Casual" } },
+                new ProductModel { Id = "3", Title = "Product 3", Category = "Electronics", Size = "Small", Color = "Green", Material = new List<string> { "Plastic" }, Style = new List<string> { "Minimalist" } }
             };
 
-            var mockWebHostEnvironment = new Mock<IWebHostEnvironment>();
-            mockWebHostEnvironment.Setup(m => m.EnvironmentName).Returns("Hosting:UnitTestEnvironment");
+            // Mock the product service
+            mockProductService = new Mock<JsonFileProductService>(Mock.Of<Microsoft.AspNetCore.Hosting.IWebHostEnvironment>());
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockProducts);
 
-            // Update WebRootPath to a path that GitHub users will have when cloning the repository
-            mockWebHostEnvironment.Setup(m => m.WebRootPath).Returns(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
-            mockWebHostEnvironment.Setup(m => m.ContentRootPath).Returns(Directory.GetCurrentDirectory());
-
-            var MockLoggerDirect = Mock.Of<ILogger<IndexModel>>();
-            JsonFileProductService productService;
-
-            productService = new JsonFileProductService(mockWebHostEnvironment.Object);
-
-            pageModel = new IndexModel(productService);
+            // Initialize the IndexModel with a mock logger and the mocked product service
+            var mockLogger = Mock.Of<ILogger<IndexModel>>();
+            pageModel = new IndexModel(mockLogger, mockProductService.Object)
+            {
+                TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>())
+            };
         }
 
-
-        #endregion TestSetup
-
-        #region OnGet
         [Test]
-        public void OnGet_Valid_ProductList_Should_Return_ProductCount_Of_25()
+        public void OnGet_NoTag_Should_Return_All_Products()
         {
-            // Arrange - Set up 25 products in the mock data source
-            var mockProducts = Enumerable.Range(1, 25).Select(i => new ProductModel
-            {
-                Id = $"product_{i}",
-                Title = $"Product {i}",
-                Ratings = new int[] { 4, 5 }
-            }).ToList();
-
-            var mockEnvironment = new Mock<IWebHostEnvironment>();
-            var productService = new JsonFileProductService(mockEnvironment.Object, mockProducts);
-
-            pageModel = new IndexModel(productService);
-
             // Act
-            pageModel.OnGet();
+            pageModel.OnGet(null);
 
             // Assert
-            Assert.That(pageModel.ModelState.IsValid, Is.EqualTo(true));
-            Assert.That(pageModel.Products.ToList().Count, Is.EqualTo(25));
+            Assert.That(pageModel.Products, Is.EquivalentTo(mockProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(3));
         }
 
-        #endregion OnGet
+        [Test]
+        public void OnGet_WithCategoryTag_Should_Filter_Products_By_Category()
+        {
+            // Act
+            pageModel.OnGet("Electronics");
+
+            // Assert
+            var filteredProducts = mockProducts.Where(p => p.Category.Equals("Electronics", System.StringComparison.OrdinalIgnoreCase));
+            Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void OnGet_WithSizeTag_Should_Filter_Products_By_Size()
+        {
+            // Act
+            pageModel.OnGet("Large");
+
+            // Assert
+            var filteredProducts = mockProducts.Where(p => p.Size.Equals("Large", System.StringComparison.OrdinalIgnoreCase));
+            Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void OnGet_WithColorTag_Should_Filter_Products_By_Color()
+        {
+            // Act
+            pageModel.OnGet("Red");
+
+            // Assert
+            var filteredProducts = mockProducts.Where(p => p.Color.Equals("Red", System.StringComparison.OrdinalIgnoreCase));
+            Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void OnGet_WithMaterialTag_Should_Filter_Products_By_Material()
+        {
+            // Act
+            pageModel.OnGet("Metal");
+
+            // Assert
+            var filteredProducts = mockProducts.Where(p => p.Material.Any(m => m.Equals("Metal", System.StringComparison.OrdinalIgnoreCase)));
+            Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void OnGet_WithStyleTag_Should_Filter_Products_By_Style()
+        {
+            // Act
+            pageModel.OnGet("Modern");
+
+            // Assert
+            var filteredProducts = mockProducts.Where(p => p.Style.Any(s => s.Equals("Modern", System.StringComparison.OrdinalIgnoreCase)));
+            Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
+            Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
+        }
+
+
+        [Test]
+        public void Constructor_NullLogger_Should_Throw_ArgumentNullException()
+        {
+            // Arrange
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            JsonFileProductService productService = new JsonFileProductService(mockEnvironment.Object);
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new IndexModel(null, productService));
+        }
+
+        [Test]
+        public void Constructor_NullProductService_Should_Throw_ArgumentNullException()
+        {
+            // Arrange
+            var mockLogger = Mock.Of<ILogger<IndexModel>>();
+
+            // Act & Assert
+            Assert.Throws<ArgumentNullException>(() => new IndexModel(mockLogger, null));
+        }
+
+        [Test]
+        public void Constructor_ValidParameters_Should_Initialize_IndexModel()
+        {
+            // Arrange
+            var mockLogger = Mock.Of<ILogger<IndexModel>>();
+            var mockEnvironment = new Mock<IWebHostEnvironment>();
+            JsonFileProductService productService = new JsonFileProductService(mockEnvironment.Object);
+
+            // Act
+            var indexModel = new IndexModel(mockLogger, productService);
+
+            // Assert
+            Assert.That(indexModel, Is.Not.Null);
+            Assert.That(indexModel.ProductService, Is.EqualTo(productService));
+            Assert.That(indexModel.ProductService, Is.TypeOf<JsonFileProductService>());
+        }
+
+
+
+
+
     }
 }
+
