@@ -31,6 +31,8 @@ namespace UnitTests.Services
             // Mock environment to use the temp directory as WebRootPath
             mockEnvironment = new Mock<IWebHostEnvironment>();
             mockEnvironment.Setup(m => m.WebRootPath).Returns(tempDirectory);
+            mockProductService = new Mock<JsonFileProductService>(MockBehavior.Loose, new Mock<IWebHostEnvironment>().Object);
+
 
             // Initialize mock data
             mockProducts = new List<ProductModel>
