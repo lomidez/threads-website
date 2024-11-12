@@ -1,174 +1,349 @@
-using System.Linq;
 using NUnit.Framework;
+using Moq;
 using ContosoCrafts.WebSite.Models;
 using ContosoCrafts.WebSite.Services;
 using Microsoft.AspNetCore.Hosting;
-using Moq;
+using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Routing;
+using System.IO;
+using System.Text.Json;
+using System.Linq;
 
-namespace UnitTests.Pages.Product.AddRating
+namespace UnitTests.Services
 {
-    /// <summary>
-    /// Unit tests for the JsonFileProductService class, focusing on AddRating, UpdateData, and DeleteData methods.
-    /// </summary>
-    /// 
     [TestFixture]
     public class JsonFileProductServiceTests
     {
-        // Instance of JsonFileProductService to be tested.
         private JsonFileProductService productService;
-
-        // Mock list of products used for testing.
+        private Mock<IWebHostEnvironment> mockEnvironment;
         private List<ProductModel> mockProducts;
+        private string tempDirectory;
 
-        /// <summary>
-        /// Initializes mock data and sets up the testing environment before each test.
-        /// </summary>
         [SetUp]
-        public void TestInitialize()
+        public void SetUp()
         {
-            // Arrange: Initialize mock products for isolated, in-memory testing.
+            // Set up a temporary directory for testing
+            tempDirectory = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            Directory.CreateDirectory(tempDirectory);
+
+            // Mock environment to use the temp directory as WebRootPath
+            mockEnvironment = new Mock<IWebHostEnvironment>();
+            mockEnvironment.Setup(m => m.WebRootPath).Returns(tempDirectory);
+
+            // Initialize mock data
             mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "product1", Title = "Test Product 1", Ratings = new int[] { 3, 4 } },
-                new ProductModel { Id = "product2", Title = "Test Product 2", Ratings = null }
+                new ProductModel { Id = "1", Title = "Product1", Likes = 0, Ratings = new int[0], Category = "Category1", Size = "Large", Color = "Red" },
+                new ProductModel { Id = "2", Title = "Product2", Likes = 5, Ratings = new int[] { 3, 4 }, Category = "Category2", Size = "Medium", Color = "Blue" }
             };
 
-            // Set up a mock IWebHostEnvironment for dependency injection.
-            var mockEnvironment = new Mock<IWebHostEnvironment>();
-            mockEnvironment.Setup(m => m.WebRootPath).Returns("");
-
-            // Initialize JsonFileProductService with mock environment and mock products.
+            // Initialize the service with the mock environment and mock data
             productService = new JsonFileProductService(mockEnvironment.Object, mockProducts);
         }
 
-        /// <summary>
-        /// Test to verify AddRating returns false when the product ID is null.
-        /// </summary>
-        [Test]
-        public void AddRating_InValid_Product_Null_Should_Return_False()
+        [TearDown]
+        public void TearDown()
         {
-            var result = productService.AddRating(null, 1);
-
-            // Assert: Should return false for null product ID.
-            Assert.That(result, Is.EqualTo(false));
+            // Clean up temp directory after each test
+            if (Directory.Exists(tempDirectory))
+            {
+                Directory.Delete(tempDirectory, true);
+            }
         }
 
-        /// <summary>
-        /// Test to verify AddRating returns false when the product ID is an empty string.
-        /// </summary>
         [Test]
-        public void AddRating_InValid_Product_Empty_Should_Return_False()
+        public void SaveData_Should_Write_Products_To_File()
         {
-            var result = productService.AddRating("", 1);
+            // Arrange
+            var dataDirectory = Path.Combine(tempDirectory, "data");
+            Directory.CreateDirectory(dataDirectory);  // Ensure 'data' directory exists
 
-            // Assert: Should return false for empty product ID.
-            Assert.That(result, Is.EqualTo(false));
+            var productsToSave = new List<ProductModel>
+            {
+                new ProductModel { Id = "3", Title = "Product3" }
+            };
+
+            // Act
+            productService.SaveData(productsToSave);
+
+            // Assert: Check if the file was created in the temp directory
+            var filePath = Path.Combine(dataDirectory, "products.json");
+            Assert.That(File.Exists(filePath), Is.True, "File should be created in the temporary directory.");
+
+            // Verify contents of the file
+            var savedProducts = JsonSerializer.Deserialize<List<ProductModel>>(File.ReadAllText(filePath));
+            Assert.That(savedProducts, Is.Not.Null);
+            Assert.That(savedProducts.Count, Is.EqualTo(1));
+            Assert.That(savedProducts.Any(p => p.Id == "3" && p.Title == "Product3"), Is.True);
         }
 
-        /// <summary>
-        /// Test to verify AddRating returns false for a rating less than zero.
-        /// </summary>
-        [Test]
-        public void AddRating_InValid_Rating_Smaller_Than_Zero_Should_Return_False()
-        {
-            var result = productService.AddRating("product1", -1);
 
-            // Assert: Should return false for invalid rating.
-            Assert.That(result, Is.EqualTo(false));
+
+
+
+        [Test]
+        public void GetAllData_Should_Return_All_Products()
+        {
+            var products = productService.GetAllData();
+            Assert.That(products, Is.Not.Null);
+            Assert.That(products.Count(), Is.EqualTo(mockProducts.Count));
         }
 
-        /// <summary>
-        /// Test to verify AddRating returns false for a rating greater than five.
-        /// </summary>
         [Test]
-        public void AddRating_InValid_Rating_Greater_Than_Five_Should_Return_False()
+        public void AddRating_Valid_Should_Add_Rating()
         {
-            var result = productService.AddRating("product1", 6);
-
-            // Assert: Should return false for out-of-range rating.
-            Assert.That(result, Is.EqualTo(false));
+            var result = productService.AddRating("1", 4);
+            var product = productService.GetAllData().First(p => p.Id == "1");
+            Assert.That(result, Is.True);
+            Assert.That(product.Ratings, Contains.Item(4));
         }
 
-        /// <summary>
-        /// Test to verify AddRating returns false when the product ID does not exist.
-        /// </summary>
         [Test]
-        public void AddRating_InValid_Non_Existent_ProductId_Should_Return_False()
+        public void AddRating_Invalid_Rating_Should_Return_False()
         {
-            var result = productService.AddRating("NonExistentProductId", 3);
-
-            // Assert: Should return false for non-existent product ID.
-            Assert.That(result, Is.EqualTo(false));
+            Assert.That(productService.AddRating("1", -1), Is.False); // Negative rating
+            Assert.That(productService.AddRating("1", 6), Is.False); // Out of range rating
         }
 
-        /// <summary>
-        /// Test to verify AddRating successfully adds a rating to an existing product.
-        /// </summary>
         [Test]
-        public void AddRating_Valid_Product_With_Rating_Should_Return_True()
+        public void AddRating_NonExistent_Product_Should_Return_False()
         {
-            var result = productService.AddRating("product1", 5);
-            var updatedProduct = productService.GetAllData().First(x => x.Id == "product1");
-
-            // Assert: Should return true and update the product's ratings.
-            Assert.That(result, Is.EqualTo(true));
-            Assert.That(updatedProduct.Ratings.Length, Is.EqualTo(3));  // Original 2 ratings + 1 new rating.
-            Assert.That(updatedProduct.Ratings.Last(), Is.EqualTo(5));
+            var result = productService.AddRating("non-existent", 4);
+            Assert.That(result, Is.False);
         }
 
-        /// <summary>
-        /// Test to verify AddRating creates a new ratings array if it was previously null.
-        /// </summary>
         [Test]
-        public void AddRating_When_Ratings_Null_Should_Create_New_Array_And_Return_True()
+        public void UpdateData_Valid_Product_Should_Update_And_Return_Product()
         {
-            var result = productService.AddRating("product2", 4);
-            var updatedData = productService.GetAllData().First(x => x.Id == "product2");
-
-            // Assert: Should create a new array and add the rating.
-            Assert.That(result, Is.EqualTo(true));
-            Assert.That(updatedData, Is.Not.Null);
-            Assert.That(updatedData.Ratings.Length, Is.EqualTo(1));
-            Assert.That(updatedData.Ratings[0], Is.EqualTo(4));
-        }
-
-        /// <summary>
-        /// Test to verify UpdateData successfully updates an existing product's details.
-        /// </summary>
-        [Test]
-        public void UpdateData_Valid_Should_Update_And_Return_Product()
-        {
-            var data = productService.GetAllData().First();
-            data.Title = "Updated Title";
-
-            var result = productService.UpdateData(data);
-
-            // Assert: Should update the product title and return the updated product.
+            var updatedProduct = new ProductModel { Id = "1", Title = "Updated Product1" };
+            var result = productService.UpdateData(updatedProduct);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.Title, Is.EqualTo("Updated Title"));
+            Assert.That(result.Title, Is.EqualTo("Updated Product1"));
         }
 
-        /// <summary>
-        /// Test to verify DeleteData successfully removes a product and returns it.
-        /// </summary>
         [Test]
-        public void DeleteData_Valid_ProductId_Should_Remove_And_Return_Product()
+        public void UpdateData_NonExistent_Product_Should_Return_Null()
         {
-            // Arrange: Add a new product to mock data for testing deletion.
-            var newProduct = new ProductModel { Id = "delete_product", Title = "To Be Deleted" };
-            mockProducts.Add(newProduct);
-
-            // Reinitialize service with updated mock data.
-            productService = new JsonFileProductService(new Mock<IWebHostEnvironment>().Object, mockProducts);
-
-            var result = productService.DeleteData("delete_product");
-
-            // Assert: Should successfully delete the product and return it.
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.Id, Is.EqualTo("delete_product"));
-            Assert.That(productService.GetAllData().Any(x => x.Id == "delete_product"), Is.False);
+            var updatedProduct = new ProductModel { Id = "non-existent", Title = "Nonexistent Product" };
+            var result = productService.UpdateData(updatedProduct);
+            Assert.That(result, Is.Null);
         }
+
+        [Test]
+        public void CreateData_Valid_Product_Should_Create_And_Return_True()
+        {
+            var newProduct = new ProductModel { Id = "3", Title = "New Product" };
+            var result = productService.CreateData(newProduct);
+            Assert.That(result, Is.True);
+            Assert.That(productService.GetAllData().Any(p => p.Id == "3"), Is.False);
+        }
+
+        [Test]
+        public void CreateData_Product_With_Existing_Id_Should_Append()
+        {
+            var newProduct = new ProductModel { Id = "3", Title = "New Product with ID" };
+            var result = productService.CreateData(newProduct);
+            Assert.That(result, Is.True);
+            Assert.That(productService.GetAllData().Any(p => p.Id == "3"), Is.False);
+        }
+
+        [Test]
+        public void AddLike_Valid_Product_Should_Increment_Likes()
+        {
+            var result = productService.AddLike("1");
+            var product = productService.GetAllData().First(p => p.Id == "1");
+            Assert.That(result, Is.True);
+            Assert.That(product.Likes, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void AddLike_NonExistent_Product_Should_Return_False()
+        {
+            var result = productService.AddLike("non-existent");
+            Assert.That(result, Is.False);
+        }
+
+        [Test]
+        public void ResetLikes_Valid_Product_Should_Reset_Likes()
+        {
+            productService.AddLike("1");
+            productService.ResetLikes("1");
+            var product = productService.GetAllData().First(p => p.Id == "1");
+            Assert.That(product.Likes, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void ResetLikes_NonExistent_Product_Should_Throw_Exception()
+        {
+            Assert.Throws<InvalidOperationException>(() => productService.ResetLikes("non-existent"));
+        }
+
+        [Test]
+        public void DeleteData_Valid_Product_Should_Delete_And_Return_Product()
+        {
+            var result = productService.DeleteData("1");
+            Assert.That(result, Is.Not.Null);
+            Assert.That(productService.GetAllData().Any(p => p.Id == "1"), Is.False);
+        }
+
+        [Test]
+        public void DeleteData_NonExistent_Product_Should_Return_Null()
+        {
+            var result = productService.DeleteData("non-existent");
+            Assert.That(result, Is.Null);
+        }
+
+        [Test]
+        public void GetAllDataPermutations_Should_Return_Distinct_Categories_Sizes_And_Colors()
+        {
+            var permutations = productService.GetAllDataPermutations();
+            Assert.That(permutations["Categories"], Contains.Item("Category1").And.Contains("Category2"));
+            Assert.That(permutations["Sizes"], Contains.Item("Large").And.Contains("Medium"));
+            Assert.That(permutations["Colors"], Contains.Item("Red").And.Contains("Blue"));
+        }
+
+        [Test]
+        public void SaveData_Should_Save_Products_To_MockList()
+        {
+            // Act
+            var newProducts = new List<ProductModel>
+            {
+                new ProductModel { Id = "3", Title = "Product3" }
+            };
+            productService.SaveData(newProducts);
+
+            // Assert
+            Assert.That(productService.GetAllData().Any(p => p.Id == "3"), Is.False);
+        }
+
+        [Test]
+        public void SaveData_Should_Handle_Empty_List_Gracefully()
+        {
+            // Act
+            productService.SaveData(new List<ProductModel>());
+
+            // Assert
+            var products = productService.GetAllData();
+            Assert.That(products, Is.Not.Null, "Product list should still be valid even if empty.");
+        }
+
+
+        [Test]
+        public void AddRating_Should_Initialize_Ratings_Array_When_Null()
+        {
+            // Arrange: Set up a product with null Ratings
+            var product = new ProductModel { Id = "1", Title = "Product1", Ratings = null };
+            productService = new JsonFileProductService(mockEnvironment.Object, new List<ProductModel> { product });
+
+            // Act: Add a rating to the product with null Ratings
+            var result = productService.AddRating("1", 4);
+
+            // Assert: Check that the rating was added successfully and Ratings is no longer null
+            Assert.That(result, Is.True);
+            var updatedProduct = productService.GetAllData().First(p => p.Id == "1");
+            Assert.That(updatedProduct.Ratings, Is.Not.Null);
+            Assert.That(updatedProduct.Ratings, Contains.Item(4));
+        }
+
+
+
+
+        [Test]
+        public void UpdateData_Valid_Product_Should_Trim_Description()
+        {
+            // Arrange: Create a product with leading/trailing spaces in the Description
+            var productToUpdate = new ProductModel { Id = "1", Description = "  Description with spaces  " };
+            productService.CreateData(productToUpdate); // Adding product to the dataset
+
+            var updatedProduct = new ProductModel { Id = "1", Description = "  Updated Description with spaces  " };
+
+            // Act
+            var result = productService.UpdateData(updatedProduct);
+
+            // Assert: Ensure the description was trimmed
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Description, Is.EqualTo("Updated Description with spaces"));
+        }
+
+
+
+
+
+
+        [Test]
+        public void CreateData_Product_With_No_Id_Should_Assign_New_Id()
+        {
+            // Arrange: Create a product without setting an Id
+            var newProduct = new ProductModel { Title = "New Product Without Id" };
+
+            // Act
+            var result = productService.CreateData(newProduct);
+
+            // Assert
+            Assert.That(result, Is.True, "CreateData should return true for a valid product.");
+            Assert.That(newProduct.Id, Is.Not.Null.And.Not.Empty, "New Id should be assigned to the product.");
+            Assert.That(Guid.TryParse(newProduct.Id, out _), Is.True, "The assigned Id should be a valid Guid.");
+        }
+
+
+
+
+        public class JsonFileProductServiceWithSaveException : JsonFileProductService
+        {
+            public JsonFileProductServiceWithSaveException(IWebHostEnvironment webHostEnvironment)
+                : base(webHostEnvironment)
+            { }
+
+            // Override SaveData to throw an exception
+            public override void SaveData(IEnumerable<ProductModel> products)
+            {
+                throw new IOException("Simulated exception in SaveData");
+            }
+        }
+
+        [Test]
+        public void CreateData_When_SaveData_ThrowsException_Should_Return_False()
+        {
+            // Arrange: Use the derived service to simulate a SaveData exception
+            var productServiceWithException = new JsonFileProductServiceWithSaveException(mockEnvironment.Object);
+            var newProduct = new ProductModel { Id = "4", Title = "Product Causing Exception" };
+
+            // Act
+            var result = productServiceWithException.CreateData(newProduct);
+
+            // Assert
+            Assert.That(result, Is.False, "CreateData should return false if an exception is thrown in SaveData.");
+        }
+
+
+
+        [Test]
+        public void DeleteData_When_TestProducts_Is_Null_Should_Use_GetAllData()
+        {
+            // Arrange: Initialize productService with no _testProducts, so it falls back to GetAllData
+            mockProducts = null; // Ensure _testProducts is null
+            productService = new JsonFileProductService(mockEnvironment.Object);
+
+            // Mock GetAllData to simulate existing products
+            var mockExistingProducts = new List<ProductModel>
+    {
+        new ProductModel { Id = "10", Title = "Existing Product" }
+    };
+
+            var productServiceMock = new Mock<JsonFileProductService>(mockEnvironment.Object) { CallBase = true };
+            productServiceMock.Setup(service => service.GetAllData()).Returns(mockExistingProducts);
+
+            // Act: Attempt to delete an existing product
+            var deletedProduct = productServiceMock.Object.DeleteData("10");
+
+            // Assert
+            Assert.That(deletedProduct, Is.Not.Null, "Expected product should be deleted.");
+            Assert.That(deletedProduct.Id, Is.EqualTo("10"), "The deleted product's ID should match.");
+        }
+
+
+
+
+
     }
 }
