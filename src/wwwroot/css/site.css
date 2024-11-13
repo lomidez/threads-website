@@ -269,6 +269,15 @@ a {
     cursor: pointer;
     width: 100%;
 }
+
+.btn-primary-narrow {
+    background-color: #D0F520;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
 .btn-primary:hover {
     color: #5B5B5B;
     background-color: #d7f34f;
