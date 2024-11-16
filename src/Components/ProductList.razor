@@ -41,21 +41,40 @@
         {
             <div class="trending-now">
                 <h3>Trending Now</h3>
-                <div class="trending-row">
-                    @foreach (var product in TrendingProducts)
-                    {
-                        <div class="card trending-card">
-                            <a href="ProductDetails/@product.Id" class="text-decoration-none">
-                                <img src="@product.Image" alt="@product.Title" class="favorites-img trending-image" />
+                <div class="carousel-container">
+                    <button class="carousel-button" @onclick="PreviousProduct">&lt;</button>
+
+                    <div class="products-display">
+                        @{
+                            int prevIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+                            int nextIndex = (currentIndex + 1) % TrendingProducts.Count;
+                        }
+
+                        @* Previous Product Preview *@
+                        <div class="card trending-card preview-card preview-left">
+                            <img src="@TrendingProducts[prevIndex].Image" alt="@TrendingProducts[prevIndex].Title" class="favorites-img trending-image" />
+                        </div>
+
+                        @* Current Product *@
+                        <div class="card trending-card current-card">
+                            <a href="ProductDetails/@TrendingProducts[currentIndex].Id" class="text-decoration-none">
+                                <img src="@TrendingProducts[currentIndex].Image" alt="@TrendingProducts[currentIndex].Title" class="favorites-img trending-image" />
                                 <div class="card-body">
-                                    <h5 class="card-title text-center">@product.Title</h5>
+                                    <h5 class="card-title text-center">@TrendingProducts[currentIndex].Title</h5>
                                 </div>
                             </a>
                             <div class="card-footer">
-                                <p class="text-center">❤️ @product.Likes Likes</p>
+                                <p class="text-center">❤️ @TrendingProducts[currentIndex].Likes Likes</p>
                             </div>
                         </div>
-                    }
+
+                        @* Next Product Preview *@
+                        <div class="card trending-card preview-card preview-right">
+                            <img src="@TrendingProducts[nextIndex].Image" alt="@TrendingProducts[nextIndex].Title" class="favorites-img trending-image" />
+                        </div>
+                    </div>
+
+                    <button class="carousel-button" @onclick="NextProduct">&gt;</button>
                 </div>
             </div>
         }
@@ -138,6 +157,32 @@
 
     // List of top 5 products with the most likes
     private List<ProductModel> TrendingProducts { get; set; }
+
+    // Index of product in the featured product carousel
+    private int currentIndex = 0;
+
+    // The currently selected product
+    ProductModel selectedProduct;
+
+    // ID of the selected product
+    string selectedProductId;
+
+    private void NextProduct()
+    {
+        if (TrendingProducts != null && TrendingProducts.Any())
+        {
+            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
+        }
+    }
+
+    private void PreviousProduct()
+    {
+        if (TrendingProducts != null && TrendingProducts.Any())
+        {
+            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+        }
+    }
+
 
     /// <summary>
     /// Initializes component and sets up default data.
@@ -252,12 +297,6 @@
         ApplyFilters();
         SetTrendingProduct();
     }
-
-    // The currently selected product
-    ProductModel selectedProduct;
-
-    // ID of the selected product
-    string selectedProductId;
 
     /// <summary>
     /// Selects a product by its ID and loads its details.
