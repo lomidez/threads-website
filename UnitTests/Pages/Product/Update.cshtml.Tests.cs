@@ -29,12 +29,8 @@ namespace UnitTests.Pages
         }
     
 
-
-
-
-
         [Test]
-        public void OnPostResetLikes_ValidProductId_Should_Reset_Likes_And_Redirect()
+        public void OnPostResetLikes_Valid_ProductId_Should_Reset_Likes_And_Redirect()
         {
             // Arrange
             string validProductId = "test-id";
@@ -142,7 +138,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_ValidProductId_Should_Set_SelectedProduct_And_Initialize_Material_And_Style()
+        public void OnGet_Valid_ProductId_Should_Select_Product_Set_Values_Correctly()
         {
             var productId = "test-id";
             var product = new ProductModel
@@ -161,7 +157,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_ValidProductId_WithMaterialAndStyle_Should_Set_MaterialAndStyle()
+        public void OnGet_Valid_ProductId_Should_Set_Values_Correctly()
         {
             var productId = "valid-id";
             var product = new ProductModel
@@ -178,7 +174,7 @@ namespace UnitTests.Pages
         }
 
         [Test]
-        public void OnGet_NullMaterialAndStyle_Should_Set_EmptyStrings()
+        public void OnGet_InValid_Null_Fields_Should_Set_Empty_Strings()
         {
             var productId = "null-material-style";
             var product = new ProductModel
