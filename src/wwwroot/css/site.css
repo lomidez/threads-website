@@ -1,4 +1,17 @@
-﻿.carousel-container {
+﻿.btn-arrow {
+    background-color: #d3d3d3;
+    border: none;
+    color: black;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.btn-arrow.active {
+    background-color: #D0F520;
+    color: white;
+}
+
+.carousel-container {
     display: flex;
     align-items: center;
     justify-content: center;

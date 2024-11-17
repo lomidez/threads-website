@@ -79,10 +79,13 @@
             </div>
         }
 
-        <!-- Sort by Likes button -->
-        <button @onclick="SortProductsByLikes" class="btn-primary">
-            Sort by Number of Likes
-        </button>
+
+        <!-- Sorting controls -->
+        <div class="sorting-controls">
+            <span>Sort by number of likes:</span>
+            <button class='btn-arrow @GetButtonClass("asc")' @onclick='() => ToggleSort("asc")'>↑</button>
+            <button class='btn-arrow @GetButtonClass("desc")' @onclick='() => ToggleSort("desc")'>↓</button>
+        </div>
 
 
 
@@ -191,8 +194,8 @@
     // List of products filtered based on search criteria
     private IEnumerable<ProductModel> FilteredProducts;
 
-    // Boolean to track if products are sorted by likes
-    private bool IsSortedByLikes { get; set; } = false;
+    // Stores order of sorting
+    private string CurrentSort { get; set; } = "none";
 
     // List of top 5 products with the most likes
     private List<ProductModel> TrendingProducts { get; set; }
@@ -318,11 +321,36 @@
             );
         }
 
-        // Sort products by likes if enabled
-        if (IsSortedByLikes)
+        // Sort products by likes in provided order
+        if (CurrentSort == "asc")
+        {
+            FilteredProducts = FilteredProducts.OrderBy(p => p.Likes);
+        }
+        if (CurrentSort == "desc")
         {
             FilteredProducts = FilteredProducts.OrderByDescending(p => p.Likes);
         }
+    }
+
+    /// <summary>
+    /// Dynamically determines the CSS class for the sorting buttons.
+    /// </summary>
+    /// <param name="order">The sort order to check ("asc" or "desc").</param>
+    /// <returns>Returns "active" if the current sort matches the order; otherwise, an empty string.</returns>
+    private string GetButtonClass(string order)
+    {
+        return CurrentSort == order ? "active" : "";
+    }
+
+    /// <summary>
+    /// Toggles the sorting order based on the button clicked.
+    /// If the same button is clicked twice, it resets the sort order to "none."
+    /// </summary>
+    /// <param name="order">The sorting order ("asc" for ascending or "desc" for descending).</param>
+    private void ToggleSort(string order)
+    {
+        CurrentSort = CurrentSort == order ? "none" : order;
+        ApplyFilters();
     }
 
     /// <summary>
@@ -344,15 +372,6 @@
             .OrderByDescending(p => p.Likes)
             .Take(5)
             .ToList();
-    }
-
-    /// <summary>
-    /// Toggles sorting products by number of likes.
-    /// </summary>
-    private void SortProductsByLikes()
-    {
-        IsSortedByLikes = !IsSortedByLikes;
-        ApplyFilters();
     }
 
     /// <summary>
