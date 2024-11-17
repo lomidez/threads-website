@@ -6,6 +6,14 @@
     <div class="card-body">
         <h2>Delete Product</h2>
 
+        @if (Model.SelectedProduct == null)
+        {
+            <!-- Display a message if the product was not found -->
+            <div>
+                <h4>Product not found.</h4>
+            </div>
+        }
+
         <!-- Check if the selected product exists before displaying its details -->
         @if (Model.SelectedProduct != null)
         {
@@ -37,13 +45,6 @@
                 <!-- Cancel button to go back to the Index page without deleting -->
                 <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
             </form>
-        }
-        else
-        {
-            <!-- Display a message if the product was not found -->
-            <div>
-                <h4>Product not found.</h4>
-            </div>
         }
     </div>
 </div>
