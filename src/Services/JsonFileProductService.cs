@@ -36,6 +36,24 @@ namespace ContosoCrafts.WebSite.Services
             _testProducts = testProducts; // Assign test data
         }
 
+        public void UpdateProduct(ProductModel product)
+        {
+            var products = GetAllData().ToList();
+            var index = products.FindIndex(p => p.Id == product.Id);
+
+            if (index != -1)
+            {
+                products[index] = product;
+                using (var outputStream = File.OpenWrite(JsonFileName))
+                {
+                    JsonSerializer.Serialize<IEnumerable<ProductModel>>(
+                        new Utf8JsonWriter(outputStream, new JsonWriterOptions { SkipValidation = true, Indented = true }),
+                        products
+                    );
+                }
+            }
+        }
+
         /// <summary>
         /// Gets the web host environment.
         /// </summary>
