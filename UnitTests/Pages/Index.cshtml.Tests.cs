@@ -8,14 +8,20 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for the IndexModel class in the Product page of the application.
+    /// </summary>
     [TestFixture]
     public class IndexModelTests
     {
-        private IndexModel indexModel;
-        private Mock<IWebHostEnvironment> mockWebHostEnvironment;
-        private Mock<JsonFileProductService> mockProductService;
-        private List<ProductModel> mockProducts;
+        private IndexModel indexModel; ///<summary>Instance of IndexModel for testing.</summary>
+        private Mock<IWebHostEnvironment> mockWebHostEnvironment; ///<summary>Mock of IWebHostEnvironment used for testing.</summary>
+        private Mock<JsonFileProductService> mockProductService; ///<summary>Mock of the JsonFileProductService.</summary>
+        private List<ProductModel> mockProducts; ///<summary>List of mock product data used for testing.</summary>
 
+        /// <summary>
+        /// Setup method to initialize mocks and the IndexModel instance before each test.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -40,6 +46,9 @@ namespace UnitTests.Pages.Product
             indexModel = new IndexModel(mockProductService.Object);
         }
 
+        /// <summary>
+        /// Test that the OnGet method correctly sets the Products property in the IndexModel.
+        /// </summary>
         [Test]
         public void OnGet_Should_Set_Products_Property()
         {
