@@ -14,12 +14,18 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace UnitTests.Pages.Product
 {
+    /// <summary>
+    /// Unit tests for the <see cref="IndexModel"/> class, responsible for testing the product filtering logic in the Index page.
+    /// </summary>
     public class IndexTests
     {
         private IndexModel pageModel;
         private Mock<JsonFileProductService> mockProductService;
         private List<ProductModel> mockProducts;
 
+        /// <summary>
+        /// Initializes the test environment, creating mock products and mock services.
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -43,6 +49,9 @@ namespace UnitTests.Pages.Product
             };
         }
 
+        /// <summary>
+        /// Tests the OnGet method for returning all products when no category filter is applied.
+        /// </summary>
         [Test]
         public void OnGet_Valid_Get_Products_Should_Return_All_Products()
         {
@@ -54,6 +63,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(3));
         }
 
+        /// <summary>
+        /// Tests the OnGet method for filtering products by category.
+        /// </summary>
         [Test]
         public void OnGet_Valid_CategoryTag_Should_Filter_Products_By_Category()
         {
@@ -66,6 +78,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(2));
         }
 
+        /// <summary>
+        /// Tests the OnGet method for filtering products by size.
+        /// </summary>
         [Test]
         public void OnGet_Valid_SizeTag_Should_Filter_Products_By_Size()
         {
@@ -78,6 +93,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
 
+        /// <summary>
+        /// Tests the OnGet method for filtering products by color.
+        /// </summary>
         [Test]
         public void OnGet_Valid_ColorTag_Should_Filter_Products_By_Color()
         {
@@ -90,6 +108,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
 
+        /// <summary>
+        /// Tests the OnGet method for filtering products by material.
+        /// </summary>
         [Test]
         public void OnGet_Valid_MaterialTag_Should_Filter_Products_By_Material()
         {
@@ -102,6 +123,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
 
+        /// <summary>
+        /// Tests the OnGet method for filtering products by style.
+        /// </summary>
         [Test]
         public void OnGet_Valid_StyleTag_Should_Filter_Products_By_Style()
         {
@@ -114,7 +138,9 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
 
-
+        /// <summary>
+        /// Tests that the constructor throws an <see cref="ArgumentNullException"/> when the logger is null.
+        /// </summary>
         [Test]
         public void Constructor_InValid_Logger_Null_Should_Throw_ArgumentNullException()
         {
@@ -126,6 +152,9 @@ namespace UnitTests.Pages.Product
             Assert.Throws<ArgumentNullException>(() => new IndexModel(null, productService));
         }
 
+        /// <summary>
+        /// Tests that the constructor throws an <see cref="ArgumentNullException"/> when the product service is null.
+        /// </summary>
         [Test]
         public void Constructor_Invalid_ProductService_Null_Should_Throw_ArgumentNullException()
         {
@@ -136,6 +165,9 @@ namespace UnitTests.Pages.Product
             Assert.Throws<ArgumentNullException>(() => new IndexModel(mockLogger, null));
         }
 
+        /// <summary>
+        /// Tests the constructor with valid parameters to ensure the <see cref="IndexModel"/> is initialized correctly.
+        /// </summary>
         [Test]
         public void Constructor_Valid_Parameters_Should_Initialize_IndexModel()
         {
@@ -152,7 +184,5 @@ namespace UnitTests.Pages.Product
             Assert.That(indexModel.ProductService, Is.EqualTo(productService));
             Assert.That(indexModel.ProductService, Is.TypeOf<JsonFileProductService>());
         }
-
     }
 }
-
