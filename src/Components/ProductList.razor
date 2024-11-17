@@ -84,6 +84,8 @@
             Sort by Number of Likes
         </button>
 
+
+
         <!-- No products message -->
         @if (!FilteredProducts.Any())
         {
@@ -108,6 +110,25 @@
                     <button @onclick="() => AddLike(product.Id)" class="like-button">
                         ❤️ <span class="like-count">@product.Likes</span>
                     </button>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <h6> Comments: </h6>
+                        @if (product.Comments != null && product.Comments.Any())
+                        {
+                            <ul class="comments-list">
+                                @foreach (var comment in product.Comments)
+                                {
+                                    <li>@comment</li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No comments yet. be the first to comment!</p>
+                        }
+
+                    </div>
                 </div>
             }
         </div>
@@ -166,6 +187,9 @@
 
     // ID of the selected product
     string selectedProductId;
+
+    // comments 
+    private string NewComment { get; set; }
 
     /// <summary>
     /// Finds the next trending product
