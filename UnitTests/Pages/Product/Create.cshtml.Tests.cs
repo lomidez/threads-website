@@ -83,7 +83,7 @@ namespace UnitTests.Pages.Products
             };
 
             // Initialize TempData and clear ModelState to ensure there are no pre-existing errors
-            pageModel.TempData = new Temp\DataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
+            pageModel.TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
             pageModel.ModelState.Clear();
 
             // Mock CreateData to return true to simulate successful data creation
