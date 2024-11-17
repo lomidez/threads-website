@@ -9,11 +9,18 @@ using System.Linq;
 
 namespace UnitTests.Services
 {
+    /// <summary>
+    /// Unit tests for the JsonFileProductService class to validate the functionality of loading product data.
+    /// </summary>
     public class JsonDataLoadTests
     {
-        private JsonFileProductService _productService;
-        private Mock<IWebHostEnvironment> _mockEnvironment;
+        private JsonFileProductService _productService; ///<summary>Instance of JsonFileProductService used in the tests.</summary>
+        private Mock<IWebHostEnvironment> _mockEnvironment; ///<summary>Mock of IWebHostEnvironment to simulate project environment for loading data.</summary>
 
+        /// <summary>
+        /// Initializes the test environment by mocking the IWebHostEnvironment and setting up the path to "src/wwwroot/data".
+        /// This method is called before each test to set up necessary dependencies.
+        /// </summary>
         [SetUp]
         public void TestInitialize()
         {
@@ -29,10 +36,12 @@ namespace UnitTests.Services
             _productService = new JsonFileProductService(_mockEnvironment.Object);
         }
 
-
-
-
-
+        /// <summary>
+        /// Test to verify that the GetAllData method successfully loads product data.
+        /// </summary>
+        /// <remarks>
+        /// Verifies that calling GetAllData does not return a null value and the product list is populated with data.
+        /// </remarks>
         [Test]
         public void GetAllData_Valid_Should_Load_Successfully()
         {
@@ -44,10 +53,12 @@ namespace UnitTests.Services
             Assert.That(products.Any(), Is.True, "Product list should contain data.");
         }
 
-
-
-
-
+        /// <summary>
+        /// Test to verify that the GetAllData method returns a list that contains at least one product.
+        /// </summary>
+        /// <remarks>
+        /// Verifies that the product list has at least one entry, indicating the data has been loaded correctly.
+        /// </remarks>
         [Test]
         public void GetAllData_Valid_ProductData_Should_Contain_At_Least_One_Entry()
         {
