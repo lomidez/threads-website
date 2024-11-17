@@ -167,6 +167,9 @@
     // ID of the selected product
     string selectedProductId;
 
+    /// <summary>
+    /// Finds the next trending product
+    /// </summary>
     private void NextProduct()
     {
         if (TrendingProducts != null && TrendingProducts.Any())
@@ -175,6 +178,9 @@
         }
     }
 
+    /// <summary>
+    /// Finds the previous trending product
+    /// </summary>
     private void PreviousProduct()
     {
         if (TrendingProducts != null && TrendingProducts.Any())
@@ -182,7 +188,6 @@
             currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
         }
     }
-
 
     /// <summary>
     /// Initializes component and sets up default data.
