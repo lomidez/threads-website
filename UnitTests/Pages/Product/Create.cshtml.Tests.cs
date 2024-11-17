@@ -54,7 +54,7 @@ namespace UnitTests.Pages.Products
         }
 
         [Test]
-        public void OnPost_Valid_Product_CreationFails_Should_Return_Page_With_Error()
+        public void OnPost_Valid_Create_Product_Fails_Should_Return_Page_With_Error()
         {
             // Arrange
             pageModel.NewProduct = new ProductModel { Id = "new-id", Title = "New Product" };
@@ -70,7 +70,7 @@ namespace UnitTests.Pages.Products
         }
 
         [Test]
-        public void OnPost_Valid_Product_CreationSucceeds_Should_Redirect_To_Index()
+        public void OnPost_Valid_Create_Product_Success_Should_Redirect_To_Index()
         {
             // Arrange: Set up a fully initialized and valid product
             pageModel.NewProduct = new ProductModel
@@ -83,7 +83,7 @@ namespace UnitTests.Pages.Products
             };
 
             // Initialize TempData and clear ModelState to ensure there are no pre-existing errors
-            pageModel.TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
+            pageModel.TempData = new Temp\DataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>());
             pageModel.ModelState.Clear();
 
             // Mock CreateData to return true to simulate successful data creation
