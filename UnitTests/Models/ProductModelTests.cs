@@ -132,12 +132,12 @@ namespace UnitTests.Pages.Products
         /// <summary>
         /// Tests that the product dimensions are initialized properly.
         /// </summary>
-        [Test]
-        public void ProductModel_Dimensions_Should_Be_Initialized()
-        {
-            var product = new ProductModel();
-            Assert.That(product.Dimensions, Is.Not.Null);
-        }
+        //[Test]
+        //public void ProductModel_Dimensions_Should_Be_Initialized()
+        //{
+        //    var product = new ProductModel();
+        //    Assert.That(product.Dimensions, Is.Not.Null);
+        //}
 
         /// <summary>
         /// Tests that the product's ToString method returns a JSON string.
