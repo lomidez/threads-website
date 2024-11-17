@@ -8,27 +8,39 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System;
+
 namespace UnitTests.Pages
 {
+    /// <summary>
+    /// Unit tests for the <see cref="UpdateModel"/> class.
+    /// </summary>
     [TestFixture]
     public class UpdateTests
     {
         private Mock<IWebHostEnvironment> mockEnvironment;
         private Mock<JsonFileProductService> mockProductService;
         private UpdateModel updatePage;
+
+        /// <summary>
+        /// Set up the mocks and prepare for each test.
+        /// </summary>
         [SetUp]
         public void SetUp()
         {
             // Initialize mock environment
             mockEnvironment = new Mock<IWebHostEnvironment>();
             mockEnvironment.Setup(env => env.WebRootPath).Returns("C:/fake/path"); // Adjust as needed for the test
+
             // Initialize mock product service with the mock environment
             mockProductService = new Mock<JsonFileProductService>(MockBehavior.Strict, mockEnvironment.Object);
+
             // Initialize the UpdateModel with the mock service
             updatePage = new UpdateModel(mockProductService.Object);
         }
-    
 
+        /// <summary>
+        /// Test that OnPostResetLikes correctly resets likes and redirects when provided a valid product ID.
+        /// </summary>
         [Test]
         public void OnPostResetLikes_Valid_ProductId_Should_Reset_Likes_And_Redirect()
         {
@@ -57,14 +69,9 @@ namespace UnitTests.Pages
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(validProductId), "Expected the ID route value to match the product ID.");
         }
 
-
-
-
-
-
-
-
-
+        /// <summary>
+        /// Test that OnPostResetLikes throws an InvalidOperationException when an invalid product ID is provided.
+        /// </summary>
         [Test]
         public void OnPostResetLikes_InvalidProductId_Should_Throw_InvalidOperationException()
         {
@@ -76,6 +83,9 @@ namespace UnitTests.Pages
             Assert.That(exception.Message, Is.EqualTo("product not found"));
         }
 
+        /// <summary>
+        /// Test that OnGet loads the product with the correct material and style for a valid product ID.
+        /// </summary>
         [Test]
         public void OnGet_Valid_ProductId_Should_Return_Product_With_Correct_Material_And_Style()
         {
@@ -94,6 +104,9 @@ namespace UnitTests.Pages
             Assert.That(updatePage.Style, Is.EqualTo("Modern, Classic"));
         }
 
+        /// <summary>
+        /// Test that OnGet does not load a product for an invalid product ID.
+        /// </summary>
         [Test]
         public void OnGet_Invalid_ProductId_Should_Not_Load_Product()
         {
@@ -104,6 +117,9 @@ namespace UnitTests.Pages
             Assert.That(updatePage.Style, Is.Null);
         }
 
+        /// <summary>
+        /// Test that OnPost updates the material and style of a valid product and redirects to the index page.
+        /// </summary>
         [Test]
         public void OnPost_Valid_Product_Should_Update_Material_And_Style_And_Redirect_To_Index()
         {
@@ -119,6 +135,9 @@ namespace UnitTests.Pages
             Assert.That(updatePage.SelectedProduct.Style, Is.EquivalentTo(new List<string> { "Modern", "Vintage" }));
         }
 
+        /// <summary>
+        /// Test that OnPost returns the current page when the model state is invalid.
+        /// </summary>
         [Test]
         public void OnPost_InValid_ModelState_Should_Return_Page()
         {
@@ -127,6 +146,9 @@ namespace UnitTests.Pages
             Assert.That(result, Is.TypeOf<PageResult>());
         }
 
+        /// <summary>
+        /// Test that OnPost returns a NotFound result when the product ID does not exist.
+        /// </summary>
         [Test]
         public void OnPost_InValid_Non_Existent_ProductId_Should_Return_NotFound()
         {
@@ -137,6 +159,9 @@ namespace UnitTests.Pages
             Assert.That(result, Is.Not.Null);
         }
 
+        /// <summary>
+        /// Test that OnGet loads and sets the values correctly for a valid product ID.
+        /// </summary>
         [Test]
         public void OnGet_Valid_ProductId_Should_Select_Product_Set_Values_Correctly()
         {
@@ -156,23 +181,9 @@ namespace UnitTests.Pages
             Assert.That(updatePage.Style, Is.EqualTo("Modern, Classic"));
         }
 
-        [Test]
-        public void OnGet_Valid_ProductId_Should_Set_Values_Correctly()
-        {
-            var productId = "valid-id";
-            var product = new ProductModel
-            {
-                Id = productId,
-                Title = "Test Product",
-                Material = new List<string> { "Wood", "Metal" },
-                Style = new List<string> { "Modern", "Classic" }
-            };
-            mockProductService.Setup(service => service.GetAllData()).Returns(new List<ProductModel> { product });
-            updatePage.OnGet(productId);
-            Assert.That(updatePage.Material, Is.EqualTo("Wood, Metal"), "Expected Material to be set as 'Wood, Metal'");
-            Assert.That(updatePage.Style, Is.EqualTo("Modern, Classic"), "Expected Style to be set as 'Modern, Classic'");
-        }
-
+        /// <summary>
+        /// Test that OnGet correctly sets empty strings for null material or style fields.
+        /// </summary>
         [Test]
         public void OnGet_InValid_Null_Fields_Should_Set_Empty_Strings()
         {
