@@ -135,7 +135,12 @@
                            />
 
                         <button class="submit-comment-btn" @onclick="() => AddComment(product.Id)">Submit</button>
-                        @if (product.Comments != null && product.Comments.Any())
+                        @if (product.Comments == null)
+                        {
+                            <p>No comments yet. be the first to comment!</p>
+                        }
+
+                        @if (product.Comments.Any())
                         {
                             <ul class="comments-list">
                                 @foreach (var comment in product.Comments)
@@ -144,11 +149,6 @@
                                 }
                             </ul>
                         }
-                        else
-                        {
-                            <p>No comments yet. be the first to comment!</p>
-                        }
-
                     </div>
                 </div>
             }
