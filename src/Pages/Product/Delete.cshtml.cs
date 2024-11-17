@@ -71,10 +71,17 @@ namespace ContosoCrafts.WebSite.Pages
         public IActionResult OnPost()
         {
             // Check if the selected product is null or has an invalid ID
-            if (SelectedProduct == null || string.IsNullOrWhiteSpace(SelectedProduct.Id))
+            if (SelectedProduct == null)
             {
                 // Set notification message for deletion error
-                TempData["Notification"] = "Error: Failed to delete product.";
+                TempData["Notification"] = "Error: Failed to delete product, product does not exist.";
+                return NotFound(); // Return 404 error if product is invalid
+            }
+
+            if (string.IsNullOrWhiteSpace(SelectedProduct.Id))
+            {
+                // Set notification message for deletion error
+                TempData["Notification"] = "Error: Failed to delete product, product could not be located.";
                 return NotFound(); // Return 404 error if product is invalid
             }
 
