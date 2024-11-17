@@ -100,18 +100,6 @@ namespace UnitTests.Pages.Products
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         [Test]
         public void GenerateUniqueId_Should_Return_Unique_Id()
         {
@@ -169,10 +157,6 @@ namespace UnitTests.Pages.Products
             Assert.That(result, Is.TypeOf<RedirectToPageResult>());
         }
 
-
-
-
-
         [Test]
         public void ValidateProductId_ValidFormat_Should_Return_True()
         {
@@ -198,17 +182,6 @@ namespace UnitTests.Pages.Products
                 Assert.Pass("No ModelState entry for 'NewProduct.Id' implies no errors.");
             }
         }
-
-
-
-
-
-
-
-
-
-
-
 
 
         [Test]
@@ -251,12 +224,6 @@ namespace UnitTests.Pages.Products
 
             return (bool)method.Invoke(pageModel, new object[] { productId });
         }
-
-
-
-
-
-
 
         private bool InvokeIsDuplicateProductId(string productId)
         {
