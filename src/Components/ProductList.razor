@@ -111,9 +111,27 @@
                         ❤️ <span class="like-count">@product.Likes</span>
                     </button>
 
+                    <!-- Display Comments -->
+                    @if (product.Comments != null && product.Comments.Any())
+                    {
+                        <ul class="comments-list">
+                            @foreach (var comment in product.Comments)
+                            {
+                                <li>@comment</li>
+                            }
+                        </ul>
+                    }
+
                     <!-- Comments Section -->
                     <div class="comments-section">
                         <h6> Comments: </h6>
+                        <input type="text"
+                           class="comment-input"
+                           placeholder="Add a comment..."
+                           @bind="NewComment"
+                           />
+
+                        <button class="submit-comment-btn" @onclick="() => AddComment(product.Id)">Submit</button>
                         @if (product.Comments != null && product.Comments.Any())
                         {
                             <ul class="comments-list">
@@ -185,11 +203,28 @@
     // The currently selected product
     ProductModel selectedProduct;
 
-    // ID of the selected product
-    string selectedProductId;
-
+    
     // comments 
     private string NewComment { get; set; }
+
+    /// <summary>
+    /// Adds a new comment to the specified product.
+    /// </summary>
+    private void AddComment(string productId)
+    {
+        if (!string.IsNullOrWhiteSpace(NewComment))
+        {
+            var product = ProductService.GetAllData().FirstOrDefault(p => p.Id == productId);
+            if (product != null)
+            {
+                product.Comments.Add(NewComment);
+                ProductService.UpdateProduct(product);
+                NewComment = string.Empty;
+                ApplyFilters();
+            }
+        }
+    }
+
 
     /// <summary>
     /// Finds the next trending product
@@ -201,6 +236,10 @@
             currentIndex = (currentIndex + 1) % TrendingProducts.Count;
         }
     }
+
+    // ID of the selected product
+    string selectedProductId;
+
 
     /// <summary>
     /// Finds the previous trending product
