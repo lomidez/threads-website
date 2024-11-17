@@ -40,6 +40,9 @@ namespace ContosoCrafts.WebSite.Models
         // Number of Likes for the product
         public int Likes { get; set; } = 0;
 
+        // New Comments property
+        public List<string> Comments { get; set; } = new List<string>();
+
         // Quantity available, nullable to handle missing values in JSON data
         public int? Quantity { get; set; }
 
