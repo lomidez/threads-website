@@ -34,7 +34,7 @@ namespace UnitTests.Services
 
 
         [Test]
-        public void JsonData_Valid_Should_Load_Successfully()
+        public void GetAllData_Valid_Should_Load_Successfully()
         {
             // Act
             var products = _productService.GetAllData();
@@ -49,7 +49,7 @@ namespace UnitTests.Services
 
 
         [Test]
-        public void ProductData_Valid_Should_Contain_At_Least_One_Entry()
+        public void GetAllData_Valid_ProductData_Should_Contain_At_Least_One_Entry()
         {
             // Act
             var products = _productService.GetAllData();
