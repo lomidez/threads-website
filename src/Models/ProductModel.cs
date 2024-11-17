@@ -19,16 +19,19 @@ namespace ContosoCrafts.WebSite.Models
 
         // Product image URL, maps to the JSON property "img"
         [JsonPropertyName("img")]
+        [Required(ErrorMessage = "Image is required!")]
         public string Image { get; set; }
 
         // URL link to the product details page
         public string Url { get; set; }
 
         // Title of the product with validation constraints on length
+        [Required(ErrorMessage = "Title is required!")]
         [StringLength(maximumLength: 64, MinimumLength = 1, ErrorMessage = "The Title should have a length of more than {2} and less than {1}")]
         public string Title { get; set; }
 
         // Description providing details about the product
+        [Required(ErrorMessage = "Description is required!")]
         public string Description { get; set; }
 
         // Array of ratings, aligns with JSON data format (nullable int array if data may be missing)
@@ -41,6 +44,7 @@ namespace ContosoCrafts.WebSite.Models
         public int? Quantity { get; set; }
 
         // Price of the product with validation to ensure non-negative values
+        [Required(ErrorMessage = "Price is required!")]
         [Range(0, int.MaxValue, ErrorMessage = "Value for {0} must be non-negative.")]
         public int Price { get; set; }
 
@@ -48,18 +52,23 @@ namespace ContosoCrafts.WebSite.Models
         public List<CommentModel> CommentList { get; set; } = new List<CommentModel>();
 
         // Category of the product, e.g., electronics, clothing
+        [Required(ErrorMessage = "Category is required!")]
         public string Category { get; set; }
 
         // Size attribute to specify product size
+        [Required(ErrorMessage = "Size is required!")]
         public string Size { get; set; }
 
         // Color attribute to specify product color
+        [Required(ErrorMessage = "Color is required!")]
         public string Color { get; set; }
 
         // Material list for detailing what materials the product is made from
+        [Required(ErrorMessage = "At least one material is required!")]
         public List<string> Material { get; set; } = new List<string>();
 
         // Style list to specify design styles associated with the product
+        [Required(ErrorMessage = "At least one style is required!")]
         public List<string> Style { get; set; } = new List<string>();
 
         // Weight of the product, stored as a decimal for precision
