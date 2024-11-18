@@ -54,6 +54,34 @@
                 </button>
             </form>
 
+            <!-- All Comments Section -->
+            <div class="all-comments-section">
+                <h4>All Comments:</h4>
+                @if (Model.SelectedProduct.Comments != null && Model.SelectedProduct.Comments.Any())
+                {
+                    <ul class="comments-list">
+                        @foreach (var comment in Model.SelectedProduct.Comments)
+                        {
+                            <li>@comment</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No comments yet. Be the first to comment!</p>
+                }
+
+                <!-- Add Comment Form -->
+                <form method="post" asp-page-handler="AddComment" asp-route-id="@Model.SelectedProduct.Id">
+                    <input type="text"
+                       class="comment-input"
+                       placeholder="Add a comment..."
+                       asp-for="NewComment" />
+                    <button type="submit" class="submit-comment-btn">Submit</button>
+                </form>
+            </div>
+
+
         </div>
     </div>
 }

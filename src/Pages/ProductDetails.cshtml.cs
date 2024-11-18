@@ -12,6 +12,10 @@ namespace ContosoCrafts.WebSite.Pages
     /// </summary>
     public class ProductDetailsModel : PageModel
     {
+        // Property bound to the form input for new comments
+        [BindProperty]
+        public string NewComment { get; set; }
+
         // Service used to retrieve and manage product data in JSON format
         private readonly JsonFileProductService _productService;
 
@@ -37,6 +41,25 @@ namespace ContosoCrafts.WebSite.Pages
         {
             // Retrieve the product with the specified ID from the product service
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
+        }
+
+        /// <summary>
+        /// Handles HTTP POST requests to add a comment to the product.
+        /// </summary>
+        /// <param name="id">The ID of the product to add a comment to.</param>
+        /// <returns>A redirect to the Product Details page with the updated comments.</returns>
+        public IActionResult OnPostAddComment(string id)
+        {
+            // Check if the new comment is not empty or null
+            if (!string.IsNullOrWhiteSpace(NewComment))
+            {
+                // Add the comment to the specified product
+                _productService.AddComment(id, NewComment);
+                // Clear the comment input field after submission
+                NewComment = string.Empty;
+            }
+            // Redirect to the Product Details page to display the updated comments
+            return RedirectToPage("/ProductDetails", new { id = id });
         }
 
         /// <summary>
