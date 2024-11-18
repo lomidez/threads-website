@@ -197,5 +197,87 @@ namespace UnitTests.Pages.Products
             var method = typeof(CreateModel).GetMethod("IsDuplicateProductId", BindingFlags.NonPublic | BindingFlags.Instance);
             return (bool)method.Invoke(pageModel, new object[] { productId });
         }
+
+
+
+
+
+        /// <summary>
+        /// Tests that ValidateProductId returns true for a valid product ID.
+        /// </summary>
+        [Test]
+        public void ValidateProductId_Valid_Id_Should_Return_True()
+        {
+            // Arrange: Provide a valid product ID
+            var validProductId = "valid-id-123";
+
+            // Act: Call the ValidateProductId method
+            var result = InvokeValidateProductId(validProductId);
+
+            // Assert: Verify that the method returns true and no errors are added to ModelState
+            Assert.That(result, Is.True, "ValidateProductId should return true for a valid product ID.");
+            Assert.That(pageModel.ModelState.IsValid, Is.True, "ModelState should be valid for a valid product ID.");
+            Assert.That(pageModel.ModelState["NewProduct.Id"], Is.Null, "No error should be added to ModelState for a valid product ID.");
+        }
+
+
+
+
+
+        /// <summary>
+        /// Tests that IsDuplicateProductId returns true when a duplicate product ID exists.
+        /// </summary>
+        [Test]
+        public void IsDuplicateProductId_Duplicate_Id_Should_Return_True()
+        {
+            // Arrange: Mock product list with an existing ID
+            var existingProductId = "existing-id";
+            var mockProducts = new List<ProductModel>
+    {
+        new ProductModel { Id = existingProductId, Title = "Product 1" },
+        new ProductModel { Id = "unique-id", Title = "Product 2" }
+    };
+
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockProducts);
+
+            // Act: Call IsDuplicateProductId with the duplicate ID
+            var result = InvokeIsDuplicateProductId(existingProductId);
+
+            // Assert: Verify the method returns true
+            Assert.That(result, Is.True, "IsDuplicateProductId should return true when a duplicate ID exists.");
+        }
+
+
+        /// <summary>
+        /// Tests that IsDuplicateProductId returns false when no duplicate product ID exists.
+        /// </summary>
+        [Test]
+        public void IsDuplicateProductId_Unique_Id_Should_Return_False()
+        {
+            // Arrange: Mock product list with no matching ID
+            var uniqueProductId = "unique-id";
+            var mockProducts = new List<ProductModel>
+    {
+        new ProductModel { Id = "existing-id-1", Title = "Product 1" },
+        new ProductModel { Id = "existing-id-2", Title = "Product 2" }
+    };
+
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockProducts);
+
+            // Act: Call IsDuplicateProductId with a unique ID
+            var result = InvokeIsDuplicateProductId(uniqueProductId);
+
+            // Assert: Verify the method returns false
+            Assert.That(result, Is.False, "IsDuplicateProductId should return false when no duplicate ID exists.");
+        }
+
+
+
+      
+
+
+
+
     }
 }
+
