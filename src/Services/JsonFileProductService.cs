@@ -202,24 +202,57 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>True if the product was created successfully; otherwise, false.</returns>
         public virtual bool CreateData(ProductModel data)
         {
+            // Validate the data object before proceeding
+            if (data == null || string.IsNullOrWhiteSpace(data.Title))
+            {
+                // Log error or take necessary action
+                return false;
+            }
+
             // Ensure the product has a unique ID if not set
             if (string.IsNullOrWhiteSpace(data.Id))
             {
                 data.Id = Guid.NewGuid().ToString("N");
             }
 
+            // Get existing data
+            var existingData = GetAllData();
+           
+
+            // Add the new product to the existing data
+            var dataSet = existingData.ToList();
+            dataSet.Add(data);
+
+            // Save the data and ensure it succeeds
+            return SaveDataSafely(dataSet);
+        }
+
+
+
+
+
+        public bool SaveDataSafely(IEnumerable<ProductModel> dataSet)
+        {
+            if (dataSet == null)
+            {
+                return false; // Safeguard against null data sets
+            }
+
+            // Use a validation approach to ensure safe saving
             try
             {
-                var dataSet = GetAllData().Append(data);
                 SaveData(dataSet);
-                return true; // Return true if the operation succeeds
+                return true;
             }
-            catch
+            catch (Exception ex)
             {
-                // Log the error if necessary
-                return false; // Return false if an error occurs during saving
+                // Log the exception here if needed
+                Console.WriteLine($"Error saving data: {ex.Message}");
+                return false;
             }
         }
+
+
 
         /// <summary>
         /// Increments the like count for a specific product.
