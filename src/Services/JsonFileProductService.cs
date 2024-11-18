@@ -343,7 +343,7 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="productId">The ID of the product to add the comment to.</param>
         /// <param name="comment">The comment to be added.</param>
-        public void AddComment(string productId, string comment)
+        public virtual void AddComment(string productId, string comment)
         {
             if (string.IsNullOrWhiteSpace(comment)) return;
 
