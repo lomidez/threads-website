@@ -115,29 +115,7 @@
                     </button>
 
 
-                    <!-- Comments Section -->
-                    <div class="comments-section">
-                        <h6> Comments: </h6>
-                        @if (product.Comments == null || !product.Comments.Any())
-                        {
-                            <p>No comments yet. Be the first to comment!</p>
-                        }
-                        else
-                        {
-                            <ul class="comments-list">
-                                @foreach (var comment in product.Comments)
-                                {
-                                    <li>@comment</li>
-                                }
-                            </ul>
-                        }
-
-                        <input type="text"
-                           class="comment-input"
-                           placeholder="Add a comment..."
-                           @bind="NewComment" />
-                        <button class="submit-comment-btn" @onclick="() => AddComment(product.Id)">Submit</button>
-                    </div>
+                   
                 </div>
             }
         </div>
