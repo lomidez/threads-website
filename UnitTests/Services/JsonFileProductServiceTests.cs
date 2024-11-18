@@ -270,6 +270,53 @@ namespace UnitTests.Services
 
 
 
+        [Test]
+        public void UpdateProduct_Valid_Product_Should_Update_Product_In_List()
+        {
+            // Arrange
+            var existingProduct = new ProductModel { Id = "1", Title = "Old Title" };
+            var updatedProduct = new ProductModel { Id = "1", Title = "Updated Title" };
+
+            // Add the existing product to the mock data
+            var products = new List<ProductModel>
+    {
+        existingProduct
+    };
+            productService = new JsonFileProductService(mockEnvironment.Object, products);
+
+            // Act
+            productService.UpdateProduct(updatedProduct);
+
+            // Assert
+            var allProducts = productService.GetAllData().ToList();
+            Assert.That(allProducts.Count, Is.EqualTo(1), "The number of products in the list should remain the same.");
+            Assert.That(allProducts.First().Title, Is.EqualTo("Updated Title"), "The product's title should be updated.");
+        }
+
+        [Test]
+        public void UpdateProduct_NonExistent_Product_Should_Not_Modify_List()
+        {
+            // Arrange
+            var nonExistentProduct = new ProductModel { Id = "3", Title = "Non-Existent Product" };
+
+            // Add some existing products to the mock data
+            var products = new List<ProductModel>
+    {
+        new ProductModel { Id = "1", Title = "Product 1" },
+        new ProductModel { Id = "2", Title = "Product 2" }
+    };
+            productService = new JsonFileProductService(mockEnvironment.Object, products);
+
+            // Act
+            productService.UpdateProduct(nonExistentProduct);
+
+            // Assert
+            var allProducts = productService.GetAllData().ToList();
+            Assert.That(allProducts.Count, Is.EqualTo(2), "The number of products in the list should remain unchanged.");
+            Assert.That(allProducts.Any(p => p.Id == "3"), Is.False, "The non-existent product should not be added to the list.");
+            Assert.That(allProducts.First().Title, Is.EqualTo("Product 1"), "The existing products should remain unchanged.");
+        }
+
 
 
     }
