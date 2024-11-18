@@ -213,14 +213,28 @@ namespace UnitTests.Services
         /// Tests that resetting likes for a non-existent product throws an exception.
         /// </summary>
         [Test]
+        
         public void ResetLikes_InValid_NonExistent_Product_Should_Throw_Exception()
         {
+            // Arrange: Set up the mock environment and service
+            mockEnvironment = new Mock<IWebHostEnvironment>();
+            mockEnvironment.Setup(env => env.WebRootPath).Returns(tempDirectory);
+
+            mockProductService = new Mock<JsonFileProductService>(mockEnvironment.Object);
+
+            // Set up the mock service to throw an exception for a non-existent product ID
             mockProductService
                 .Setup(service => service.ResetLikes("non-existent"))
                 .Throws(new InvalidOperationException("Product not found"));
 
-            Assert.Throws<InvalidOperationException>(() => mockProductService.Object.ResetLikes("non-existent"));
+            // Act & Assert: Verify that an exception is thrown when ResetLikes is called with a non-existent ID
+            var exception = Assert.Throws<InvalidOperationException>(() => mockProductService.Object.ResetLikes("non-existent"));
+
+            // Verify that the exception message matches the expected text
+            Assert.That(exception.Message, Is.EqualTo("Product not found"), "Expected an exception with the message 'Product not found' when product ID does not exist.");
         }
+
+
 
         /// <summary>
         /// Tests that a product is deleted correctly.
@@ -252,6 +266,12 @@ namespace UnitTests.Services
             var permutations = productService.GetAllDataPermutations();
             Assert.That(permutations["Categories"], Contains.Item("Category1").And.Contains("Category2"));
         }
+
+
+
+
+
+
     }
 }
 
