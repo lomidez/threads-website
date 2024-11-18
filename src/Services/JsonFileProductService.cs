@@ -306,5 +306,23 @@ namespace ContosoCrafts.WebSite.Services
                 ["Colors"] = new HashSet<string>(products.Select(p => p.Color)),
             };
         }
+        /// <summary>
+        /// Adds a comment to the specified product and updates the data.
+        /// </summary>
+        /// <param name="productId">The ID of the product to add the comment to.</param>
+        /// <param name="comment">The comment to be added.</param>
+        public void AddComment(string productId, string comment)
+        {
+            if (string.IsNullOrWhiteSpace(comment)) return;
+
+            var products = GetAllData().ToList(); // Load products from JSON
+            var product = products.FirstOrDefault(p => p.Id == productId);
+
+            if (product != null)
+            {
+                product.Comments.Add(comment); // Add new comment
+                SaveData(products); // Save updated products list back to JSON
+            }
+        }
     }
 }
