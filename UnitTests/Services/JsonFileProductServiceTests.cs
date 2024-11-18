@@ -251,5 +251,8 @@ namespace UnitTests.Services
         {
             var permutations = productService.GetAllDataPermutations();
             Assert.That(permutations["Categories"], Contains.Item("Category1").And.Contains("Category2"));
+        }
+    }
+}
 
 
