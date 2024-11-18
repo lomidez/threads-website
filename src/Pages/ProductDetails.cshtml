@@ -66,7 +66,7 @@
                         }
                     </ul>
                 }
-                else
+                @if (Model.SelectedProduct.Comments == null || !Model.SelectedProduct.Comments.Any())
                 {
                     <p>No comments yet. Be the first to comment!</p>
                 }
