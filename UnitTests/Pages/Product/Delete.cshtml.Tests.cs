@@ -46,7 +46,7 @@ namespace UnitTests.Pages.Products
             var result = pageModel.OnPost();
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
-            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product."));
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product, product does not exist."));
             mockProductService.Verify(service => service.DeleteData(It.IsAny<string>()), Times.Never);
         }
 
@@ -57,13 +57,19 @@ namespace UnitTests.Pages.Products
         [Test]
         public void OnPost_Invalid_Empty_Select_Product_Should_Return_NotFound()
         {
+            // Arrange
             pageModel.SelectedProduct = new ProductModel { Id = string.Empty };
+
+            // Act
             var result = pageModel.OnPost();
 
+            // Assert
             Assert.That(result, Is.TypeOf<NotFoundResult>());
-            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product."));
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product, product could not be located."));
             mockProductService.Verify(service => service.DeleteData(It.IsAny<string>()), Times.Never);
         }
+
+
 
         /// <summary>
         /// Tests the OnPost method when SelectedProduct has a whitespace Id.
@@ -76,7 +82,7 @@ namespace UnitTests.Pages.Products
             var result = pageModel.OnPost();
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
-            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product."));
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product, product could not be located."));
             mockProductService.Verify(service => service.DeleteData(It.IsAny<string>()), Times.Never);
         }
 
