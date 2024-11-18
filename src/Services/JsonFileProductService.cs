@@ -49,13 +49,7 @@ namespace ContosoCrafts.WebSite.Services
             if (index != -1)
             {
                 products[index] = product;
-                using (var outputStream = File.OpenWrite(JsonFileName))
-                {
-                    JsonSerializer.Serialize<IEnumerable<ProductModel>>(
-                        new Utf8JsonWriter(outputStream, new JsonWriterOptions { SkipValidation = true, Indented = true }),
-                        products
-                    );
-                }
+                SaveData(products);
             }
         }
 

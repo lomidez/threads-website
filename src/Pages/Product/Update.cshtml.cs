@@ -104,5 +104,28 @@ namespace ContosoCrafts.WebSite.Pages
             // Redirect back to the Update page for the same product
             return RedirectToPage("/Product/Update", new { id = id });
         }
+
+        /// <summary>
+        /// Resets the comments for a specific product.
+        /// </summary>
+        /// <param name="id">The ID of the product for which to reset comments.</param>
+        /// <returns>Redirects to the Update page for the specified product.</returns>
+        public IActionResult OnPostResetComments(string id)
+        {
+            // Retrieve the product using the service
+            var product = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
+
+            if (product != null)
+            {
+                // Clear the comments list
+                product.Comments.Clear();
+
+                // Save the updated product data
+                _productService.UpdateProduct(product);
+            }
+
+            // Redirect back to the Update page for the same product
+            return RedirectToPage("/Product/Update", new { id = id });
+        }
     }
 }
