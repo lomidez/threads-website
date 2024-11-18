@@ -36,6 +36,11 @@ namespace ContosoCrafts.WebSite.Services
             _testProducts = testProducts; // Assign test data
         }
 
+        /// <summary>
+        /// Updates an existing product in the product list and saves the changes to the JSON file.
+        /// If the product ID matches an existing product, the product is updated, and the data is persisted.
+        /// </summary>
+        /// <param name="product">The <see cref="ProductModel"/> containing the updated product details.</param>
         public void UpdateProduct(ProductModel product)
         {
             var products = GetAllData().ToList();
