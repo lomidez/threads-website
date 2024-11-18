@@ -32,9 +32,6 @@ namespace UnitTests.Pages
         /// <summary>
         /// Test that the OnPostAddLike method correctly increments likes and redirects to the ProductDetails page.
         /// </summary>
-        /// <remarks>
-        /// Verifies that calling OnPostAddLike with a productId increments the like count and performs a redirect to the ProductDetails page for the given product.
-        /// </remarks>
         [Test]
         public void OnPostAddLike_Should_Increment_Like_And_Redirect()
         {
@@ -56,5 +53,75 @@ namespace UnitTests.Pages
             Assert.That(redirectResult.PageName, Is.EqualTo("/ProductDetails"));
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(productId));
         }
+
+        /// <summary>
+        /// Test that the NewComment property works as expected.
+        /// </summary>
+        [Test]
+        public void NewComment_Should_Store_Comment()
+        {
+            // Arrange: Set a test comment
+            var testComment = "This is a new comment.";
+
+            // Act: Assign the comment to the NewComment property
+            productDetailsPage.NewComment = testComment;
+
+            // Assert: Verify that the NewComment property stores the comment correctly
+            Assert.That(productDetailsPage.NewComment, Is.EqualTo(testComment));
+        }
+
+        /// <summary>
+        /// Test that OnPostAddComment adds a comment and clears the input.
+        /// </summary>
+        [Test]
+        public void OnPostAddComment_Valid_Comment_Should_Add_Comment_And_Clear_Input()
+        {
+            // Arrange: Set a valid comment and product ID
+            var productId = "test-id";
+            var comment = "This is a valid comment.";
+            productDetailsPage.NewComment = comment;
+
+            // Mock the AddComment method
+            mockProductService.Setup(service => service.AddComment(productId, comment));
+
+            // Act: Call OnPostAddComment with the test productId
+            var result = productDetailsPage.OnPostAddComment(productId);
+
+            // Assert: Verify that AddComment was called
+            mockProductService.Verify(service => service.AddComment(productId, comment), Times.Once);
+
+            // Assert: Check if the NewComment property was cleared
+            Assert.That(productDetailsPage.NewComment, Is.Empty);
+
+            // Assert: Check if the result is a redirect to the ProductDetails page with the correct ID
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>());
+            var redirectResult = result as RedirectToPageResult;
+            Assert.That(redirectResult.PageName, Is.EqualTo("/ProductDetails"));
+            Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(productId));
+        }
+
+        /// <summary>
+        /// Test that OnPostAddComment does not add an empty or whitespace comment.
+        /// </summary>
+        [Test]
+        public void OnPostAddComment_Invalid_Comment_Should_Not_Add_Comment()
+        {
+            // Arrange: Set an invalid (empty) comment and product ID
+            var productId = "test-id";
+            productDetailsPage.NewComment = "   "; // Whitespace comment
+
+            // Act: Call OnPostAddComment with the test productId
+            var result = productDetailsPage.OnPostAddComment(productId);
+
+            // Assert: Verify that AddComment was not called
+            mockProductService.Verify(service => service.AddComment(It.IsAny<string>(), It.IsAny<string>()), Times.Never);
+
+            // Assert: Check if the result is a redirect to the ProductDetails page with the correct ID
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>());
+            var redirectResult = result as RedirectToPageResult;
+            Assert.That(redirectResult.PageName, Is.EqualTo("/ProductDetails"));
+            Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(productId));
+        }
     }
 }
+
