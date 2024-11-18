@@ -65,6 +65,24 @@
 
             <!-- Display the number of likes for the selected product -->
             <p>Number of likes: @Model.SelectedProduct.Likes</p>
+
+            <!-- Display all comments for the product -->
+            <div class="comments-section">
+                @if (Model.SelectedProduct.Comments != null && Model.SelectedProduct.Comments.Any())
+                {
+                    <p>Comments:</p>
+                    <ul class="comments-list">
+                        @foreach (var comment in Model.SelectedProduct.Comments)
+                        {
+                            <li>@comment</li>
+                        }
+                    </ul>
+                }
+                @if (Model.SelectedProduct.Comments == null || !Model.SelectedProduct.Comments.Any())
+                {
+                    <p>Comments: No comments yet.</p>
+                }
+            </div>
         </div>
     </div>
 }
