@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 namespace UnitTests.Pages
 {
@@ -200,5 +201,83 @@ namespace UnitTests.Pages
             Assert.That(updatePage.Material, Is.EqualTo(string.Empty));
             Assert.That(updatePage.Style, Is.EqualTo(string.Empty));
         }
+
+
+
+
+
+
+        /// <summary>
+        /// Tests that OnPostResetComments does nothing and redirects when the product does not exist.
+        /// </summary>
+        [Test]
+        public void OnPostResetComments_Invalid_ProductId_Should_Not_Throw_And_Redirect()
+        {
+            // Arrange: Set up data with no matching product ID
+            var mockData = new List<ProductModel>
+    {
+        new ProductModel { Id = "valid-id", Title = "Valid Product", Comments = new List<string> { "Test Comment" } }
+    };
+
+            // Mock the GetAllData to return the data
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
+
+            // Act: Call OnPostResetComments with an invalid ID
+            var result = updatePage.OnPostResetComments("invalid-id");
+
+            // Assert: Verify no changes were made and redirection occurred
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Expected a redirection result.");
+            mockProductService.Verify(service => service.GetAllData(), Times.Once, "GetAllData should be called.");
+            Assert.That(mockData.First().Comments.Count, Is.EqualTo(1), "Comments should remain unchanged.");
+        }
+
+
+        [Test]
+        public void OnPostResetComments_Valid_ProductId_Should_Clear_Comments_And_Update_Product()
+        {
+            // Arrange: Set up a product with comments
+            var mockData = new List<ProductModel>
+    {
+        new ProductModel { Id = "valid-id", Title = "Test Product", Comments = new List<string> { "Comment1", "Comment2" } }
+    };
+
+            // Mock GetAllData to return the product list
+            mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
+
+            // Mock SaveData to handle the SaveData call during UpdateProduct
+            mockProductService.Setup(service => service.SaveData(It.IsAny<IEnumerable<ProductModel>>())).Verifiable();
+
+            // Use the actual UpdateProduct method from the real service
+            mockProductService.CallBase = true;
+
+            // Initialize the page model
+            updatePage = new UpdateModel(mockProductService.Object);
+
+            // Act: Call OnPostResetComments with a valid product ID
+            var result = updatePage.OnPostResetComments("valid-id");
+
+            // Assert: Verify comments were cleared
+            var updatedProduct = mockData.First(p => p.Id == "valid-id");
+            Assert.That(updatedProduct.Comments, Is.Empty, "Comments should be cleared.");
+
+            // Assert: Verify SaveData was called
+            mockProductService.Verify(service => service.SaveData(It.IsAny<IEnumerable<ProductModel>>()), Times.Once, "SaveData should be called once.");
+
+            // Assert: Verify redirection occurred
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Expected a redirection result.");
+            var redirectResult = result as RedirectToPageResult;
+            Assert.That(redirectResult.RouteValues["id"], Is.EqualTo("valid-id"), "Expected redirection to include the product ID.");
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
 }
