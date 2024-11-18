@@ -116,19 +116,14 @@
 
                     <!-- Comments Section -->
                     <div class="comments-section">
-                        <h6> Comments: </h6>
                         @if (product.Comments == null || !product.Comments.Any())
                         {
                             <p>No comments yet. Be the first to comment!</p>
                         }
                         else
                         {
-                            <ul class="comments-list">
-                                @foreach (var comment in product.Comments)
-                                {
-                                    <li>@comment</li>
-                                }
-                            </ul>
+                            <h6>Last comment:</h6>
+                            <p>@product.Comments.Last()</p>
                         }
 
                         <input type="text"
