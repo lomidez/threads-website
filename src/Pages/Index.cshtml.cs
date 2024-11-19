@@ -30,8 +30,8 @@ namespace ContosoCrafts.WebSite.Pages
             ILogger<IndexModel> logger,
             JsonFileProductService productService)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            ProductService = productService ?? throw new ArgumentNullException(nameof(productService));
+            _logger = logger;
+            ProductService = productService;
         }
 
         /// <summary>
