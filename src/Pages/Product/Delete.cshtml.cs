@@ -85,18 +85,18 @@ namespace ContosoCrafts.WebSite.Pages
                 return NotFound(); // Return 404 error if product is invalid
             }
 
-            // Attempt to delete the product using the ID from SelectedProduct
+            // Perform deletion
+
+                // Attempt to delete the product using the ID from SelectedProduct
             var deletedProduct = _productService.DeleteData(SelectedProduct.Id);
             if (deletedProduct == null)
             {
                 // Set notification message if deletion fails
-                TempData["Notification"] = "Error: Failed to delete product.";
-                return NotFound(); // Return 404 error if deletion is unsuccessful
-            }
-
-            // Set notification message for successful deletion
-            TempData["Notification"] = "Product successfully deleted.";
-            return RedirectToPage("./Index"); // Redirect to the Index page upon success
+                // TempData["Notification"] = "Error: Failed to delete product.";
+                // return NotFound(); // Return 404 error if deletion is unsuccessful
+                return NotFound();
+            }  
+            return RedirectToPage("./Index"); // Redirect after deletion          
         }
     }
 }

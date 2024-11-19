@@ -46,11 +46,17 @@ namespace ContosoCrafts.WebSite.Services
             var products = GetAllData().ToList();
             var index = products.FindIndex(p => p.Id == product.Id);
 
-            if (index != -1)
+            /*if (index != -1)
             {
                 products[index] = product;
                 SaveData(products);
+            }*/
+            if (index == -1)
+            {
+                return;
             }
+            products[index] = product;
+            SaveData(products);
         }
 
         /// <summary>
@@ -77,17 +83,25 @@ namespace ContosoCrafts.WebSite.Services
         public virtual IEnumerable<ProductModel> GetAllData()
         {
             // Return mock data if provided for testing
-            if (_testProducts != null)
+            /*if (_testProducts != null)
             {
                 return _testProducts;
             }
-
             // Otherwise, load from products.json file
             using (var jsonFileReader = File.OpenText(JsonFileName))
             {
                 return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+            }*/
+            if (_testProducts == null)
+            {
+                using (var jsonFileReader = File.OpenText(JsonFileName))
+                {
+                    return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
             }
+            return _testProducts;
         }
 
         /// <summary>
@@ -99,7 +113,16 @@ namespace ContosoCrafts.WebSite.Services
         public virtual bool AddRating(string productId, int rating)
         {
             // Validates the input parameters
-            if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
+            if (string.IsNullOrEmpty(productId))
+            {
+                return false;
+            }
+            if (rating < 0)
+            {
+                return false;
+            }
+
+            if (rating > 5)
             {
                 return false;
             }
@@ -203,9 +226,14 @@ namespace ContosoCrafts.WebSite.Services
         public virtual bool CreateData(ProductModel data)
         {
             // Validate the data object before proceeding
-            if (data == null || string.IsNullOrWhiteSpace(data.Title))
+            if (data == null)
             {
                 // Log error or take necessary action
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(data.Title))
+            {
                 return false;
             }
 
@@ -312,14 +340,21 @@ namespace ContosoCrafts.WebSite.Services
             var productToDelete = productList.FirstOrDefault(m => m.Id == id);
 
             // Returns deleted product
-            if (productToDelete != null)
+            /*if (productToDelete != null)
             {
                 productList.Remove(productToDelete);
                 SaveData(productList);
                 return productToDelete;
             }
 
-            return null;
+            return null;*/
+            if (productToDelete == null)
+            {
+                return null;
+            }
+            productList.Remove(productToDelete);
+            SaveData(productList);
+            return productToDelete;
         }
 
         /// <summary>
@@ -350,11 +385,17 @@ namespace ContosoCrafts.WebSite.Services
             var products = GetAllData().ToList(); // Load products from JSON
             var product = products.FirstOrDefault(p => p.Id == productId);
 
-            if (product != null)
+            /*if (product != null)
             {
                 product.Comments.Add(comment); // Add new comment
                 SaveData(products); // Save updated products list back to JSON
+            }*/
+            if( product== null)
+            {
+                return;
             }
+            product.Comments.Add(comment); // Add new comment
+            SaveData(products); // Save updated products list back to JSON
         }
     }
 }
