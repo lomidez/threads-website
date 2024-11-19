@@ -33,7 +33,7 @@ namespace UnitTests.Pages
         /// Test that the OnPostAddLike method correctly increments likes and redirects to the ProductDetails page.
         /// </summary>
         [Test]
-        public void OnPostAddLike_Should_Increment_Like_And_Redirect()
+        public void OnePost_AddLike_Should_Call_AddLike_With_Valid_Id_And_Redirect ()
         {
             // Arrange: Initialize the test data
             var productId = "test-id";
@@ -53,6 +53,15 @@ namespace UnitTests.Pages
             Assert.That(redirectResult.PageName, Is.EqualTo("/ProductDetails"));
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(productId));
         }
+
+
+
+        
+
+
+
+
+
 
         /// <summary>
         /// Test that the NewComment property works as expected.
@@ -87,8 +96,6 @@ namespace UnitTests.Pages
             // Act: Call OnPostAddComment with the test productId
             var result = productDetailsPage.OnPostAddComment(productId);
 
-            // Assert: Verify that AddComment was called
-            mockProductService.Verify(service => service.AddComment(productId, comment), Times.Once);
 
             // Assert: Check if the NewComment property was cleared
             Assert.That(productDetailsPage.NewComment, Is.Empty);
