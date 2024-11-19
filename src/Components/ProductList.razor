@@ -317,7 +317,7 @@
         FilteredProducts = allProducts;
 
         // Filter products if a tag is provided
-        if (!string.IsNullOrEmpty(Tag))
+        /*if (!string.IsNullOrEmpty(Tag))
         {
             var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
@@ -331,7 +331,24 @@
                     p.Style.Any(s => IsFuzzyMatch(s, term))
                 )
             );
+        }*/
+        if (string.IsNullOrEmpty(Tag))
+        {
+            return;
         }
+        var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+        FilteredProducts = allProducts.Where(p =>
+            searchTerms.All(term =>
+                IsFuzzyMatch(p.Category, term) ||
+                IsFuzzyMatch(p.Size, term) ||
+                IsFuzzyMatch(p.Color, term) ||
+                IsFuzzyMatch(p.Description ?? "", term) ||
+                p.Material.Any(m => IsFuzzyMatch(m, term)) ||
+                p.Style.Any(s => IsFuzzyMatch(s, term))
+            )
+        );
+
 
         // Sort products by likes in provided order
         if (CurrentSort == "asc")
