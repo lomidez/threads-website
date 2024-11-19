@@ -188,7 +188,7 @@
     // The currently selected product
     ProductModel selectedProduct;
 
-    
+
     // comments 
     private string NewComment { get; set; }
 
@@ -211,7 +211,15 @@
     /// </summary>
     private void NextProduct()
     {
-        if (TrendingProducts != null && TrendingProducts.Any())
+        /*if (TrendingProducts != null && TrendingProducts.Any())
+            {
+            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
+        }*/
+        if (TrendingProducts != null)
+        {
+            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
+        }
+        if(TrendingProducts.Any())
         {
             currentIndex = (currentIndex + 1) % TrendingProducts.Count;
         }
@@ -226,7 +234,16 @@
     /// </summary>
     private void PreviousProduct()
     {
-        if (TrendingProducts != null && TrendingProducts.Any())
+        /*if (TrendingProducts != null && TrendingProducts.Any())
+            {
+            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+        }*/
+
+        if (TrendingProducts != null)
+        {
+            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+        }
+        if (TrendingProducts.Any())
         {
             currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
         }
@@ -249,7 +266,15 @@
     /// <returns>True if the search term is found; otherwise, false.</returns>
     private bool IsFuzzyMatch(string source, string searchTerm)
     {
-        if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(searchTerm))
+        /*if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(searchTerm))
+            {
+            return false;
+        }*/
+        if (string.IsNullOrEmpty(source))
+        {
+            return false;
+        }
+        if (string.IsNullOrEmpty(searchTerm))
         {
             return false;
         }
@@ -259,7 +284,17 @@
         searchTerm = searchTerm.ToLower();
 
         // Check if either string contains the other
-        if (source.Contains(searchTerm) || searchTerm.Contains(source))
+        /*if (source.Contains(searchTerm) || searchTerm.Contains(source))
+        {
+            return true;
+        }*/
+
+        if (source.Contains(searchTerm))
+        {
+            return true;
+        }
+
+        if (searchTerm.Contains(source))
         {
             return true;
         }
