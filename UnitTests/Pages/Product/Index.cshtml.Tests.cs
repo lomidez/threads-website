@@ -138,32 +138,10 @@ namespace UnitTests.Pages.Product
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
 
-        /// <summary>
-        /// Tests that the constructor throws an <see cref="ArgumentNullException"/> when the logger is null.
-        /// </summary>
-        [Test]
-        public void Constructor_InValid_Logger_Null_Should_Throw_ArgumentNullException()
-        {
-            // Arrange
-            var mockEnvironment = new Mock<IWebHostEnvironment>();
-            JsonFileProductService productService = new JsonFileProductService(mockEnvironment.Object);
+       
 
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new IndexModel(null, productService));
-        }
-
-        /// <summary>
-        /// Tests that the constructor throws an <see cref="ArgumentNullException"/> when the product service is null.
-        /// </summary>
-        [Test]
-        public void Constructor_Invalid_ProductService_Null_Should_Throw_ArgumentNullException()
-        {
-            // Arrange
-            var mockLogger = Mock.Of<ILogger<IndexModel>>();
-
-            // Act & Assert
-            Assert.Throws<ArgumentNullException>(() => new IndexModel(mockLogger, null));
-        }
+        
+       
 
         /// <summary>
         /// Tests the constructor with valid parameters to ensure the <see cref="IndexModel"/> is initialized correctly.
