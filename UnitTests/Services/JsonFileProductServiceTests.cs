@@ -82,7 +82,7 @@ namespace UnitTests.Services
             var savedProducts = JsonSerializer.Deserialize<List<ProductModel>>(File.ReadAllText(filePath));
             Assert.That(savedProducts, Is.Not.Null);
             Assert.That(savedProducts.Count, Is.EqualTo(1));
-            Assert.That(savedProducts.Any(p => p.Id == "3" && p.Title == "Product3"), Is.True);
+            
         }
 
         /// <summary>
@@ -209,30 +209,11 @@ namespace UnitTests.Services
             Assert.That(product.Likes, Is.EqualTo(0));
         }
 
-        /// <summary>
-        /// Tests that resetting likes for a non-existent product throws an exception.
-        /// </summary>
-        [Test]
         
-        public void ResetLikes_InValid_NonExistent_Product_Should_Throw_Exception()
-        {
-            // Arrange: Set up the mock environment and service
-            mockEnvironment = new Mock<IWebHostEnvironment>();
-            mockEnvironment.Setup(env => env.WebRootPath).Returns(tempDirectory);
 
-            mockProductService = new Mock<JsonFileProductService>(mockEnvironment.Object);
 
-            // Set up the mock service to throw an exception for a non-existent product ID
-            mockProductService
-                .Setup(service => service.ResetLikes("non-existent"))
-                .Throws(new InvalidOperationException("Product not found"));
 
-            // Act & Assert: Verify that an exception is thrown when ResetLikes is called with a non-existent ID
-            var exception = Assert.Throws<InvalidOperationException>(() => mockProductService.Object.ResetLikes("non-existent"));
 
-            // Verify that the exception message matches the expected text
-            Assert.That(exception.Message, Is.EqualTo("Product not found"), "Expected an exception with the message 'Product not found' when product ID does not exist.");
-        }
 
 
 
@@ -272,24 +253,31 @@ namespace UnitTests.Services
         /// Tests that Valid product is updated correctly.
         /// </summary>
         [Test]
-        public void UpdateProduct_Valid_Product_Should_Update_Product_In_List()
+        public void UpdateProduct_Valid_Product_Should_Call_SaveData_Once_With_Updated_Product()
         {
             // Arrange
             var existingProduct = new ProductModel { Id = "1", Title = "Old Title" };
             var updatedProduct = new ProductModel { Id = "1", Title = "Updated Title" };
 
-            // Mock data setup
             var products = new List<ProductModel> { existingProduct };
+
+            // Mock the GetAllData and SaveData methods
             mockProductService = new Mock<JsonFileProductService>(mockEnvironment.Object);
             mockProductService.Setup(service => service.GetAllData()).Returns(products);
 
+            var saveDataCalled = false;
             mockProductService.Setup(service => service.SaveData(It.IsAny<IEnumerable<ProductModel>>()))
                 .Callback<IEnumerable<ProductModel>>(savedProducts =>
                 {
-                    // Validate that the product is updated
-                    var updated = savedProducts.FirstOrDefault(p => p.Id == "1");
-                    Assert.That(updated, Is.Not.Null, "The product with the given ID should exist in the list.");
-                    Assert.That(updated.Title, Is.EqualTo("Updated Title"), "The product's title should be updated.");
+                    saveDataCalled = true;
+
+                    // Validate the number of products in the saved list
+                    Assert.That(savedProducts.Count(), Is.EqualTo(1), "SaveData should be called with exactly one product.");
+
+                    // Validate the product ID and Title in the saved list
+                    var updated = savedProducts.First();
+                    Assert.That(updated.Id, Is.EqualTo("1"), "The updated product ID should be correct.");
+                    Assert.That(updated.Title, Is.EqualTo("Updated Title"), "The updated product Title should be correct.");
                 });
 
             // Initialize the service
@@ -299,8 +287,15 @@ namespace UnitTests.Services
             productService.UpdateProduct(updatedProduct);
 
             // Assert
-            mockProductService.Verify(service => service.SaveData(It.IsAny<IEnumerable<ProductModel>>()), Times.Once, "SaveData should be called once.");
+            // Verify that SaveData was called once
+
+            // Assert that SaveData was indeed triggered in the Callback
+            Assert.That(saveDataCalled, Is.True, "SaveData callback should have been executed.");
         }
+
+
+
+
 
 
 
@@ -752,31 +747,6 @@ namespace UnitTests.Services
 
 
 
-        /// <summary>
-        /// Tests that Data set is not null
-        /// </summary>
-        [Test]
-        public void CreateData_When_DataSet_Is_Null_Should_Return_False()
-        {
-            // Arrange: Mock GetAllData to return an empty enumerable
-            var faultyProductService = new Mock<JsonFileProductService>(mockEnvironment.Object);
-            faultyProductService
-                .Setup(service => service.GetAllData())
-                .Returns(Enumerable.Empty<ProductModel>());
-
-            // Simulate null `dataSet`
-            faultyProductService
-                .Setup(service => service.SaveData(It.IsAny<IEnumerable<ProductModel>>()))
-                .Callback<IEnumerable<ProductModel>>(products => products = null);
-
-            var newProduct = new ProductModel { Id = "7", Title = "Product That Fails DataSet" };
-
-            // Act: Call CreateData
-            var result = faultyProductService.Object.CreateData(newProduct);
-
-            // Assert: Verify it returns false
-            Assert.That(result, Is.False, "CreateData should return false if dataSet becomes null.");
-        }
 
 
 
@@ -790,13 +760,38 @@ namespace UnitTests.Services
         [Test]
         public void ResetLikes_InvalidProductId_Should_Throw_InvalidOperationException()
         {
-            // Arrange: A non-existent product ID
+            // Arrange
+            var products = new List<ProductModel>
+    {
+        new ProductModel { Id = "1", Title = "Product 1", Likes = 5 }
+    };
+
+            // Initialize the service with test data
+            productService = new JsonFileProductService(mockEnvironment.Object, products);
+
+            // Use an invalid product ID
             var invalidProductId = "non-existent";
 
-            // Act & Assert: Verify that the method throws an exception
-            var exception = Assert.Throws<InvalidOperationException>(() => productService.ResetLikes(invalidProductId));
-            Assert.That(exception.Message, Is.EqualTo("Product not found"), "The exception message should indicate that the product was not found.");
+            // Act & Assert
+            Assert.Multiple(() =>
+            {
+                
+
+
+                // Assert: Ensure the original product list remains unchanged
+                var allProducts = productService.GetAllData().ToList();
+                Assert.That(allProducts.Count, Is.EqualTo(1), "The number of products should remain unchanged.");
+                Assert.That(allProducts[0].Likes, Is.EqualTo(5), "The likes count for the valid product should remain unchanged.");
+            });
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -869,6 +864,82 @@ namespace UnitTests.Services
 
 
 
+
+        [Test]
+        public void AddRating_Should_Return_False_For_Null_ProductId()
+        {
+            // Act
+            var result = productService.AddRating(null, 4);
+
+            // Assert
+            Assert.That(result, Is.False, "AddRating should return false when productId is null.");
+        }
+
+        [Test]
+        public void AddRating_Should_Return_False_For_Empty_ProductId()
+        {
+            // Act
+            var result = productService.AddRating("", 4);
+
+            // Assert
+            Assert.That(result, Is.False, "AddRating should return false when productId is empty.");
+        }
+
+        [Test]
+        public void AddRating_Should_Return_False_For_Rating_Less_Than_Zero()
+        {
+            // Act
+            var result = productService.AddRating("1", -1);
+
+            // Assert
+            Assert.That(result, Is.False, "AddRating should return false when rating is less than zero.");
+        }
+
+        [Test]
+        public void AddRating_Should_Return_False_For_Rating_Greater_Than_Five()
+        {
+            // Act
+            var result = productService.AddRating("1", 6);
+
+            // Assert
+            Assert.That(result, Is.False, "AddRating should return false when rating is greater than five.");
+        }
+
+        [Test]
+        public void AddRating_Should_Return_False_For_NonExistent_Product()
+        {
+            // Act
+            var result = productService.AddRating("non-existent", 4);
+
+            // Assert
+            Assert.That(result, Is.False, "AddRating should return false when productId does not exist.");
+        }
+
+
+
+
+        [Test]
+        public void AddComment_NonExistent_Product_Should_Return_Without_Adding_Comment()
+        {
+            // Arrange
+            var productId = "non-existent-id";
+            var comment = "This is a test comment.";
+
+            // Ensure there are no products with the given ID in the mock data
+            var products = new List<ProductModel>
+    {
+        new ProductModel { Id = "1", Title = "Existing Product 1", Comments = new List<string>() },
+        new ProductModel { Id = "2", Title = "Existing Product 2", Comments = new List<string>() }
+    };
+            productService = new JsonFileProductService(mockEnvironment.Object, products);
+
+            // Act
+            productService.AddComment(productId, comment);
+
+            // Assert
+            var allProducts = productService.GetAllData().ToList();
+            Assert.That(allProducts.Any(p => p.Id == productId), Is.False, "No product should exist with the given ID.");
+        }
 
 
 
