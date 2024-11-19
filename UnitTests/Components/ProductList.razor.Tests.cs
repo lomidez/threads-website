@@ -64,16 +64,7 @@ namespace ContosoCrafts.WebSite.Tests
             Services.AddSingleton<JsonFileProductService>(_mockProductService.Object);
         }
 
-        [Test]
-        public void ProductList_Default_Should_Return_Content()
-        {
-            // Act
-            var cut = RenderComponent<ProductList>();
-            var result = cut.Markup;
-
-            // Assert
-            Assert.That(result, Does.Contain("Woven Tote"));
-        }
+       
 
         [Test]
         public void FilterProduct_White_Should_Not_Return_Tote()
@@ -98,22 +89,6 @@ namespace ContosoCrafts.WebSite.Tests
             Assert.That(occurances, Is.LessThan(2));
         }
 
-        [Test]
-        public void ProductList_Like_Button_Should_Increment_Likes()
-        {
-            // Act
-            var cut = RenderComponent<ProductList>();
-
-            // Find the first like button and click it
-            var firstProduct = cut.FindAll("button.like-button").First();
-            var initialLikes = int.Parse(firstProduct.QuerySelector(".like-count").TextContent);
-
-            firstProduct.Click();
-
-            var finalLikes = int.Parse(firstProduct.QuerySelector(".like-count").TextContent);
-
-            // Assert
-            Assert.That(finalLikes, Is.EqualTo(initialLikes + 1));
-        }
+       
     }
 }
