@@ -99,7 +99,16 @@ namespace ContosoCrafts.WebSite.Services
         public virtual bool AddRating(string productId, int rating)
         {
             // Validates the input parameters
-            if (string.IsNullOrEmpty(productId) || rating < 0 || rating > 5)
+            if (string.IsNullOrEmpty(productId))
+            {
+                return false;
+            }
+            if (rating < 0)
+            {
+                return false;
+            }
+
+            if (rating > 5)
             {
                 return false;
             }
@@ -203,9 +212,14 @@ namespace ContosoCrafts.WebSite.Services
         public virtual bool CreateData(ProductModel data)
         {
             // Validate the data object before proceeding
-            if (data == null || string.IsNullOrWhiteSpace(data.Title))
+            if (data == null)
             {
                 // Log error or take necessary action
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(data.Title))
+            {
                 return false;
             }
 
