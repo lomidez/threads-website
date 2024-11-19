@@ -308,23 +308,20 @@ namespace ContosoCrafts.WebSite.Services
         /// </summary>
         /// <param name="productId">The product ID whose like count is to be reset.</param>
         /// <returns> True if the like count was reset successfully ; otherwise False</returns>
-        public virtual bool ResetLikes(string productId)
+        public virtual void ResetLikes(string productId)
         {
             // Loads all products
             var products = GetAllData().ToList();
             // Finds product by ID
             var product = products.FirstOrDefault(p => p.Id == productId);
 
-            if (product == null)
-            {
-                throw new InvalidOperationException("Product not found");
-            }
+           
 
             // Resets likes count
             product.Likes = 0;
             // Saves updated product list
             SaveData(products);
-            return true;
+            
         }
 
         /// <summary>
