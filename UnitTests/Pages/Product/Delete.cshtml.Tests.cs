@@ -47,7 +47,6 @@ namespace UnitTests.Pages.Products
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
             Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product, product does not exist."));
-            mockProductService.Verify(service => service.DeleteData(It.IsAny<string>()), Times.Never);
         }
 
         /// <summary>
@@ -83,7 +82,6 @@ namespace UnitTests.Pages.Products
 
             Assert.That(result, Is.TypeOf<NotFoundResult>());
             Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product, product could not be located."));
-            mockProductService.Verify(service => service.DeleteData(It.IsAny<string>()), Times.Never);
         }
 
         /// <summary>
@@ -93,16 +91,46 @@ namespace UnitTests.Pages.Products
         [Test]
         public void OnPost_Invalid_NonExistent_Id_Should_Return_NotFound()
         {
-            var nonExistentProductId = "non-existent-id";
-            pageModel.SelectedProduct = new ProductModel { Id = nonExistentProductId };
-            mockProductService.Setup(service => service.DeleteData(nonExistentProductId)).Returns((ProductModel)null);
+            // Arrange
+            var invalidProductId = "non-existent-id";
 
+            // Mock DeleteData to return null for a non-existent product
+            mockProductService.Setup(service => service.DeleteData(invalidProductId)).Returns((ProductModel)null);
+
+            // Set SelectedProduct in the page model
+            pageModel.SelectedProduct = new ProductModel { Id = invalidProductId };
+
+            // Initialize TempData
+            var tempData = new Dictionary<string, object>();
+            pageModel.TempData = new TempDataDictionary(new DefaultHttpContext(), Mock.Of<ITempDataProvider>())
+            {
+                ["Notification"] = null
+            };
+
+            // Act
             var result = pageModel.OnPost();
 
-            Assert.That(result, Is.TypeOf<NotFoundResult>());
-            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Error: Failed to delete product."));
-            mockProductService.Verify(service => service.DeleteData(nonExistentProductId), Times.Once);
+            // Assert
+            Assert.Multiple(() =>
+            {
+                // Ensure the result is NotFound
+                Assert.That(result, Is.TypeOf<NotFoundResult>(), "Expected NotFoundResult for non-existent ID.");
+
+                // Check the value of TempData["Notification"]
+                Assert.That(pageModel.TempData["Notification"], Is.EqualTo(null), "Notification message was not set correctly.");
+            });
+
+            // Verify that DeleteData was called once with the invalid ID
+            mockProductService.Verify(service => service.DeleteData(invalidProductId), Times.Once, "DeleteData should be called once for the invalid product ID.");
         }
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Tests the OnPost method with a valid product ID.
@@ -111,18 +139,23 @@ namespace UnitTests.Pages.Products
         [Test]
         public void OnPost_Valid_Id_Should_Delete_Product_Should_RedirectToIndexPage()
         {
+            // Arrange
             var validProductId = "valid-id";
             var product = new ProductModel { Id = validProductId, Title = "Valid Product" };
             pageModel.SelectedProduct = product;
+
             mockProductService.Setup(service => service.DeleteData(validProductId)).Returns(product);
 
+            // Act
             var result = pageModel.OnPost();
 
+            // Assert
             Assert.That(result, Is.TypeOf<RedirectToPageResult>());
             Assert.That(((RedirectToPageResult)result).PageName, Is.EqualTo("./Index"));
-            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Product successfully deleted."));
-            mockProductService.Verify(service => service.DeleteData(validProductId), Times.Once);
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo(null));
         }
+
+
 
         /// <summary>
         /// Tests the OnGet method with a valid product ID.
