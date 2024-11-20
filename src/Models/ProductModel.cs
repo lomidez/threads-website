@@ -86,21 +86,6 @@ namespace ContosoCrafts.WebSite.Models
         /// <returns>JSON string representation of the product.</returns>
         public override string ToString() => JsonSerializer.Serialize(this);
     }
-
-    /// <summary>
-    /// Represents the dimensions of a product with length, width, and height properties.
-    /// </summary>
-    public class Dimensions
-    {
-        // Length of the product
-        public decimal Length { get; set; }
-
-        // Width of the product
-        public decimal Width { get; set; }
-
-        // Height of the product
-        public decimal Height { get; set; }
-    }
 }
 
 
