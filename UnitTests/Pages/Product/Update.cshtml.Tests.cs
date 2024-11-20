@@ -207,9 +207,9 @@ namespace UnitTests.Pages
         {
             // Arrange: Set up data with no matching product ID
             var mockData = new List<ProductModel>
-            {
-                new ProductModel { Id = "valid-id", Title = "Valid Product", Comments = new List<string> { "Test Comment" } }
-            };
+    {
+        new ProductModel { Id = "valid-id", Title = "Valid Product", Comments = new List<string> { "Test Comment" } }
+    };
 
             // Mock the GetAllData to return the data
             mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
@@ -221,16 +221,16 @@ namespace UnitTests.Pages
             Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Expected a redirection result.");
             mockProductService.Verify(service => service.GetAllData(), Times.Once, "GetAllData should be called.");
             Assert.That(mockData.First().Comments.Count, Is.EqualTo(1), "Comments should remain unchanged.");
-        
+        }
 
         [Test]
         public void OnPostResetComments_Valid_ProductId_Should_Clear_Comments_And_Update_Product()
         {
             // Arrange: Set up a product with comments
             var mockData = new List<ProductModel>
-            {
-                new ProductModel { Id = "valid-id", Title = "Test Product", Comments = new List<string> { "Comment1", "Comment2" } }
-            };
+    {
+        new ProductModel { Id = "valid-id", Title = "Test Product", Comments = new List<string> { "Comment1", "Comment2" } }
+    };
 
             // Mock GetAllData to return the product list
             mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
@@ -240,9 +240,6 @@ namespace UnitTests.Pages
 
             // Use the actual UpdateProduct method from the real service
             mockProductService.CallBase = true;
-
-            // Initialize the page model
-            updatePage = new UpdateModel(mockProductService.Object);
 
             // Act: Call OnPostResetComments with a valid product ID
             var result = updatePage.OnPostResetComments("valid-id");
@@ -256,5 +253,6 @@ namespace UnitTests.Pages
             var redirectResult = result as RedirectToPageResult;
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo("valid-id"), "Expected redirection to include the product ID.");
         }
+
     }
 }
