@@ -17,8 +17,7 @@ namespace ContosoCrafts.WebSite.Tests
         private Mock<JsonFileProductService> _mockProductService;
         private ProductModel[] _testProducts;
 
-        [SetUp]
-        public void Setup()
+        public ProductListTests()
         {
             // Create mock test data
             _testProducts = new[]
@@ -64,7 +63,20 @@ namespace ContosoCrafts.WebSite.Tests
             Services.AddSingleton<JsonFileProductService>(_mockProductService.Object);
         }
 
-       
+
+        [Test]
+        public void ProductList_Default_Should_Return_Content()
+        {
+            // Arrange
+
+            // Act
+            var cut = RenderComponent<ProductList>();
+            var result = cut.Markup;
+
+            // Assert
+            Assert.That(result, Does.Contain("Minimalist White City Backpack"));
+        }
+
 
         [Test]
         public void FilterProduct_White_Should_Not_Return_Tote()
@@ -89,6 +101,51 @@ namespace ContosoCrafts.WebSite.Tests
             Assert.That(occurances, Is.LessThan(2));
         }
 
-       
+        [Test]
+        public void ProductList_Invalid_Search_Should_Not_Show_Products()
+        {
+            var cut = RenderComponent<ProductList>();
+
+            var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+            searchInput.Input("Gibberish");
+
+            searchInput.KeyDown("Enter");
+
+            var result = cut.Markup;
+
+            Assert.That(result, Does.Contain("No products found"));
+        }
+
+        [Test] 
+        public void TrendingProducts_Next_Button_Should_Increment_Products()
+        {
+            var cut = RenderComponent<ProductList>();
+
+            var oldResults = cut.Markup;
+
+            var buttonList = cut.FindAll(".carousel-button");
+            var button = buttonList[0];
+            button.Click();
+
+            var newResults = cut.Markup;
+
+            Assert.That(newResults, Does.Not.EqualTo(oldResults));
+        }
+
+        [Test]
+        public void TrendingProducts_Previous_Button_Should_Increment_Products()
+        {
+            var cut = RenderComponent<ProductList>();
+
+            var oldResults = cut.Markup;
+
+            var buttonList = cut.FindAll(".carousel-button");
+            var button = buttonList[1];
+            button.Click();
+
+            var newResults = cut.Markup;
+
+            Assert.That(newResults, Does.Not.EqualTo(oldResults));
+        }
     }
 }
