@@ -60,26 +60,12 @@ namespace UnitTests.Pages
             // Act: Call OnPostResetLikes with the valid product ID
             var result = updateModel.OnPostResetLikes(validProductId);
 
-
             // Check that the method redirects correctly
             var redirectResult = result as RedirectToPageResult;
             Assert.That(redirectResult, Is.Not.Null, "Expected a redirection result.");
             Assert.That(redirectResult.PageName, Is.EqualTo("/Product/Update"), "Expected redirection to the Update page.");
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo(validProductId), "Expected the ID route value to match the product ID.");
         }
-
-
-
-
-       
-
-
-
-
-
-
-
-
 
         [Test]
         public void OnPostResetLikes_ValidProductId_Should_ResetLikes_And_Redirect()
@@ -94,33 +80,6 @@ namespace UnitTests.Pages
             // Assert
             Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "The method should redirect to the page after resetting likes.");
         }
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         /// <summary>
         /// Test that OnGet loads the product with the correct material and style for a valid product ID.
@@ -240,11 +199,6 @@ namespace UnitTests.Pages
             Assert.That(updatePage.Style, Is.EqualTo(string.Empty));
         }
 
-
-
-
-
-
         /// <summary>
         /// Tests that OnPostResetComments does nothing and redirects when the product does not exist.
         /// </summary>
@@ -253,9 +207,9 @@ namespace UnitTests.Pages
         {
             // Arrange: Set up data with no matching product ID
             var mockData = new List<ProductModel>
-    {
-        new ProductModel { Id = "valid-id", Title = "Valid Product", Comments = new List<string> { "Test Comment" } }
-    };
+            {
+                new ProductModel { Id = "valid-id", Title = "Valid Product", Comments = new List<string> { "Test Comment" } }
+            };
 
             // Mock the GetAllData to return the data
             mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
@@ -267,17 +221,16 @@ namespace UnitTests.Pages
             Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Expected a redirection result.");
             mockProductService.Verify(service => service.GetAllData(), Times.Once, "GetAllData should be called.");
             Assert.That(mockData.First().Comments.Count, Is.EqualTo(1), "Comments should remain unchanged.");
-        }
-
+        
 
         [Test]
         public void OnPostResetComments_Valid_ProductId_Should_Clear_Comments_And_Update_Product()
         {
             // Arrange: Set up a product with comments
             var mockData = new List<ProductModel>
-    {
-        new ProductModel { Id = "valid-id", Title = "Test Product", Comments = new List<string> { "Comment1", "Comment2" } }
-    };
+            {
+                new ProductModel { Id = "valid-id", Title = "Test Product", Comments = new List<string> { "Comment1", "Comment2" } }
+            };
 
             // Mock GetAllData to return the product list
             mockProductService.Setup(service => service.GetAllData()).Returns(mockData);
@@ -298,23 +251,10 @@ namespace UnitTests.Pages
             var updatedProduct = mockData.First(p => p.Id == "valid-id");
             Assert.That(updatedProduct.Comments, Is.Empty, "Comments should be cleared.");
 
-            
-
             // Assert: Verify redirection occurred
             Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "Expected a redirection result.");
             var redirectResult = result as RedirectToPageResult;
             Assert.That(redirectResult.RouteValues["id"], Is.EqualTo("valid-id"), "Expected redirection to include the product ID.");
         }
-
-
-
-
-
-
-
-
-
-
-
     }
 }
