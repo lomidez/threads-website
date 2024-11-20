@@ -80,6 +80,9 @@ namespace ContosoCrafts.WebSite.Models
         // Dimensions of the product, with length, width, and height specified in a separate class
         public Dimensions Dimentions { get; set; } = new Dimensions();
 
+        // Numeric Field for valid data inputs
+        public int NumericField { get; set; }
+
         /// <summary>
         /// Serializes the ProductModel to a JSON string representation.
         /// </summary>
