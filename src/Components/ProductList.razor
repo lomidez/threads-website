@@ -37,46 +37,49 @@
     <!-- Main content section -->
     <div class="products-main">
         <!-- Trending Now Section -->
-        @if (TrendingProducts != null && TrendingProducts.Any())
+        @if (TrendingProducts != null)
         {
-            <div class="trending-now">
-                <h3>Trending Now</h3>
-                <div class="carousel-container">
-                    <button class="carousel-button" @onclick="PreviousProduct">&lt;</button>
+            if (TrendingProducts.Any())
+            {
+                <div class="trending-now">
+                    <h3>Trending Now</h3>
+                    <div class="carousel-container">
+                        <button class="carousel-button" @onclick="PreviousProduct">&lt;</button>
 
-                    <div class="products-display">
-                        @{
-                            int prevIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
-                            int nextIndex = (currentIndex + 1) % TrendingProducts.Count;
-                        }
+                        <div class="products-display">
+                            @{
+                                int prevIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+                                int nextIndex = (currentIndex + 1) % TrendingProducts.Count;
+                            }
 
-                        @* Previous Product Preview *@
-                        <div class="card trending-card preview-card preview-left">
-                            <img src="@TrendingProducts[prevIndex].Image" alt="@TrendingProducts[prevIndex].Title" class="favorites-img trending-image" />
-                        </div>
+                            @* Previous Product Preview *@
+                            <div class="card trending-card preview-card preview-left">
+                                <img src="@TrendingProducts[prevIndex].Image" alt="@TrendingProducts[prevIndex].Title" class="favorites-img trending-image" />
+                            </div>
 
-                        @* Current Product *@
-                        <div class="card trending-card current-card">
-                            <a href="ProductDetails/@TrendingProducts[currentIndex].Id" class="text-decoration-none">
-                                <img src="@TrendingProducts[currentIndex].Image" alt="@TrendingProducts[currentIndex].Title" class="favorites-img trending-image" />
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">@TrendingProducts[currentIndex].Title</h5>
+                            @* Current Product *@
+                            <div class="card trending-card current-card">
+                                <a href="ProductDetails/@TrendingProducts[currentIndex].Id" class="text-decoration-none">
+                                    <img src="@TrendingProducts[currentIndex].Image" alt="@TrendingProducts[currentIndex].Title" class="favorites-img trending-image" />
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center">@TrendingProducts[currentIndex].Title</h5>
+                                    </div>
+                                </a>
+                                <div class="card-footer">
+                                    <p class="text-center">❤️ @TrendingProducts[currentIndex].Likes Likes</p>
                                 </div>
-                            </a>
-                            <div class="card-footer">
-                                <p class="text-center">❤️ @TrendingProducts[currentIndex].Likes Likes</p>
+                            </div>
+
+                            @* Next Product Preview *@
+                            <div class="card trending-card preview-card preview-right">
+                                <img src="@TrendingProducts[nextIndex].Image" alt="@TrendingProducts[nextIndex].Title" class="favorites-img trending-image" />
                             </div>
                         </div>
 
-                        @* Next Product Preview *@
-                        <div class="card trending-card preview-card preview-right">
-                            <img src="@TrendingProducts[nextIndex].Image" alt="@TrendingProducts[nextIndex].Title" class="favorites-img trending-image" />
-                        </div>
+                        <button class="carousel-button" @onclick="NextProduct">&gt;</button>
                     </div>
-
-                    <button class="carousel-button" @onclick="NextProduct">&gt;</button>
                 </div>
-            </div>
+            }
         }
 
 
@@ -114,24 +117,51 @@
                         ❤️ <span class="like-count">@product.Likes</span>
                     </button>
 
+                    <!-- Display Comments -->
+                    @if (product.Comments != null)
+                    {
+                        if (product.Comments.Any())
+                        {
+                            <ul class="comments-list">
+                                @foreach (var comment in product.Comments)
+                                {
+                                    <li>@comment</li>
+                                }
+                            </ul>
+                        }
+                    }
+
                     <!-- Comments Section -->
                     <div class="comments-section">
-                        @if (product.Comments == null || !product.Comments.Any())
-                        {
-                            <p>No comments yet. Be the first to comment!</p>
-                        }
-                        @if (product.Comments != null && product.Comments.Any())
-                        {
-                            <h6>Last comment:</h6>
-                            <p>@product.Comments.Last()</p>
-                        }
-
+                        <h6> Comments: </h6>
                         <input type="text"
                            class="comment-input"
                            placeholder="Add a comment..."
                            @bind="NewComment" />
+
                         <button class="submit-comment-btn" @onclick="() => AddComment(product.Id)">Submit</button>
-                    </div>                   
+                        @if (product.Comments != null)
+                        {
+                            if (product.Comments.Any())
+                            {
+                                <ul class="comments-list">
+                                    @foreach (var comment in product.Comments)
+                                    {
+                                        <li>@comment</li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <p>No comments yet. be the first to comment!</p>
+                            }
+                        }
+                        else
+                        {
+                            <p>No comments yet. be the first to comment!</p>
+                        }
+
+                    </div>
                 </div>
             }
         </div>
@@ -188,8 +218,7 @@
     // The currently selected product
     ProductModel selectedProduct;
 
-
-    // comments 
+    // Comments
     private string NewComment { get; set; }
 
     /// <summary>
@@ -199,54 +228,53 @@
     {
         if (!string.IsNullOrWhiteSpace(NewComment))
         {
-            ProductService.AddComment(productId, NewComment);
-            NewComment = string.Empty;
-            ApplyFilters(); // Refresh product view
+            var product = ProductService.GetAllData().FirstOrDefault(p => p.Id == productId);
+            if (product != null)
+            {
+                product.Comments.Add(NewComment);
+                ProductService.UpdateProduct(product);
+                NewComment = string.Empty;
+                ApplyFilters();
+            }
         }
     }
 
-
     /// <summary>
-    /// Finds the next trending product
+    /// Finds the next trending product.
     /// </summary>
     private void NextProduct()
     {
-        /*if (TrendingProducts != null && TrendingProducts.Any())
-            {
-            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
-        }*/
-        if (TrendingProducts != null)
+        if (TrendingProducts == null)
         {
-            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
+            return;
         }
-        if(TrendingProducts.Any())
+
+        if (!TrendingProducts.Any())
         {
-            currentIndex = (currentIndex + 1) % TrendingProducts.Count;
+            return;
         }
+
+        currentIndex = (currentIndex + 1) % TrendingProducts.Count;
     }
 
     // ID of the selected product
     string selectedProductId;
 
-
     /// <summary>
-    /// Finds the previous trending product
+    /// Finds the previous trending product.
     /// </summary>
     private void PreviousProduct()
     {
-        /*if (TrendingProducts != null && TrendingProducts.Any())
-            {
-            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
-        }*/
+        if (TrendingProducts == null)
+        {
+            return;
+        }
 
-        if (TrendingProducts != null)
+        if (!TrendingProducts.Any())
         {
-            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
+            return;
         }
-        if (TrendingProducts.Any())
-        {
-            currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
-        }
+        currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
     }
 
     /// <summary>
@@ -266,28 +294,18 @@
     /// <returns>True if the search term is found; otherwise, false.</returns>
     private bool IsFuzzyMatch(string source, string searchTerm)
     {
-        /*if (string.IsNullOrEmpty(source) || string.IsNullOrEmpty(searchTerm))
-            {
-            return false;
-        }*/
         if (string.IsNullOrEmpty(source))
         {
             return false;
         }
+
         if (string.IsNullOrEmpty(searchTerm))
         {
             return false;
         }
 
-        // Convert strings to lowercase for case-insensitive comparison
         source = source.ToLower();
         searchTerm = searchTerm.ToLower();
-
-        // Check if either string contains the other
-        /*if (source.Contains(searchTerm) || searchTerm.Contains(source))
-        {
-            return true;
-        }*/
 
         if (source.Contains(searchTerm))
         {
@@ -299,9 +317,16 @@
             return true;
         }
 
-        // Split search term by commas and check each word for match
         var searchWords = searchTerm.Split(',', StringSplitOptions.RemoveEmptyEntries);
-        return searchWords.Any(word => source.Contains(word));
+        foreach (var word in searchWords)
+        {
+            if (source.Contains(word))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /// <summary>
@@ -309,52 +334,38 @@
     /// </summary>
     private void ApplyFilters()
     {
-        // Load all products
         var allProducts = ProductService.GetAllData();
         DataPermutations = ProductService.GetAllDataPermutations();
 
-        // Default to showing all products
         FilteredProducts = allProducts;
 
-        // Filter products if a tag is provided
-        /*if (!string.IsNullOrEmpty(Tag))
+        if (!string.IsNullOrEmpty(Tag))
         {
             var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
             FilteredProducts = allProducts.Where(p =>
-                searchTerms.All(term =>
-                    IsFuzzyMatch(p.Category, term) ||
-                    IsFuzzyMatch(p.Size, term) ||
-                    IsFuzzyMatch(p.Color, term) ||
-                    IsFuzzyMatch(p.Description ?? "", term) ||
-                    p.Material.Any(m => IsFuzzyMatch(m, term)) ||
-                    p.Style.Any(s => IsFuzzyMatch(s, term))
-                )
-            );
-        }*/
-        if (string.IsNullOrEmpty(Tag))
-        {
-            return;
+            {
+                foreach (var term in searchTerms)
+                {
+                    if (!IsFuzzyMatch(p.Category, term) &&
+                        !IsFuzzyMatch(p.Size, term) &&
+                        !IsFuzzyMatch(p.Color, term) &&
+                        !IsFuzzyMatch(p.Description ?? "", term) &&
+                        !p.Material.Any(m => IsFuzzyMatch(m, term)) &&
+                        !p.Style.Any(s => IsFuzzyMatch(s, term)))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            });
         }
-        var searchTerms = Tag.ToLower().Split(' ', StringSplitOptions.RemoveEmptyEntries);
 
-        FilteredProducts = allProducts.Where(p =>
-            searchTerms.All(term =>
-                IsFuzzyMatch(p.Category, term) ||
-                IsFuzzyMatch(p.Size, term) ||
-                IsFuzzyMatch(p.Color, term) ||
-                IsFuzzyMatch(p.Description ?? "", term) ||
-                p.Material.Any(m => IsFuzzyMatch(m, term)) ||
-                p.Style.Any(s => IsFuzzyMatch(s, term))
-            )
-        );
-
-
-        // Sort products by likes in provided order
         if (CurrentSort == "asc")
         {
             FilteredProducts = FilteredProducts.OrderBy(p => p.Likes);
         }
+
         if (CurrentSort == "desc")
         {
             FilteredProducts = FilteredProducts.OrderByDescending(p => p.Likes);
@@ -368,7 +379,12 @@
     /// <returns>Returns "active" if the current sort matches the order; otherwise, an empty string.</returns>
     private string GetButtonClass(string order)
     {
-        return CurrentSort == order ? "active" : "";
+        if (CurrentSort == order)
+        {
+            return "active";
+        }
+
+        return "";
     }
 
     /// <summary>
@@ -378,7 +394,15 @@
     /// <param name="order">The sorting order ("asc" for ascending or "desc" for descending).</param>
     private void ToggleSort(string order)
     {
-        CurrentSort = CurrentSort == order ? "none" : order;
+        if (CurrentSort == order)
+        {
+            CurrentSort = "none";
+        }
+        else
+        {
+            CurrentSort = order;
+        }
+
         ApplyFilters();
     }
 
