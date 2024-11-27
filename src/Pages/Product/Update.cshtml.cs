@@ -68,6 +68,17 @@ namespace ContosoCrafts.WebSite.Pages
         /// <returns>Redirects to the Index page if successful; otherwise, returns the current page.</returns>
         public IActionResult OnPost()
         {
+            // Validate Material and Style inputs
+            if (string.IsNullOrWhiteSpace(Material))
+            {
+                ModelState.AddModelError("Material", "At least one material is required!");
+            }
+
+            if (string.IsNullOrWhiteSpace(Style))
+            {
+                ModelState.AddModelError("Style", "At least one style is required!");
+            }
+
             // Check if the model state is valid before proceeding with the update
             if (!ModelState.IsValid)
             {
