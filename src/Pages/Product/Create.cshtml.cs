@@ -33,6 +33,13 @@ namespace ContosoCrafts.WebSite.Pages
         [BindProperty]
         public ProductModel NewProduct { get; set; } = new ProductModel();
 
+        [BindProperty]
+        public string Material { get; set; }
+
+        [BindProperty]
+        public string Style { get; set; }
+
+
         /// <summary>
         /// Handles the form submission for creating a new product.
         /// Validates product ID, checks for duplicates, and saves the product if valid.
@@ -42,6 +49,21 @@ namespace ContosoCrafts.WebSite.Pages
         {
             // Auto-generate a unique ID for the new product
             NewProduct.Id = GenerateUniqueId();
+
+            // Convert Material and Style input strings into lists
+            NewProduct.Material = Material?.Split(',').Select(m => m.Trim()).Where(m => !string.IsNullOrEmpty(m)).ToList() ?? new List<string>();
+            NewProduct.Style = Style?.Split(',').Select(s => s.Trim()).Where(s => !string.IsNullOrEmpty(s)).ToList() ?? new List<string>();
+
+            // Validate Material and Style fields manually
+            if (!NewProduct.Material.Any())
+            {
+                ModelState.AddModelError("Material", "At least one material is required!");
+            }
+            if (!NewProduct.Style.Any())
+            {
+                ModelState.AddModelError("Style", "At least one style is required!");
+            }
+
 
             // Proceed if ModelState is valid
             if (ModelState.IsValid)

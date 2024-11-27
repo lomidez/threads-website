@@ -62,16 +62,20 @@
                 <span asp-validation-for="NewProduct.Color" class="text-danger"></span>
             </div>
 
-            <!-- Input field for Product Material (comma-separated values) -->
+            <!-- Input field for material, which is a comma-separated list of materials -->
             <div class="form-group">
                 <label for="Material">Material (comma-separated)</label>
-                <input id="Material" name="Material" class="form-control" />
+                <input asp-for="Material" class="form-control" />
+                <!-- Error message for invalid Material input -->
+                <span asp-validation-for="Material" class="text-danger"></span>
             </div>
 
-            <!-- Input field for Product Style (comma-separated values) -->
+            <!-- Input field for style, which is a comma-separated list of styles -->
             <div class="form-group">
                 <label for="Style">Style (comma-separated)</label>
-                <input id="Style" name="Style" class="form-control" />
+                <input asp-for="Style" class="form-control" />
+                <!-- Error message for invalid Style input -->
+                <span asp-validation-for="Style" class="text-danger"></span>
             </div>
 
             <!-- Input field for Product Price -->
