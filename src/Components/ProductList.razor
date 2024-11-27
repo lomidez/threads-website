@@ -28,7 +28,8 @@
                         <h4>@item.Key</h4>
                         @foreach (var value in item.Value)
                         {
-                            <div class="category-value" @onclick="() => FilterByValue(value)">@value</div>
+                            <div class="category-value" @onclick="() => FilterByValue(value)">@value
+                            </div>
                         }
                     </div>
                 }
@@ -110,6 +111,7 @@
                     <a href="ProductDetails/@product.Id" class="text-decoration-none">
                         <div class="card-img" style="background-image: url('@product.Image');">
                         </div>
+
                         <div class="card-body">
                             <h5 class="card-title text-center">@product.Title</h5>
                         </div>
@@ -182,10 +184,12 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="card">
                         <div class="card-img" style="background-image: url('@selectedProduct.Image');">
                         </div>
+
                         <div class="card-body">
                             <p class="card-text">@selectedProduct.Description</p>
                         </div>
