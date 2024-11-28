@@ -40,8 +40,8 @@ namespace UnitTests.Services
             // Initialize mock data
             mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "1", Title = "Product1", Likes = 0, Ratings = new int[0], Category = "Category1", Size = "Large", Color = "Red" },
-                new ProductModel { Id = "2", Title = "Product2", Likes = 5, Ratings = new int[] { 3, 4 }, Category = "Category2", Size = "Medium", Color = "Blue" }
+                new ProductModel { Id = "1", Title = "Product1", Likes = 0, Ratings = new int[0], Category = "Category1", Size = ProductSize.Large, Color = "Red" },
+                new ProductModel { Id = "2", Title = "Product2", Likes = 5, Ratings = new int[] { 3, 4 }, Category = "Category2", Size =ProductSize.Medium, Color = "Blue" }
             };
 
             // Initialize the service with the mock environment and mock data
@@ -430,7 +430,7 @@ namespace UnitTests.Services
                 Image = "image.jpg",
                 Quantity = 10,
                 Price = 100,
-                Size = "Medium",
+                Size = ProductSize.Large,
                 Color = "Blue",
                 Material = new List<string> { "Metal" },
                 Style = new List<string> { "Modern" }
@@ -445,7 +445,7 @@ namespace UnitTests.Services
                 Image = "updated_image.jpg",
                 Quantity = 5,
                 Price = 200,
-                Size = "Large",
+                Size = ProductSize.Large,
                 Color = "Red",
                 Material = new List<string> { "Wood", "Plastic" },
                 Style = new List<string> { "Rustic" }
