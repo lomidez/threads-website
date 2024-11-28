@@ -60,7 +60,8 @@ namespace ContosoCrafts.WebSite.Models
 
         // Size attribute to specify product size
         [Required(ErrorMessage = "Size is required!")]
-        public string Size { get; set; }
+        [EnumDataType(typeof(ProductSize), ErrorMessage = "Invalid size value")]
+        public ProductSize Size { get; set; }
 
         // Color attribute to specify product color
         [Required(ErrorMessage = "Color is required!")]
