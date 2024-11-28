@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using ContosoCrafts.WebSite.Models;
 using Microsoft.AspNetCore.Hosting;
 
@@ -97,8 +98,14 @@ namespace ContosoCrafts.WebSite.Services
             {
                 using (var jsonFileReader = File.OpenText(JsonFileName))
                 {
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true,
+                        Converters = { new JsonStringEnumConverter() }
+                    };
+
                     return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
-                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                        options);
                 }
             }
             return _testProducts;
@@ -315,13 +322,10 @@ namespace ContosoCrafts.WebSite.Services
             // Finds product by ID
             var product = products.FirstOrDefault(p => p.Id == productId);
 
-           
-
             // Resets likes count
             product.Likes = 0;
             // Saves updated product list
             SaveData(products);
-            
         }
 
         /// <summary>
@@ -354,6 +358,12 @@ namespace ContosoCrafts.WebSite.Services
             return productToDelete;
         }
 
+        private IEnumerable<string> GetAvailableSizes()
+        {
+            return Enum.GetValues(typeof(ProductSize))
+                .Cast<ProductSize>().Select(p => p.ToString());
+        }
+
         /// <summary>
         /// Gets all distinct values for categories, sizes, and colors from the product data.
         /// </summary>
@@ -366,7 +376,7 @@ namespace ContosoCrafts.WebSite.Services
             return new Dictionary<string, HashSet<string>>
             {
                 ["Categories"] = new HashSet<string>(products.Select(p => p.Category)),
-                ["Sizes"] = new HashSet<string>(products.Select(p => p.Size)),
+                ["Sizes"] = new HashSet<string>(products.Select(p => p.Size.ToString())),
                 ["Colors"] = new HashSet<string>(products.Select(p => p.Color)),
             };
         }
