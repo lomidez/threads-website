@@ -378,6 +378,8 @@ namespace ContosoCrafts.WebSite.Services
                 ["Categories"] = new HashSet<string>(products.Select(p => p.Category)),
                 ["Sizes"] = new HashSet<string>(products.Select(p => p.Size.ToString())),
                 ["Colors"] = new HashSet<string>(products.Select(p => p.Color)),
+                ["Materials"] = new HashSet<string>(products.Select(p => p.Material.ToString())),
+                ["Styles"] = new HashSet<string>(products.Select(p => p.Style.ToString()))
             };
         }
         /// <summary>
