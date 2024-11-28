@@ -13,7 +13,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "bag",
-    "Size": "large",
+    "Size": "Large",
     "Color": "brown",
     "Material": [
       "leather",
@@ -45,7 +45,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "bag",
-    "Size": "large",
+    "Size": "Large",
     "Color": "white",
     "Material": [
       "nylon"
@@ -76,7 +76,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "bag",
-    "Size": "large",
+    "Size": "Large",
     "Color": "black",
     "Material": [
       "padded",
@@ -108,7 +108,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "bag",
-    "Size": "large",
+    "Size": "Large",
     "Color": "black",
     "Material": [
       "nylon"
@@ -139,7 +139,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "large",
+    "Size": "Large",
     "Color": "black",
     "Material": [
       "leather"
@@ -170,7 +170,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "large",
+    "Size": "Large",
     "Color": "brown",
     "Material": [
       "leather"
@@ -201,7 +201,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "brown",
     "Material": [
       "suede"
@@ -232,7 +232,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "black",
     "Material": [
       "flannel"
@@ -263,7 +263,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "large",
+    "Size": "Large",
     "Color": "green",
     "Material": [
       "leather"
@@ -294,7 +294,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "black",
     "Material": [
       "leather"
@@ -325,7 +325,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "large",
+    "Size": "Large",
     "Color": "brown",
     "Material": [
       "leather",
@@ -357,7 +357,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "jacket",
-    "Size": "large",
+    "Size": "Large",
     "Color": "brown",
     "Material": [
       "leather"
@@ -388,7 +388,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "trousers",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "blue",
     "Material": [
       "cotton"
@@ -419,7 +419,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "trousers",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "brown",
     "Material": [
       "wool"
@@ -450,7 +450,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "trousers",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "beige",
     "Material": [
       "cotton"
@@ -481,7 +481,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "trousers",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "grey",
     "Material": [
       "wool"
@@ -512,7 +512,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "trousers",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "brown",
     "Material": [
       "cotton"
@@ -543,7 +543,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "large",
+    "Size": "Large",
     "Color": "brown",
     "Material": [
       "cotton"
@@ -574,7 +574,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "large",
+    "Size": "Large",
     "Color": "black",
     "Material": [
       "cotton"
@@ -605,7 +605,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "white",
     "Material": [
       "cotton"
@@ -636,7 +636,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "small",
+    "Size": "Small",
     "Color": "black",
     "Material": [
       "knit"
@@ -667,7 +667,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "small",
+    "Size": "Small",
     "Color": "white",
     "Material": [
       "cotton"
@@ -698,7 +698,7 @@
     "CommentList": [],
     "Tags": [],
     "Category": "t-shirt",
-    "Size": "medium",
+    "Size": "Medium",
     "Color": "white",
     "Material": [
       "cotton"
