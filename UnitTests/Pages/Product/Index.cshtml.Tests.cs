@@ -32,9 +32,9 @@ namespace UnitTests.Pages.Product
             // Initialize mock products
             mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "1", Title = "Product 1", Category = "Electronics", Size = "Large", Color = "Red", Material = new List<string> { "Metal" }, Style = new List<string> { "Modern" } },
-                new ProductModel { Id = "2", Title = "Product 2", Category = "Clothing", Size = "Medium", Color = "Blue", Material = new List<string> { "Cotton" }, Style = new List<string> { "Casual" } },
-                new ProductModel { Id = "3", Title = "Product 3", Category = "Electronics", Size = "Small", Color = "Green", Material = new List<string> { "Plastic" }, Style = new List<string> { "Minimalist" } }
+                new ProductModel { Id = "1", Title = "Product 1", Category = "Electronics", Size = ProductSize.Small, Color = "Red", Material = new List<string> { "Metal" }, Style = new List<string> { "Modern" } },
+                new ProductModel { Id = "2", Title = "Product 2", Category = "Clothing", Size = ProductSize.Medium, Color = "Blue", Material = new List<string> { "Cotton" }, Style = new List<string> { "Casual" } },
+                new ProductModel { Id = "3", Title = "Product 3", Category = "Electronics", Size = ProductSize.Small, Color = "Green", Material = new List<string> { "Plastic" }, Style = new List<string> { "Minimalist" } }
             };
 
             // Mock the product service
@@ -88,7 +88,7 @@ namespace UnitTests.Pages.Product
             pageModel.OnGet("Large");
 
             // Assert
-            var filteredProducts = mockProducts.Where(p => p.Size.Equals("Large", System.StringComparison.OrdinalIgnoreCase));
+            var filteredProducts = mockProducts.Where(p => p.Size.ToString().Equals("Large", System.StringComparison.OrdinalIgnoreCase));
             Assert.That(pageModel.Products, Is.EquivalentTo(filteredProducts));
             Assert.That(pageModel.Products.Count(), Is.EqualTo(1));
         }
