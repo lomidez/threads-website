@@ -28,8 +28,23 @@
                         <h4>@item.Key</h4>
                         @foreach (var value in item.Value)
                         {
-                            <div class="category-value" @onclick="() => FilterByValue(value)">@value
-                            </div>
+                            @if (item.Key.ToLower() == "colors")
+                            {
+                                <div class="category-value" @onclick="() => FilterByValue(value)">
+                                    <span class="category-text">@value</span>
+                                    <span class="color-circle color-@value.ToLower()">
+                                    </span>
+                                </div>
+                            }
+                            
+                            @if (item.Key.ToLower() != "colors")
+                            {
+                                <div class="category-value" @onclick="() => FilterByValue(value)">
+                                    <div class="category-text">
+                                        @value
+                                    </div>
+                                </div>
+                            }
                         }
                     </div>
                 }
@@ -126,7 +141,7 @@
                     {
                         if (product.Comments.Any())
                         {
-                            <ul class="comments-list">
+                            <ul class="category-text">
                                 @foreach (var comment in product.Comments)
                                 {
                                     <li>@comment</li>
