@@ -1,4 +1,65 @@
-﻿.btn-arrow {
+﻿/* Color mappings*/
+.color-brown {
+    background-color: #512500;
+}
+
+.color-beige {
+    background-color: #ffd96f;
+}
+
+.color-black {
+    background-color: black;
+}
+
+.color-purple {
+    background-color: #fd7e14;
+}
+
+.color-pink {
+    background-color: #e83e8c;
+}
+
+.color-red {
+    background-color: #dc3545;
+}
+
+.color-orange {
+    background-color: #fd7e14;
+}
+
+.color-yellow {
+    background-color: #ffc107;
+}
+
+.color-green {
+    background-color: #28a745;
+}
+
+.color-white {
+    background-color: #fff;
+} 
+
+.color-grey {
+    background-color: #6c757d;
+} 
+
+.color-blue {
+    background-color: #0000ff;
+}
+
+.submit-comment-btn {
+    border: 0px solid;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.comment-input {
+    border: 1px solid #5b5b5b;
+    border-radius: 4px;
+    width: 70%;
+}
+
+.btn-arrow {
     background-color: #d3d3d3;
     border: none;
     color: black;
@@ -237,6 +298,9 @@
     }
 
 .category-value {
+    display: grid;
+    grid-template-columns: 75px 20px;
+    align-items: center;
     padding: 0.25rem 0.5rem;
     margin: 0.25rem 0;
     cursor: pointer;
@@ -247,6 +311,22 @@
     .category-value:hover {
         background-color: #e9ecef;
     }
+
+.category-text {
+    width: 120px;
+    padding-left: 6px;
+    position: relative;
+}
+
+.color-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 1px solid #ddd;
+    display: inline-block;
+    left: 0;
+    top: 50%;
+}
 
 /* Main content area */
 .products-main {
