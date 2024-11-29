@@ -2,16 +2,16 @@ namespace ContosoCrafts.WebSite.Models
 {
     public enum ProductColor
     {
-        red, 
-        green,
-        blue,
-        purple,
-        yellow,
-        brown, 
-        pink, 
-        orange,
-        white, 
-        black, 
+        Red, 
+        Green,
+        Blue,
+        Purple,
+        Yellow,
+        Brown, 
+        Pink, 
+        Orange,
+        White, 
+        Black, 
 
     }
 }
