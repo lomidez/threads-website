@@ -66,7 +66,8 @@ namespace ContosoCrafts.WebSite.Models
         // Color attribute to specify product color
         [Required(ErrorMessage = "Color is required!")]
         [EnumDataType(typeof(ProductColor), ErrorMessage = "Invalid color value")]
-        public ProductColor Color { get; set; }
+        // public ProductColor Color { get; set; }
+        public string Color { get; set; }
 
         // Material list for detailing what materials the product is made from
         [Required(ErrorMessage = "At least one material is required!")]
