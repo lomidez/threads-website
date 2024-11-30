@@ -32,7 +32,7 @@ namespace UnitTests.Pages.Product
             // Initialize mock products
             mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "1", Title = "Product 1", Category = "Electronics", Size = ProductSize.Small, Color = "Red", Material = new List<string> { "Metal" }, Style = new List<string> { "Modern" } },
+                new ProductModel { Id = "1", Title = "Product 1", Category = "Electronics", Size = ProductSize.Large, Color = "Red", Material = new List<string> { "Metal" }, Style = new List<string> { "Modern" } },
                 new ProductModel { Id = "2", Title = "Product 2", Category = "Clothing", Size = ProductSize.Medium, Color = "Blue", Material = new List<string> { "Cotton" }, Style = new List<string> { "Casual" } },
                 new ProductModel { Id = "3", Title = "Product 3", Category = "Electronics", Size = ProductSize.Small, Color = "Green", Material = new List<string> { "Plastic" }, Style = new List<string> { "Minimalist" } }
             };
