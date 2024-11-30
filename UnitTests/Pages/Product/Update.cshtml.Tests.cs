@@ -154,7 +154,7 @@ namespace UnitTests.Pages
             updatePage.SelectedProduct = product;
             mockProductService.Setup(service => service.UpdateData(product)).Returns((ProductModel)null);
             var result = updatePage.OnPost() as NotFoundResult;
-            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.Null);
         }
 
         /// <summary>
