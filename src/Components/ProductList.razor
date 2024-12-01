@@ -270,16 +270,6 @@
     /// </summary>
     private void NextProduct()
     {
-        if (TrendingProducts == null)
-        {
-            return;
-        }
-
-        if (!TrendingProducts.Any())
-        {
-            return;
-        }
-
         currentIndex = (currentIndex + 1) % TrendingProducts.Count;
     }
 
@@ -291,15 +281,6 @@
     /// </summary>
     private void PreviousProduct()
     {
-        if (TrendingProducts == null)
-        {
-            return;
-        }
-
-        if (!TrendingProducts.Any())
-        {
-            return;
-        }
         currentIndex = (currentIndex - 1 + TrendingProducts.Count) % TrendingProducts.Count;
     }
 
@@ -320,16 +301,6 @@
     /// <returns>True if the search term is found; otherwise, false.</returns>
     private bool IsFuzzyMatch(string source, string searchTerm)
     {
-        if (string.IsNullOrEmpty(source))
-        {
-            return false;
-        }
-
-        if (string.IsNullOrEmpty(searchTerm))
-        {
-            return false;
-        }
-
         source = source.ToLower();
         searchTerm = searchTerm.ToLower();
 
@@ -462,16 +433,6 @@
         ProductService.AddLike(productId);
         ApplyFilters();
         SetTrendingProduct();
-    }
-
-    /// <summary>
-    /// Selects a product by its ID and loads its details.
-    /// </summary>
-    /// <param name="productId">The ID of the product to select.</param>
-    void SelectProduct(string productId)
-    {
-        selectedProductId = productId;
-        selectedProduct = ProductService.GetAllData().First(x => x.Id == productId);
     }
 }
 
