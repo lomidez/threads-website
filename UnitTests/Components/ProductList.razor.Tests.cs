@@ -101,6 +101,52 @@ namespace ContosoCrafts.WebSite.Tests
         }
 
         [Test]
+        public void FilterProduct_Large_Should_Return_Tote()
+        {
+            // Arrange
+            var id = "Large";
+
+            // Act
+            var cut = RenderComponent<ProductList>();
+
+            // Find all buttons and click the one matching our ID
+            var buttonList = cut.FindAll(".category-text");
+            var button = buttonList.First(m => m.TextContent == id);
+            button.Click();
+
+            var results = cut.Markup;
+
+            // Woven-tote shows up in trending products too, we want to see if there is now one occurance instead of two
+            var occurances = results.Split("woven-tote").Length - 1;
+
+            // Assert
+            Assert.That(occurances, Is.AtLeast(2));
+        }
+
+        [Test]
+        public void FilterProduct_Bag_Should_Return_Tote()
+        {
+            // Arrange
+            var id = "bag";
+
+            // Act
+            var cut = RenderComponent<ProductList>();
+
+            // Find all buttons and click the one matching our ID
+            var buttonList = cut.FindAll(".category-text");
+            var button = buttonList.First(m => m.TextContent == id);
+            button.Click();
+
+            var results = cut.Markup;
+
+            // Woven-tote shows up in trending products too, we want to see if there is now one occurance instead of two
+            var occurances = results.Split("woven-tote").Length - 1;
+
+            // Assert
+            Assert.That(occurances, Is.AtLeast(2));
+        }
+
+        [Test]
         public void ProductList_Invalid_Search_Should_Not_Show_Products()
         {
             //Arrange
@@ -159,6 +205,25 @@ namespace ContosoCrafts.WebSite.Tests
         }
 
         [Test]
+        public void ProductList_Valid_Substring_Search_Should_Show_Products()
+        {
+            //Arrange
+            var cut = RenderComponent<ProductList>();
+
+            var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+
+            //Act
+            searchInput.Input("bags");
+
+            searchInput.KeyDown("Enter");
+
+            var result = cut.Markup;
+
+            //Assert
+            Assert.That(result, Does.Contain("woven-tote"));
+        }
+
+        [Test]
         public void ProductList_Valid_Split_Search_Should_Show_Products()
         {
             //Arrange
@@ -167,7 +232,7 @@ namespace ContosoCrafts.WebSite.Tests
             var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
 
             //Act
-            searchInput.Input("Tote bag");
+            searchInput.Input("brown, tote");
 
             searchInput.KeyDown("Enter");
 

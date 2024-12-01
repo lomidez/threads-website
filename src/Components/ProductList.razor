@@ -314,15 +314,6 @@
             return true;
         }
 
-        var searchWords = searchTerm.Split(',', StringSplitOptions.RemoveEmptyEntries);
-        foreach (var word in searchWords)
-        {
-            if (source.Contains(word))
-            {
-                return true;
-            }
-        }
-
         return false;
     }
 

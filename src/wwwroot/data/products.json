@@ -1,68 +1,5 @@
 [
   {
-    "Id": "woven-tote",
-    "Maker": null,
-    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag2.png",
-    "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/bags/bag2.png",
-    "Title": "Spacious Woven Summer Tote",
-    "Description": "This large, tan woven tote bag with leather accents is the ideal companion for beach days or casual outings. Its roomy interior and relaxed design make it perfect for carrying all your essentials in style.",
-    "Ratings": null,
-    "ProductType": 0,
-    "Quantity": 50,
-    "Price": 70,
-    "CommentList": [],
-    "Tags": [],
-    "Category": "bag",
-    "Size": "Large",
-    "Color": "brown",
-    "Material": [
-      "leather",
-      "straw"
-    ],
-    "Style": [
-      "casual",
-      "summer"
-    ],
-    "Weight": 500,
-    "Dimentions": {
-      "Length": 35,
-      "Width": 15,
-      "Height": 25
-    },
-    "Likes": 18
-  },
-  {
-    "Id": "white-bag",
-    "Maker": null,
-    "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag3.png",
-    "Url": "https://github.com/IsaacHusaiin/Thread/blob/4d08f00332c2e5cc3fb40e3e69fd2e39822b4e55/src/wwwroot/data/FashionPhotos/bags/bag3.png",
-    "Title": "Minimalist White City Backpack",
-    "Description": "A clean and modern white backpack, crafted from durable nylon. Its minimalist design is perfect for city commuting or weekend adventures, offering ample storage and a sleek, contemporary look.",
-    "Ratings": null,
-    "ProductType": 0,
-    "Quantity": 80,
-    "Price": 90,
-    "CommentList": [],
-    "Tags": [],
-    "Category": "bag",
-    "Size": "Large",
-    "Color": "white",
-    "Material": [
-      "nylon"
-    ],
-    "Style": [
-      "sporty",
-      "minimalist"
-    ],
-    "Weight": 700,
-    "Dimentions": {
-      "Length": 40,
-      "Width": 15,
-      "Height": 30
-    },
-    "Likes": 9
-  },
-  {
     "Id": "urban-bag",
     "Maker": null,
     "img": "https://raw.githubusercontent.com/lomidez/Fashion-Images/refs/heads/main/bag4.png",
@@ -70,13 +7,13 @@
     "Title": "Puffy Black Urban Backpack",
     "Description": "A puffy, padded black backpack designed with comfort and modern style in mind. This versatile bag is perfect for daily use, whether you\u0027re navigating the city streets or heading out for casual weekend plans.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 24,
+    "Comments": [],
     "Quantity": 60,
     "Price": 85,
     "CommentList": [],
-    "Tags": [],
     "Category": "bag",
-    "Size": "Large",
+    "Size": 2,
     "Color": "black",
     "Material": [
       "padded",
@@ -92,7 +29,7 @@
       "Width": 20,
       "Height": 30
     },
-    "Likes": 24
+    "NumericField": 0
   },
   {
     "Id": "versatile-tote",
@@ -102,13 +39,13 @@
     "Title": "Versatile Black Travel Tote",
     "Description": "This versatile black tote bag, crafted from durable nylon, is built for both function and style. Perfect for everyday use or travel, it offers a sleek design with a spacious interior for all your essentials.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 3,
+    "Comments": [],
     "Quantity": 300,
     "Price": 75,
     "CommentList": [],
-    "Tags": [],
     "Category": "bag",
-    "Size": "Large",
+    "Size": 2,
     "Color": "black",
     "Material": [
       "nylon"
@@ -123,7 +60,7 @@
       "Width": 30,
       "Height": 15
     },
-    "Likes": 3
+    "NumericField": 0
   },
   {
     "Id": "leather-jacket",
@@ -133,13 +70,13 @@
     "Title": "Bold Black Leather Jacket with Neon Stitching",
     "Description": "A striking black leather jacket featuring bold neon green stitching for a contemporary, eye-catching look. This unique piece adds flair to any outfit, combining modern design with classic leather material.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 7,
+    "Comments": [],
     "Quantity": 120,
     "Price": 150,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Large",
+    "Size": 2,
     "Color": "black",
     "Material": [
       "leather"
@@ -154,7 +91,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 7
+    "NumericField": 0
   },
   {
     "Id": "vintage-leather",
@@ -164,13 +101,13 @@
     "Title": "Vintage-Inspired Distressed Leather Jacket",
     "Description": "This distressed brown leather jacket has a timeless, rugged appeal, offering a vintage-inspired look that\u2019s perfect for casual and outdoor wear. The worn-in style brings character and edge to your wardrobe.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 17,
+    "Comments": [],
     "Quantity": 90,
     "Price": 130,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Large",
+    "Size": 2,
     "Color": "brown",
     "Material": [
       "leather"
@@ -185,7 +122,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 17
+    "NumericField": 0
   },
   {
     "Id": "suede-jacket",
@@ -195,13 +132,13 @@
     "Title": "Relaxed Fit Suede Brown Jacket",
     "Description": "A relaxed fit suede brown jacket that exudes casual charm. Its soft texture and versatile design make it the perfect layering piece for fall, effortlessly blending comfort with style.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 4,
+    "Comments": [],
     "Quantity": 100,
     "Price": 95,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "brown",
     "Material": [
       "suede"
@@ -216,7 +153,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 4
+    "NumericField": 0
   },
   {
     "Id": "cozy-jacket",
@@ -226,13 +163,13 @@
     "Title": "Cozy Checkered Flannel Hooded Jacket",
     "Description": "A cozy checkered flannel jacket with a hood, offering warmth and comfort for colder days. Its casual design is perfect for laid-back outings, combining a relaxed fit with classic flannel style.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 28,
+    "Comments": [],
     "Quantity": 150,
     "Price": 85,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "black",
     "Material": [
       "flannel"
@@ -247,7 +184,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 28
+    "NumericField": 0
   },
   {
     "Id": "olive-jacket",
@@ -257,13 +194,13 @@
     "Title": "Oversized Olive-Green Leather Statement Jacket",
     "Description": "Make a statement with this oversized olive-green leather jacket. Its bold design and loose fit add a stylish touch to any outfit, making it a standout piece in your wardrobe.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 7,
+    "Comments": [],
     "Quantity": 100,
     "Price": 120,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Large",
+    "Size": 2,
     "Color": "green",
     "Material": [
       "leather"
@@ -278,7 +215,7 @@
       "Width": 55,
       "Height": 6
     },
-    "Likes": 7
+    "NumericField": 0
   },
   {
     "Id": "black-min-jacket",
@@ -288,13 +225,13 @@
     "Title": "Sleek Black Minimalist Leather Jacket",
     "Description": "A sleek black leather jacket with a minimalist aesthetic, ideal for layering over any outfit. Its simple, clean lines and high-quality leather make it a timeless, versatile addition to your wardrobe.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 15,
+    "Comments": [],
     "Quantity": 130,
     "Price": 100,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "black",
     "Material": [
       "leather"
@@ -309,7 +246,7 @@
       "Width": 50,
       "Height": 5
     },
-    "Likes": 15
+    "NumericField": 0
   },
   {
     "Id": "fur-jacket",
@@ -319,13 +256,13 @@
     "Title": "Cozy Brown Leather Jacket with Faux Fur Lining",
     "Description": "A cozy brown leather jacket featuring soft faux fur lining, perfect for winter wear. Its luxurious texture and warm design provide both style and comfort during the colder months.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 24,
+    "Comments": [],
     "Quantity": 90,
     "Price": 140,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Large",
+    "Size": 2,
     "Color": "brown",
     "Material": [
       "leather",
@@ -341,7 +278,7 @@
       "Width": 55,
       "Height": 7
     },
-    "Likes": 24
+    "NumericField": 0
   },
   {
     "Id": "bomber-jacket",
@@ -351,13 +288,13 @@
     "Title": "Classic Brown Leather Bomber Jacket",
     "Description": "A classic brown leather bomber jacket that brings timeless appeal to casual outfits. With its durable leather material and traditional design, it\u2019s a must-have for those seeking a versatile outerwear piece.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 29,
+    "Comments": [],
     "Quantity": 120,
     "Price": 150,
     "CommentList": [],
-    "Tags": [],
     "Category": "jacket",
-    "Size": "Large",
+    "Size": 2,
     "Color": "brown",
     "Material": [
       "leather"
@@ -372,7 +309,7 @@
       "Width": 55,
       "Height": 5
     },
-    "Likes": 29
+    "NumericField": 0
   },
   {
     "Id": "navy-pants",
@@ -382,13 +319,13 @@
     "Title": "Wide-Leg Navy Textured Pants",
     "Description": "These wide-leg navy pants feature a subtle textured pattern, adding dimension and depth to any casual look. Comfortable and stylish, they are perfect for relaxed outings or laid-back weekends.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 2,
+    "Comments": [],
     "Quantity": 200,
     "Price": 60,
     "CommentList": [],
-    "Tags": [],
     "Category": "trousers",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "blue",
     "Material": [
       "cotton"
@@ -403,7 +340,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 2
+    "NumericField": 0
   },
   {
     "Id": "classic-pants",
@@ -413,13 +350,13 @@
     "Title": "Classic Brown Wool Pleated Trousers",
     "Description": "These classic brown wool trousers come with pleats and a straight-leg fit, ideal for both formal occasions and business-casual attire. The rich wool fabric provides warmth and a sophisticated, polished look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 17,
+    "Comments": [],
     "Quantity": 180,
     "Price": 85,
     "CommentList": [],
-    "Tags": [],
     "Category": "trousers",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "brown",
     "Material": [
       "wool"
@@ -434,7 +371,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 17
+    "NumericField": 0
   },
   {
     "Id": "cotton-pants",
@@ -444,13 +381,13 @@
     "Title": "Beige Wide-Leg Cotton Pants",
     "Description": "These beige wide-leg cotton pants offer a neutral tone and soft, breathable fabric for a minimalist, comfortable style. Perfect for pairing with any top, they\u2019re ideal for creating laid-back yet stylish outfits.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 17,
+    "Comments": [],
     "Quantity": 220,
     "Price": 50,
     "CommentList": [],
-    "Tags": [],
     "Category": "trousers",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "beige",
     "Material": [
       "cotton"
@@ -465,7 +402,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 17
+    "NumericField": 0
   },
   {
     "Id": "grey-pants",
@@ -475,13 +412,13 @@
     "Title": "Grey Pinstripe Wide-Leg Trousers",
     "Description": "Dark grey pinstripe trousers with a wide-leg fit, bringing a professional yet trendy appeal to any outfit. These trousers are ideal for business or formal occasions, offering a sleek and polished look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 2,
+    "Comments": [],
     "Quantity": 150,
     "Price": 70,
     "CommentList": [],
-    "Tags": [],
     "Category": "trousers",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "grey",
     "Material": [
       "wool"
@@ -496,7 +433,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 2
+    "NumericField": 0
   },
   {
     "Id": "clay-pants",
@@ -506,13 +443,13 @@
     "Title": "Pleated Clay Brown Modern Pants",
     "Description": "These pleated, clay-toned pants feature a modern, textured finish, creating a sleek yet relaxed silhouette. Perfect for elevating your everyday outfits with a contemporary, chic touch.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 21,
+    "Comments": [],
     "Quantity": 200,
     "Price": 60,
     "CommentList": [],
-    "Tags": [],
     "Category": "trousers",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "brown",
     "Material": [
       "cotton"
@@ -527,7 +464,7 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 21
+    "NumericField": 0
   },
   {
     "Id": "brown-shirt",
@@ -537,13 +474,13 @@
     "Title": "Brown Graphic Letter Streetwear T-Shirt",
     "Description": "A relaxed fit brown t-shirt featuring a bold graphic letter on the front. Ideal for casual streetwear, this comfortable tee pairs perfectly with jeans or shorts for an easy, laid-back look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 11,
+    "Comments": [],
     "Quantity": 250,
     "Price": 30,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Large",
+    "Size": 2,
     "Color": "brown",
     "Material": [
       "cotton"
@@ -558,7 +495,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 11
+    "NumericField": 0
   },
   {
     "Id": "pixel-shirt",
@@ -568,13 +505,13 @@
     "Title": "Black Urban Pixel Graphic T-Shirt",
     "Description": "This black graphic t-shirt showcases a pixelated design, making it a standout piece for urban, edgy styles. Its bold graphic adds a creative touch to any casual outfit.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 12,
+    "Comments": [],
     "Quantity": 200,
     "Price": 40,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Large",
+    "Size": 2,
     "Color": "black",
     "Material": [
       "cotton"
@@ -589,7 +526,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 12
+    "NumericField": 0
   },
   {
     "Id": "vintage-shirt",
@@ -599,13 +536,13 @@
     "Title": "White Oversized Vintage Crest T-Shirt",
     "Description": "A white oversized t-shirt featuring a vintage university crest graphic. Its relaxed fit and collegiate vibe make it the perfect addition to your casual wardrobe, offering a nostalgic look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 24,
+    "Comments": [],
     "Quantity": 250,
     "Price": 35,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "white",
     "Material": [
       "cotton"
@@ -620,7 +557,7 @@
       "Width": 50,
       "Height": 0
     },
-    "Likes": 24
+    "NumericField": 0
   },
   {
     "Id": "min-shirt",
@@ -630,13 +567,13 @@
     "Title": "Black Cropped Minimalist T-Shirt",
     "Description": "A sleek black cropped t-shirt with an embossed logo. Its minimalist design offers a clean, modern aesthetic, perfect for pairing with high-waisted pants or skirts for a chic look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 31,
+    "Comments": [],
     "Quantity": 150,
     "Price": 75,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Small",
+    "Size": 0,
     "Color": "black",
     "Material": [
       "knit"
@@ -651,7 +588,7 @@
       "Width": 25,
       "Height": 0
     },
-    "Likes": 31
+    "NumericField": 0
   },
   {
     "Id": "baby-milo",
@@ -661,13 +598,13 @@
     "Title": "White \u0027Baby Milo\u0027 Playful Graphic T-Shirt",
     "Description": "A cute white t-shirt featuring the playful \u0027Baby Milo\u0027 graphic design. Its fun and casual style makes it perfect for adding a whimsical touch to any laid-back outfit.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 46,
+    "Comments": [],
     "Quantity": 100,
     "Price": 225,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Small",
+    "Size": 0,
     "Color": "white",
     "Material": [
       "cotton"
@@ -682,7 +619,7 @@
       "Width": 25,
       "Height": 0
     },
-    "Likes": 46
+    "NumericField": 0
   },
   {
     "Id": "cream-shirt",
@@ -692,13 +629,13 @@
     "Title": "Cream Oversized T-Shirt with Heart and Cat Graphic",
     "Description": "This cream oversized t-shirt features a large red heart and a minimalist cat graphic, adding a playful and artistic element to casual outfits. It\u2019s perfect for a relaxed and creative look.",
     "Ratings": null,
-    "ProductType": 0,
+    "Likes": 2,
+    "Comments": [],
     "Quantity": 2000,
     "Price": 55,
     "CommentList": [],
-    "Tags": [],
     "Category": "t-shirt",
-    "Size": "Medium",
+    "Size": 1,
     "Color": "white",
     "Material": [
       "cotton"
@@ -713,6 +650,6 @@
       "Width": 0,
       "Height": 0
     },
-    "Likes": 2
+    "NumericField": 0
   }
 ]
