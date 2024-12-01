@@ -103,47 +103,115 @@ namespace ContosoCrafts.WebSite.Tests
         [Test]
         public void ProductList_Invalid_Search_Should_Not_Show_Products()
         {
+            //Arrange
             var cut = RenderComponent<ProductList>();
 
             var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+            
+            //Act
             searchInput.Input("Gibberish");
 
             searchInput.KeyDown("Enter");
 
             var result = cut.Markup;
 
+            //Assert
             Assert.That(result, Does.Contain("No products found"));
+        }
+
+        [Test]
+        public void ProductList_Empty_Search_Should_Not_Show_Products()
+        {
+            //Arrange
+            var cut = RenderComponent<ProductList>();
+
+            var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+            searchInput.Input("");
+
+            var previousResults = cut.Markup;
+
+            //Act
+            searchInput.KeyDown("Enter");
+
+            var result = cut.Markup;
+
+            //Assert
+            Assert.That(result.Length, Is.EqualTo(previousResults.Length));
+        }
+
+        [Test]
+        public void ProductList_Valid_Search_Should_Show_Products()
+        {
+            //Arrange
+            var cut = RenderComponent<ProductList>();
+
+            var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+
+            //Act
+            searchInput.Input("Tote");
+
+            searchInput.KeyDown("Enter");
+
+            var result = cut.Markup;
+
+            //Assert
+            Assert.That(result, Does.Contain("woven-tote"));
+        }
+
+        [Test]
+        public void ProductList_Valid_Split_Search_Should_Show_Products()
+        {
+            //Arrange
+            var cut = RenderComponent<ProductList>();
+
+            var searchInput = cut.Find("input[placeholder='Search (Powered By Buzzword)']");
+
+            //Act
+            searchInput.Input("Tote bag");
+
+            searchInput.KeyDown("Enter");
+
+            var result = cut.Markup;
+
+            //Assert
+            Assert.That(result, Does.Contain("woven-tote"));
         }
 
         [Test]
         public void TrendingProducts_Next_Button_Should_Increment_Products()
         {
+            //Arrange
             var cut = RenderComponent<ProductList>();
 
             var oldResults = cut.Markup;
 
+            //Act            
             var buttonList = cut.FindAll(".carousel-button");
             var button = buttonList[0];
             button.Click();
 
             var newResults = cut.Markup;
 
+            //Assert
             Assert.That(newResults, Does.Not.EqualTo(oldResults));
         }
 
         [Test]
         public void TrendingProducts_Previous_Button_Should_Increment_Products()
         {
+            //Arrange
             var cut = RenderComponent<ProductList>();
 
             var oldResults = cut.Markup;
-
+            
+            //Act
             var buttonList = cut.FindAll(".carousel-button");
             var button = buttonList[1];
             button.Click();
 
             var newResults = cut.Markup;
 
+            //Assert
             Assert.That(newResults, Does.Not.EqualTo(oldResults));
         }
 
@@ -165,6 +233,27 @@ namespace ContosoCrafts.WebSite.Tests
 
             // Assert - Check if the likes are in ascending order
             Assert.That(likeCounts, Is.Ordered);
+        }
+
+        [Test]
+        public void Sort_Ascending_Twice_Should_Not_Order_Products_By_Likes()
+        {
+            // Arrange
+            var cut = RenderComponent<ProductList>();
+
+            // Act - Find and click the ascending sort button (↑)
+            var sortButtons = cut.FindAll(".btn-arrow");
+            var ascButton = sortButtons.First(b => b.TextContent == "↑");
+            ascButton.Click();
+            ascButton.Click();
+
+            // Get all like counts
+            var likeCounts = cut.FindAll(".like-count")
+                .Select(e => int.Parse(e.TextContent))
+                .ToList();
+
+            // Assert - Check if the likes are in ascending order
+            Assert.That(likeCounts, Is.Not.Ordered);
         }
 
         [Test]
