@@ -324,8 +324,7 @@
     /// </summary>
     private void ApplyFilters()
     {
-        var allProducts = ProductService.GetAllData();
-        // DataPermutations = ProductService.GetAllDataPermutations();
+        var allProducts = ProductService.GetAllData();    
 
         // Update DataPermutations to include materials and styles
         DataPermutations = new Dictionary<string, HashSet<string>>
