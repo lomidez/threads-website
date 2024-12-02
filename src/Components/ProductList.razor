@@ -107,15 +107,12 @@
             }
         }
 
-
         <!-- Sorting controls -->
         <div class="sorting-controls">
             <span>Sort by number of likes:</span>
             <button class='btn-arrow @GetButtonClass("asc")' @onclick='() => ToggleSort("asc")'>↑</button>
             <button class='btn-arrow @GetButtonClass("desc")' @onclick='() => ToggleSort("desc")'>↓</button>
         </div>
-
-
 
         <!-- No products message -->
         @if (!FilteredProducts.Any())
