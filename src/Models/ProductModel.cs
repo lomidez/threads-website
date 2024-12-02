@@ -63,15 +63,16 @@ namespace ContosoCrafts.WebSite.Models
         [EnumDataType(typeof(ProductSize), ErrorMessage = "Invalid size value")]
         public ProductSize Size { get; set; }
 
+
         // Color attribute to specify product color
         [Required(ErrorMessage = "Color is required!")]
         [EnumDataType(typeof(ProductColor), ErrorMessage = "Invalid color value")]
-        // public ProductColor Color { get; set; }
+        // public string Color { get; set; }
         public string Color { get; set; }
 
-        // Material list for detailing what materials the product is made from
-        [Required(ErrorMessage = "At least one material is required!")]
         public List<string> Material { get; set; } = new List<string>();
+
+
 
         // Style list to specify design styles associated with the product
         [Required(ErrorMessage = "At least one style is required!")]
