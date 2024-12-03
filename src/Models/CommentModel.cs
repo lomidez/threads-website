@@ -1,4 +1,3 @@
-
 namespace ContosoCrafts.WebSite.Models
 {
     /// <summary>
