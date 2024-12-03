@@ -428,7 +428,6 @@ for details on configuring this project to bundle and minify static web assets. 
 }
 
 .card-columns .card-body {
-    height: 100px;
     color: #5B5B5B;
     font-family: 'Nunito', sans-serif;
     background: #fbfafd;
