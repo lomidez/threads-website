@@ -140,20 +140,6 @@
                         ❤️ <span class="like-count">@product.Likes</span>
                     </button>
 
-                    <!-- Display Comments -->
-                    @if (product.Comments != null)
-                    {
-                        if (product.Comments.Any())
-                        {
-                            <ul class="category-text">
-                                @foreach (var comment in product.Comments)
-                                {
-                                    <li>@comment</li>
-                                }
-                            </ul>
-                        }
-                    }
-
                     <!-- Comments Section -->
                     <div class="comments-section">
                         <h6> Comments: </h6>
@@ -167,12 +153,8 @@
                         {
                             if (product.Comments.Any())
                             {
-                                <ul class="comments-list">
-                                    @foreach (var comment in product.Comments)
-                                    {
-                                        <li>@comment</li>
-                                    }
-                                </ul>
+                                <h6>Last comment:</h6>
+                                <p>@product.Comments.Last()</p>
                             }
                             else
                             {
