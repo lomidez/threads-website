@@ -52,15 +52,17 @@ namespace ContosoCrafts.WebSite.Pages
             // Retrieve the selected product based on the provided ID
             SelectedProduct = _productService.GetAllData().FirstOrDefault(p => p.Id == id);
 
-            // If the product exists, retrieve and format its Material and Style properties
-            if (SelectedProduct != null)
+            // If the product is not found, return immediately or handle accordingly
+            if (SelectedProduct == null)
             {
-                // Join material list as a comma-separated string
-                Material = string.Join(", ", SelectedProduct.Material ?? new List<string>());
-
-                // Join style list as a comma-separated string
-                Style = string.Join(", ", SelectedProduct.Style ?? new List<string>());
+                return;
             }
+
+            // Join material list as a comma-separated string
+            Material = string.Join(", ", SelectedProduct.Material ?? new List<string>());
+
+            // Join style list as a comma-separated string
+            Style = string.Join(", ", SelectedProduct.Style ?? new List<string>());
         }
 
         /// <summary>
@@ -85,9 +87,7 @@ namespace ContosoCrafts.WebSite.Pages
                 return NotFound(); // Return 404 error if product is invalid
             }
 
-            // Perform deletion
-
-                // Attempt to delete the product using the ID from SelectedProduct
+            // Attempt to delete the product using the ID from SelectedProduct
             var deletedProduct = _productService.DeleteData(SelectedProduct.Id);
             if (deletedProduct == null)
             {
