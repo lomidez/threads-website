@@ -46,12 +46,7 @@ namespace ContosoCrafts.WebSite.Services
         {
             var products = GetAllData().ToList();
             var index = products.FindIndex(p => p.Id == product.Id);
-
-            /*if (index != -1)
-            {
-                products[index] = product;
-                SaveData(products);
-            }*/
+            
             if (index == -1)
             {
                 return;
@@ -83,17 +78,7 @@ namespace ContosoCrafts.WebSite.Services
         /// <returns>An enumerable collection of <see cref="ProductModel"/> objects.</returns>
         public virtual IEnumerable<ProductModel> GetAllData()
         {
-            // Return mock data if provided for testing
-            /*if (_testProducts != null)
-            {
-                return _testProducts;
-            }
-            // Otherwise, load from products.json file
-            using (var jsonFileReader = File.OpenText(JsonFileName))
-            {
-                return JsonSerializer.Deserialize<ProductModel[]>(jsonFileReader.ReadToEnd(),
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            }*/
+            // Return mock data if provided for testing           
             if (_testProducts == null)
             {
                 using (var jsonFileReader = File.OpenText(JsonFileName))
@@ -262,10 +247,6 @@ namespace ContosoCrafts.WebSite.Services
             return SaveDataSafely(dataSet);
         }
 
-
-
-
-
         public bool SaveDataSafely(IEnumerable<ProductModel> dataSet)
         {
             if (dataSet == null)
@@ -286,8 +267,6 @@ namespace ContosoCrafts.WebSite.Services
                 return false;
             }
         }
-
-
 
         /// <summary>
         /// Increments the like count for a specific product.
@@ -340,15 +319,7 @@ namespace ContosoCrafts.WebSite.Services
             // Finds product by ID
             var productToDelete = productList.FirstOrDefault(m => m.Id == id);
 
-            // Returns deleted product
-            /*if (productToDelete != null)
-            {
-                productList.Remove(productToDelete);
-                SaveData(productList);
-                return productToDelete;
-            }
-
-            return null;*/
+            // Returns deleted product          
             if (productToDelete == null)
             {
                 return null;
@@ -382,6 +353,7 @@ namespace ContosoCrafts.WebSite.Services
                 ["Styles"] = new HashSet<string>(products.Select(p => p.Style.ToString()))
             };
         }
+
         /// <summary>
         /// Adds a comment to the specified product and updates the data.
         /// </summary>
