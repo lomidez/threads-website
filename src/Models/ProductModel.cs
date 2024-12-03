@@ -13,7 +13,6 @@ namespace ContosoCrafts.WebSite.Models
         // Unique identifier for each product
         public string Id { get; set; }
 
-
         // Manufacturer of the product
         public string Maker { get; set; }
 
@@ -67,9 +66,9 @@ namespace ContosoCrafts.WebSite.Models
         // Color attribute to specify product color
         [Required(ErrorMessage = "Color is required!")]
         [EnumDataType(typeof(ProductColor), ErrorMessage = "Invalid color value")]
-        // public string Color { get; set; }
         public string Color { get; set; }
 
+        // Material list to specify the material associated with the product
         public List<string> Material { get; set; } = new List<string>();
 
 
