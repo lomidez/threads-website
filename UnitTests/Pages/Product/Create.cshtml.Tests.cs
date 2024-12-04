@@ -269,7 +269,124 @@ namespace UnitTests.Pages.Products
 
 
 
-      
+
+
+        [Test]
+        public void Material_Set_Valid_Value_Should_Update_Property()
+        {
+            // Arrange
+            var validMaterial = "Leather";
+
+            // Act
+            pageModel.Material = validMaterial;
+
+            // Assert
+            Assert.That(pageModel.Material, Is.EqualTo(validMaterial), "Material property should be updated with the valid value.");
+        }
+
+        [Test]
+        public void Material_Set_Null_Value_Should_Update_Property()
+        {
+            // Act
+            pageModel.Material = null;
+
+            // Assert
+            Assert.That(pageModel.Material, Is.Null, "Material property should allow null values.");
+        }
+        [Test]
+        public void Style_Set_Valid_Value_Should_Update_Property()
+        {
+            // Arrange
+            var validStyle = "Modern";
+
+            // Act
+            pageModel.Style = validStyle;
+
+            // Assert
+            Assert.That(pageModel.Style, Is.EqualTo(validStyle), "Style property should be updated with the valid value.");
+        }
+
+        [Test]
+        public void Style_Set_Invalid_Value_Should_Update_Property()
+        {
+            // Arrange
+            var invalidStyle = "";
+
+            // Act
+            pageModel.Style = invalidStyle;
+
+            // Assert
+            Assert.That(pageModel.Style, Is.EqualTo(invalidStyle), "Style property should allow empty strings.");
+        }
+
+
+
+
+        [Test]
+        public void OnPost_Null_Material_And_Style_Should_Default_To_Empty_List()
+        {
+            // Arrange
+            pageModel.NewProduct = new ProductModel
+            {
+                Title = "New Product"
+            };
+            pageModel.Material = null;
+            pageModel.Style = null;
+
+            // Act
+            pageModel.OnPost();
+
+            // Assert
+            Assert.That(pageModel.NewProduct.Material, Is.Not.Null.And.Empty, "Material should default to an empty list if null.");
+            Assert.That(pageModel.NewProduct.Style, Is.Not.Null.And.Empty, "Style should default to an empty list if null.");
+        }
+
+
+        [Test]
+        public void OnPost_Valid_Material_And_Style_Should_Convert_To_List()
+        {
+            // Arrange
+            pageModel.NewProduct = new ProductModel
+            {
+                Title = "New Product"
+            };
+            pageModel.Material = "Leather, Cotton";
+            pageModel.Style = "Modern, Casual";
+
+            // Act
+            pageModel.OnPost();
+
+            // Assert
+            Assert.That(pageModel.NewProduct.Material, Is.Not.Null.And.Count.EqualTo(2), "Material should be converted to a list with 2 items.");
+            Assert.That(pageModel.NewProduct.Material, Does.Contain("Leather").And.Contain("Cotton"), "Material list should contain the correct items.");
+            Assert.That(pageModel.NewProduct.Style, Is.Not.Null.And.Count.EqualTo(2), "Style should be converted to a list with 2 items.");
+            Assert.That(pageModel.NewProduct.Style, Does.Contain("Modern").And.Contain("Casual"), "Style list should contain the correct items.");
+        }
+
+        [Test]
+        public void OnPost_Valid_ModelState_Successful_Save_Should_Redirect_To_Index()
+        {
+            // Arrange
+            pageModel.NewProduct = new ProductModel
+            {
+                Title = "New Product"
+            };
+            pageModel.Material = "Leather, Cotton";
+            pageModel.Style = "Modern, Casual";
+            mockProductService.Setup(service => service.CreateData(It.IsAny<ProductModel>())).Returns(true);
+
+            // Act
+            var result = pageModel.OnPost();
+
+            // Assert
+            Assert.That(result, Is.TypeOf<RedirectToPageResult>(), "OnPost should redirect to the Index page if saving succeeds.");
+            if (result is RedirectToPageResult redirectResult)
+            {
+                Assert.That(redirectResult.PageName, Is.EqualTo("./Index"), "The redirection should be to the Index page.");
+            }
+            Assert.That(pageModel.TempData["Notification"], Is.EqualTo("Product successfully created."), "A success notification should be set in TempData.");
+        }
+
 
 
 
