@@ -334,7 +334,7 @@ namespace ContosoCrafts.WebSite.Services
             return productToDelete;
         }
 
-        private IEnumerable<string> GetAvailableSizes()
+        public virtual IEnumerable<string> GetAvailableSizes()
         {
             return Enum.GetValues(typeof(ProductSize))
                 .Cast<ProductSize>().Select(p => p.ToString());
