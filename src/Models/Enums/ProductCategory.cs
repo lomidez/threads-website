@@ -9,7 +9,7 @@
         Electronics,
         Clothing,
         Category1,
-        Category2,
+        Category2
 
     }
 }
