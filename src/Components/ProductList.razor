@@ -415,6 +415,15 @@
         ApplyFilters();
         SetTrendingProduct();
     }
+
+
+
+    private void SelectProduct(string productId)
+    {
+        selectedProduct = ProductService.GetAllData().FirstOrDefault(p => p.Id == productId);
+    }
+
+
 }
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
