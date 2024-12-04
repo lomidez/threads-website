@@ -308,9 +308,9 @@
         // Update DataPermutations to include materials and styles
         DataPermutations = new Dictionary<string, HashSet<string>>
         {
-            { "Categories", new HashSet<string>(allProducts.Select(p => p.Category)) },
+            { "Categories", new HashSet<string>(allProducts.Select(p => p.Category.ToString())) },
             { "Sizes", new HashSet<string>(allProducts.Select(p => p.Size.ToString())) },
-            { "Colors", new HashSet<string>(allProducts.Select(p => p.Color)) },
+            { "Colors", new HashSet<string>(allProducts.Select(p => p.Color.ToString())) },
             { "Materials", new HashSet<string>(allProducts.SelectMany(p => p.Material)) },
             { "Styles", new HashSet<string>(allProducts.SelectMany(p => p.Style)) }
         };
@@ -325,7 +325,7 @@
             {
                 foreach (var term in searchTerms)
                 {
-                    if (!IsFuzzyMatch(p.Category, term) &&
+                    if (!IsFuzzyMatch(p.Category.ToString(), term) &&
                         !IsFuzzyMatch(p.Size.ToString(), term) &&
                         !IsFuzzyMatch(p.Color, term) &&
                         !IsFuzzyMatch(p.Description ?? "", term) &&
