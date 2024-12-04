@@ -93,10 +93,7 @@ namespace ContosoCrafts.WebSite.Pages
             var updatedProduct = _productService.UpdateData(SelectedProduct);
 
             // If the product was not found or update failed, return a NotFound result
-            if (updatedProduct == null)
-            {
-                return NotFound();
-            }
+           
 
             // Redirect to the Index page upon successful update
             return RedirectToPage("./Index");
