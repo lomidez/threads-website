@@ -63,6 +63,59 @@ namespace ContosoCrafts.WebSite.Tests
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+        [Test]
+        public void SelectProduct_Valid_ProductId_Should_Set_SelectedProduct()
+        {
+            // Arrange
+            var testProductId = "woven-tote";
+
+            // Render the component
+            var cut = RenderComponent<ProductList>();
+
+            // Act
+            var methodInfo = cut.Instance.GetType().GetMethod("SelectProduct", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            methodInfo.Invoke(cut.Instance, new object[] { testProductId });
+
+            var selectedProductField = cut.Instance.GetType().GetField("selectedProduct", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var selectedProduct = selectedProductField.GetValue(cut.Instance) as ProductModel;
+
+            // Assert
+            Assert.That(selectedProduct, Is.Not.Null);
+            Assert.That(selectedProduct.Id, Is.EqualTo(testProductId));
+            Assert.That(selectedProduct.Title, Is.EqualTo("Woven Tote"));
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         [Test]
         public void ProductList_Default_Should_Return_Content()
         {
