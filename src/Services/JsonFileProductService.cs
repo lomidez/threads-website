@@ -26,6 +26,11 @@ namespace ContosoCrafts.WebSite.Services
             WebHostEnvironment = webHostEnvironment;
         }
 
+
+     
+
+
+
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonFileProductService"/> class with mock data for testing.
         /// </summary>
@@ -346,12 +351,14 @@ namespace ContosoCrafts.WebSite.Services
 
             return new Dictionary<string, HashSet<string>>
             {
-                ["Categories"] = new HashSet<string>(products.Select(p => p.Category)),
+                ["Categories"] = new HashSet<string>(products.Select(p => p.Category.ToString())),
                 ["Sizes"] = new HashSet<string>(products.Select(p => p.Size.ToString())),
                 ["Colors"] = new HashSet<string>(products.Select(p => p.Color)),
-                ["Materials"] = new HashSet<string>(products.Select(p => p.Material.ToString())),
-                ["Styles"] = new HashSet<string>(products.Select(p => p.Style.ToString()))
+                ["Materials"] = new HashSet<string>(products.SelectMany(p => p.Material)),
+                ["Styles"] = new HashSet<string>(products.SelectMany(p => p.Style))
             };
+
+
         }
 
         /// <summary>

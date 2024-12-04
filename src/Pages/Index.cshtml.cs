@@ -69,7 +69,7 @@ namespace ContosoCrafts.WebSite.Pages
             if (!string.IsNullOrEmpty(Tag))
             {
                 Products = allProducts.Where(p =>
-                    p.Category.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
+                    p.Category.ToString().Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
                     p.Size.ToString().Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
                     p.Color.Equals(Tag, StringComparison.OrdinalIgnoreCase) ||
                     p.Material.Any(m => m.Equals(Tag, StringComparison.OrdinalIgnoreCase)) ||

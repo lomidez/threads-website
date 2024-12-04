@@ -479,7 +479,7 @@
     "Quantity": 250,
     "Price": 30,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 2,
     "Color": "brown",
     "Material": [
@@ -510,7 +510,7 @@
     "Quantity": 200,
     "Price": 40,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 2,
     "Color": "black",
     "Material": [
@@ -541,7 +541,7 @@
     "Quantity": 250,
     "Price": 35,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 1,
     "Color": "white",
     "Material": [
@@ -572,7 +572,7 @@
     "Quantity": 150,
     "Price": 75,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 0,
     "Color": "black",
     "Material": [
@@ -603,7 +603,7 @@
     "Quantity": 100,
     "Price": 225,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 0,
     "Color": "white",
     "Material": [
@@ -634,7 +634,7 @@
     "Quantity": 2000,
     "Price": 55,
     "CommentList": [],
-    "Category": "t-shirt",
+    "Category": "TShirt",
     "Size": 1,
     "Color": "white",
     "Material": [

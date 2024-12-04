@@ -23,6 +23,9 @@ namespace UnitTests.Services
         private string tempDirectory;
         private Mock<JsonFileProductService> mockProductService;
 
+
+    
+
         /// <summary>
         /// Sets up the testing environment before each test.
         /// </summary>
@@ -40,8 +43,8 @@ namespace UnitTests.Services
             // Initialize mock data
             mockProducts = new List<ProductModel>
             {
-                new ProductModel { Id = "1", Title = "Product1", Likes = 0, Ratings = new int[0], Category = "Category1", Size = ProductSize.Large, Color = "Red" },
-                new ProductModel { Id = "2", Title = "Product2", Likes = 5, Ratings = new int[] { 3, 4 }, Category = "Category2", Size =ProductSize.Medium, Color = "Blue" }
+                new ProductModel { Id = "1", Title = "Product1", Likes = 0, Ratings = new int[0], Category = ProductCategory.Category1, Size = ProductSize.Large, Color = "Red" },
+                new ProductModel { Id = "2", Title = "Product2", Likes = 5, Ratings = new int[] { 3, 4 }, Category =  ProductCategory.Category2, Size =ProductSize.Medium, Color = "Blue" }
             };
 
             // Initialize the service with the mock environment and mock data

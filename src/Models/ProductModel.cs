@@ -55,7 +55,7 @@ namespace ContosoCrafts.WebSite.Models
 
         // Category of the product, e.g., electronics, clothing
         [Required(ErrorMessage = "Category is required!")]
-        public string Category { get; set; }
+        public ProductCategory Category { get; set; }
 
         // Size attribute to specify product size
         [Required(ErrorMessage = "Size is required!")]
