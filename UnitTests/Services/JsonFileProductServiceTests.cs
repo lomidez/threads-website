@@ -947,6 +947,30 @@ namespace UnitTests.Services
 
 
 
+
+        [Test]
+        public void GetAvailableSizes_Should_Return_All_ProductSize_Enum_Values_As_Strings()
+        {
+            // Arrange
+            var expectedSizes = Enum.GetValues(typeof(ProductSize))
+                                    .Cast<ProductSize>()
+                                    .Select(size => size.ToString())
+                                    .ToList();
+
+            // Act
+            var result = productService.GetAvailableSizes().ToList();
+
+            // Assert
+            Assert.That(result, Is.Not.Null, "Result should not be null.");
+            Assert.That(result.Count, Is.EqualTo(expectedSizes.Count), "The count of available sizes should match the number of ProductSize enum values.");
+            Assert.That(result, Is.EquivalentTo(expectedSizes), "The returned sizes should match the expected enum values as strings.");
+        }
+
+
+
+
+
+
     }
 }
 
