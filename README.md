@@ -24,7 +24,7 @@ This project is a dynamic e-commerce platform designed to showcase and manage fa
 - **Other Tools**: Visual Studio, Git, APIs
 
 ## Demo
-[Watch the Demo](https://youtu.be/wfzPXBLuvPQ?si=9Y1wdjYILGq-O3_v)
+[Watch full Demo](https://youtu.be/wfzPXBLuvPQ?si=9Y1wdjYILGq-O3_v)
 
 Authors: 
 
