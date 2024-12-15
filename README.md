@@ -2,6 +2,8 @@
 
 This project is a dynamic e-commerce platform designed to showcase and manage fashion products with advanced user engagement features.
 
+![Demo GIF](src/assets/Threads_Website.gif)
+
 ## Features
 
 ### Product Filtering and Sorting
